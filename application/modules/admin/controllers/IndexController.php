@@ -10,7 +10,7 @@ class Admin_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        #$this->_helper->layout()->disableLayout();
+        $this->_helper->layout()->disableLayout();
         
         $loginForm = new Admin_Form_Login();
         
