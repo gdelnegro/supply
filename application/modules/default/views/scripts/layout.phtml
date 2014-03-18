@@ -11,9 +11,9 @@
  <link rel="stylesheet" href="/assets/libraries/chosen/chosen.css" type="text/css">
  <link rel="stylesheet" href="/assets/libraries/bootstrap-fileupload/bootstrap-fileupload.css" type="text/css">
  <link rel="stylesheet" href="/assets/libraries/jquery-ui-1.10.2.custom/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" type="text/css">
- <link rel="stylesheet" href="/assets/css/realia-red.css" type="text/css" id="color-variant-default">
+ <link rel="stylesheet" href="/assets/css/realia-red_1.css" type="text/css" id="color-variant-default">
  <link rel="stylesheet" href="#" type="text/css" id="color-variant" >
- <title>Im&oacute;veis e Serviços</title>
+ <title>Imóveis e Serviços</title>
  <script>
 function buscarbairro(){
 var cidade = ($('#cidade').val());
@@ -78,11 +78,6 @@ function replaceAll(string, token, newtoken) {
    <div class="container">
     <div class="row">
        <div class="span12">
-        <ul class="breadcrumb pull-left">
-           <li><a href="index.php">Inicio</a></li>
-         </ul>
-        <!-- /.breadcrumb -->
-        
         <div class="account pull-right">
            <ul class="nav nav-pills">
             <li><a href="admin/">Entrar</a></li>
@@ -106,7 +101,7 @@ function replaceAll(string, token, newtoken) {
            <div class="navbar-inner">
             <div class="row">
                <div class="logo-wrapper span4"> <a href="#nav" class="hidden-desktop" id="btn-nav">Menu de navegação</a>
-                <div class="logo"> <a href="#" title="Home"> <img src="assets/img/logo.png" alt="Home"> </a> </div>
+                <div class="logo"> <a href="#" title="Home"> <img src="images/logo.png" alt="Home"> </a> </div>
                 <!-- /.logo -->
                 
                 <div class="site-name"> <a href="#" title="Home" class="brand"></a> </div>
@@ -145,25 +140,26 @@ function replaceAll(string, token, newtoken) {
     <div class="navigation-wrapper">
        <div class="navigation clearfix-normal">
         <ul class="nav">
-           <li><a href="index.php">Principal</a></li>
-           <li><a href="imoveis.php">Imóveis</a></li>
-           <li class="menuparent"> <span class="menuparent nolink">Serviços</span>
+           <li><a href="/">Home</a></li>
+           <li><a href="fornecedores">Fornecedores</a></li>
+           <li><a href="compradores">Compradores</a></li>
+           <li class="menuparent"> <span class="menuparent nolink">Fornecedores</span>
             <ul>
-               <li class="menuparent"> <span class="menuparent nolink">Categoria</span>
+               <li class="menuparent"> <span class="menuparent nolink">Categoria1</span>
                 <ul>
                    <li><a href="#">Serviço 1</a></li>
                    <li><a href="#">Serviço 2</a></li>
                    <li><a href="#">Serviço 3</a></li>
                  </ul>
               </li>
-               <li class="menuparent"> <span class="menuparent nolink">Categoria</span>
+               <li class="menuparent"> <span class="menuparent nolink">Categoria2</span>
                 <ul>
                    <li><a href="#">Serviço 4</a></li>
                    <li><a href="#">Serviço 5</a></li>
                    <li><a href="#">Serviço 6</a></li>
                  </ul>
               </li>
-               <li class="menuparent"> <span class="menuparent nolink">Categoria</span>
+               <li class="menuparent"> <span class="menuparent nolink">Categoria3</span>
                 <ul>
                    <li><a href="#">Serviço 7</a></li>
                    <li><a href="#">Serviço 8</a></li>
@@ -172,10 +168,9 @@ function replaceAll(string, token, newtoken) {
               </li>
              </ul>
           </li>
-           <li><a href="#">Imobiliárias</a></li>
-           <li><a href="#">Fornecedores</a></li>
-           <li><a href="#">Anuncie</a></li>
-           <li><a href="contato.php">Contato</a></li>
+           <li><a href="sobre">Como Funciona</a></li>
+           <li><a href="anuncios">Anúncios</a></li>
+           <li><a href="contato">Contato</a></li>
          </ul>
         <!-- /.nav -->
         
@@ -197,326 +192,8 @@ function replaceAll(string, token, newtoken) {
 <!-- /.navigation --> 
 
 <!-- CONTENT -->
-<div id="content">
-<div class="map-wrapper">
-   <div class="map">
-    <div id="map" class="map-inner"></div>
-    <!-- /.map-inner -->
-    
-    <div class="container">
-       <div class="row">
-        <div class="span3">
-           <div class="property-filter pull-right">
-            <div class="content">
-               <form name="form1" method="get" action="#">
-                <div class="location control-group">
-                   <label class="control-label" for="inputLocation"> Cidade </label>
-                   <div class="controls">
-                    <select name="cidade" id="cidade" onChange="buscarbairro()">
-                       <?php
-     include_once('conexao.php');
-      $pdo = conectar();
-	  
-	  $sqlt = "SELECT DISTINCT cidade_imovel FROM ".$db.".imovel UNION SELECT DISTINCT cidade_prestadores_servicos FROM ".$db.".prestadores_servicos";
-	   $escolhert = $pdo->prepare($sqlt);
-	  $escolhert->execute();
-	  $dadosCidades = $escolhert->fetchAll(PDO::FETCH_ASSOC);
-					echo "<option value='0' selected>selecione</option>";
-             $i=0;
-			 foreach($dadosCidades as $key => $valor){
-					$matrizcidades[$i]=$valor['cidade_imovel'];
-					echo "<option value=".$valor['cidade_imovel'].">".$valor['cidade_imovel']."</option>";
-					 $i++;
-					 }				?>
-                     </select>
-                 <?php 
-				echo "<script>";
-				 for ($x=0;$x<count($matrizcidades);$x++){
-					 
-					 }
-					echo "</script>"; 
-				 ?>
-                  </div>
-                   <!-- /.controls --> 
-                 </div>
-                <!-- /.control-group -->
-                <div class="Bairro">
-                   <label class="control-label" for="inputLocation"> Região </label>
-                   <div class="controls" id="selectbairro">
-                    <select id="bairro">
-                       <option value="" selected="selected">Selecione</option>
-                     </select>
-                  </div>
-                 </div>
-                <div class="type control-group">
-                   <label class="control-label" for="inputType"> O que voc&ecirc; procura? </label>
-                   <div class="controls">
-                    <select id="inputType">
-                       <optgroup label="&#8212; Serviços &#8212;  ">
-                       <option id="construcao civil">Construção Civil</option>
-                       <option id="materiais">Materiais Construção</option>
-                       <option id="pintura e tinta">Pintura e tintas</option>
-                       <option id="serralheria">Serralheria</option>
-                       <option id="metarlugica">Metalúrgica</option>
-                       <optgroup label="&#8212; Imóveis &#8212;">
-                       <option id="apartamento">Apartamento</option>
-                       <option id="casa_sobrado">Casa/Sobrado</option>
-                       <option id="terreno">Terreno</option>
-                       <option id="rural">Rural</option>
-                       <option id="comercial">Comercial</option>
-                       <option id="condominio">Condom&iacute;nio</option>
-                     </select>
-                  </div>
-                   <!-- /.controls --> 
-                 </div>
-                <!-- /.control-group -->
-                
-                <div class="beds control-group"> </div>
-                <!-- /.control-group -->
-                
-                <div class="rent control-group">
-                   <div class="controls">
-                    <label class="checkbox" for="inputRent">
-                       <input type="checkbox" id="inputRent">
-                       Comprar </label>
-                  </div>
-                   <!-- /.controls --> 
-                 </div>
-                <!-- /.control-group -->
-                
-                <div class="sale control-group">
-                   <div class="controls">
-                    <label class="checkbox" for="inputSale">
-                       <input type="checkbox" id="inputSale">
-                       Alugar </label>
-                  </div>
-                   <!-- /.controls --> 
-                 </div>
-                <!-- /.control-group -->
-                
-                <div class="price-from control-group">
-                   <label class="control-label" for="inputPriceFrom"> Valor M&iacute;nimo </label>
-                   <div class="controls">
-                    <input type="text" id="inputPriceFrom" name="inputPriceFrom">
-                  </div>
-                   <!-- /.controls --> 
-                 </div>
-                <!-- /.control-group -->
-                
-                <div class="price-to control-group">
-                   <label class="control-label" for="inputPriceTo"> Valor Má;ximo </label>
-                   <div class="controls">
-                    <input type="text" id="inputPriceTo" name="inputPriceTo">
-                  </div>
-                   <!-- /.controls --> 
-                 </div>
-                <!-- /.control-group -->
-                
-                <div class="price-value"> <span class="from"></span><!-- /.from --> 
-                   - <span class="to"></span><!-- /.to --> 
-                 </div>
-                <!-- /.price-value -->
-                
-                <div class="price-slider"> </div>
-                <!-- /.price-slider -->
-                
-                <div class="form-actions">
-                   <input type="submit" value="Buscar !" class="btn btn-primary btn-large">
-                 </div>
-                <!-- /.form-actions -->
-              </form>
-             </div>
-            <!-- /.content --> 
-          </div>
-           <!-- /.property-filter --> 
-         </div>
-        <!-- /.span3 --> 
-      </div>
-       <!-- /.row --> 
-     </div>
-    <!-- /.container --> 
-  </div>
-   <!-- /.map --> 
- </div>
-<!-- /.map-wrapper -->
-<div class="container">
-<div id="main">
-<div class="row">
-   <div class="span9">
-    <h1 class="page-header">Imobiliá;rias</h1>
-    <div class="properties-grid" >
-       <div class="row">
-        <?php         
-   include_once('conexao.php');
-
-      $pdo = conectar();
-
-	  $sql = "SELECT * FROM ".$db.".imobiliaria";  
-
-	  $escolher = $pdo->prepare($sql);
-
-	  $escolher->execute();
-
-  		  $imobiliaria = $escolher->fetchAll(PDO::FETCH_ASSOC);
-
-			  foreach( $imobiliaria as $indice => $dadosImobiliaria){
-
-					$diretorio = "images/imobiliaria/".tira_acento($dadosImobiliaria['nome_imobiliaria'])."";
-
-					$arrayArquivos = scandir($diretorio);
-if($arrayArquivos[2] == 'Thumbs.db'){
-					$primeira_imagem = $diretorio."/".$arrayArquivos[3];
-
-echo"<a href='http://".$dadosImobiliaria['website_imobiliaria']."'><img src='".$diretorio."/".$arrayArquivos[3]."' alt='".$dadosImobiliaria['nome_imobiliaria']."' style='width:130;height:130px; float:left; margin-left:10px;'></a>";
-}
-else{
-		$primeira_imagem = $diretorio."/".$arrayArquivos[2];
-
-echo"<a href='http://".$dadosImobiliaria['website_imobiliaria']."'><img src='".$diretorio."/".$arrayArquivos[2]."' alt='".$dadosImobiliaria['nome_imobiliaria']."' style='width:130;height:130px; float:left; margin-left:10px;'></a>";
-}
-			  }
-?>
-      </div>
-       <!-- /.row --> 
-     </div>
-    <!-- /.properties-grid --> 
-  </div>
-   <div class="sidebar span3">
-    <div class="hidden-tablet">
-       <div class="widget properties last">
-        <div class="title">
-           <h2>Serviços Ofertados</h2>
-         </div>
-        <!-- /.title -->
-        
-        <div class="content">
-           <?php 
-include_once('conexao.php');
-      $pdo = conectar();
-	  $sql1 = "SELECT * FROM ".$db.".prestadores_servicos";  
-	  $escolher2 = $pdo->prepare($sql1);
-	  $escolher2->execute();
-	  	  			  $prestadores_servicos = $escolher2->fetchAll(PDO::FETCH_ASSOC);
-			  foreach( $prestadores_servicos as $indice2 => $dados_prestadores_servicos){
-				  ?>
-           <div class="property">
-            <div class="image">
-               <?php
-					$diretorio = "images/prestadores_servicos/".tira_acento($dados_prestadores_servicos['nome_prestadores_servicos'])."/";
-					$arrayArquivos = scandir($diretorio);
-					
-				if($arrayArquivos[3]== null){
-			  $primeira_imagem = $diretorio."/".$arrayArquivos[2];
-echo"<a href='http://".$dados_prestadores_servicos['website_prestadores_servicos']."'><img src='".$diretorio."/".$arrayArquivos[2]."' alt='".$dados_prestadores_servicos['nome_prestadores_servicos']."' style='width:200px;height:95px; float:left; margin-left:140px; margin-bottom:5px;'></a>";
-		  }
-	  else { $primeira_imagem = $diretorio."/".$arrayArquivos[3];
-echo"<a href='http://".$dados_prestadores_servicos['website_prestadores_servicos']."'><img src='".$diretorio."/".$arrayArquivos[3]."' alt='".$dados_prestadores_servicos['nome_prestadores_servicos']."' style='width:200px;height:95px; float:left; margin-left:140px; margin-bottom:5px;'></a>"; };
-			  
-			
-		 ?>
-               <div class="wrapper">
-                <div class="title">
-                   <h3> <?php echo "<a href='http://".$dados_prestadores_servicos['website_prestadores_servicos']."'></a>"?> </h3>
-                 </div>
-                <!-- /.title -->
-                <div class="location"><?php echo "<h4><font color='#990000'>".$dados_prestadores_servicos['nome_prestadores_servicos']."</h4></font>".$dados_prestadores_servicos['rua_prestadores_servicos']." - ".$dados_prestadores_servicos['numero_prestadores_servicos']."- ".$dados_prestadores_servicos['complemento_prestadores_servicos']."- ".$dados_prestadores_servicos['bairro_prestadores_servicos']."- ".$dados_prestadores_servicos['cidade_prestadores_servicos']."- ".$dados_prestadores_servicos['estado_prestadores_servicos'].""?></div>
-                <!-- /.location --> 
-              </div>
-               <!-- /.wrapper --> 
-               
-             </div>
-            <!-- /.image --> 
-          </div>
-           <!-- /.property -->
-           <?php
-			  }
-
-?>
-         </div>
-        <!-- /.content --> 
-      </div>
-       <!-- /.properties --> 
-     </div>
-  </div>
- </div>
-<div class="carousel">
-<h2 class="page-header">Anúncios em Destaque</h2>
-<div class="content">
-<a class="carousel-prev" href="#">Previous</a> <a class="carousel-next" href="#">Next</a>
-<ul>
-<ul>
-   <?php 
-include_once('conexao.php');
-      $pdo = conectar();
-	  $sql3 = "SELECT * FROM ".$db.".imovel";  
-	  $escolher4 = $pdo->prepare($sql3);
-	  $escolher4->execute();
-	  	  			  $imovel = $escolher4->fetchAll(PDO::FETCH_ASSOC);
-			  foreach( $imovel as $indice4 => $dados_imovel){
-				  ?>
-   <li>
-    <div class="image">
-       <?php
-					$diretorio = "images/imovel/".tira_acento($dados_imovel['titulo_imovel'])."/";
-					$arrayArquivos = scandir($diretorio);
-					
-				if($arrayArquivos[3]== null){
-$primeira_imagem = $diretorio."/".$arrayArquivos[2]; echo"".$dados_imovel['responsavel_imovel']."<img src='".$diretorio."/".$arrayArquivos[2]."' alt='".$dados_anuncio['titulo_anuncio']."' style='width:150px;height:150px, float:left; margin-left:40px; margin-bottom:5px; margin-top:20px'></a>"; }
-	  else { $primeira_imagem = $diretorio."/".$arrayArquivos[3]; echo"".$dados_imovel['responsavel_imovel']."<img src='".$diretorio."/".$arrayArquivos[3]."' alt='".$dados_imovel['titulo_imovel']."' style='width:150px;height:150px, float:left; margin-left:40px; margin-bottom:5px; margin-top:20px'></a>"; } 
-	  ?>
-       <div class="title">
-        <h3> <?php echo "".$dados_imovel['titulo_imovel'].""?></h3>
-      </div>
-       <div class="location"><?php echo "".$dados_imovel['titulo_imovel']." - <br>".$dados_imovel['rua_imovel']." - ".$dados_imovel['numero_imovel']." - ".$dados_anuncio['complemento_imovel']." - <br> ".$dados_imovel['bairro_imovel']." - ".$dados_imovel['cidade_imovel']." - ".$dados_imovel['estado_imovel']."<br>"?></div>
-       <div class="bathrooms">
-        <div class="inner"><?php echo "".$dados_imovel['info_banheiro_imovel'].""; ?></div>
-      </div>
-       <!-- /.bathrooms -->
-       <div class="bedrooms">
-        <div class="inner"><?php echo "".$dados_imovel['info_quarto_imovel'].""; ?></div>
-      </div>
-       <!-- /.bedrooms --> 
-     </div>
-  </li>
-   <?php
-			  }
-?>
- </ul>
-</div>
-<!-- /.content -->
-</div>
-<!-- /.carousel -->
-
-</div>
-</div>
-<div class="bottom-wrapper">
-   <div class="bottom container">
-    <div class="bottom-inner row">
-       <div class="item span4">
-        <div class="address decoration"></div>
-        <h2><a>Anuncie</a></h2>
-        <p>Clique para se Cadastrar e Anunciar Grá;tis, depois faça o login. Voc&ecirc; fará; o seu pr&oacute;prio anúncio escolhendo o Estado, a Cidade, depois a Categoria e a Subcategoria onde deseja que ele apareça.</p>
-        <a href="#" class="btn btn-primary">Saiba mais</a> </div>
-       <!-- /.item -->
-       
-       <div class="item span4">
-        <div class="gps decoration"></div>
-        <h2><a>Encontre com facilidade</a></h2>
-        <p>O nosso site oferece o serviço perfeito para quem quer comprar ou vender um imá;vel, divulgar serviços entre outros.  Al&eacute;m do site de Im&oacute;veis e Serviços &eacute; ser uma ferramenta simples, fá;cil e á;gil para os usuá;rios.</p>
-        <a href="#" class="btn btn-primary">Saiba mais</a> </div>
-       <!-- /.item -->
-       
-       <div class="item span4">
-        <div class="key decoration"></div>
-        <h2><a>Imóvel ou serviço</a></h2>
-        <p>Possibilidade de achar o imovel ou o serviço que tanto precisa ou quer no mesmo site tudo em um unico lugar sem complicação sem demora venha conhecer os ...</p>
-        <a href="#" class="btn btn-primary">Saiba mais</a> </div>
-       <!-- /.item --> 
-     </div>
-    <!-- /.bottom-inner --> 
-  </div>
-   <!-- /.bottom --> 
- </div>
+<?php echo $this->layout()->content; ?>
+<!-- CONTENT -->
 <!-- /.bottom-wrapper -->
 </div>
 <!-- /#content -->
@@ -529,7 +206,7 @@ $primeira_imagem = $diretorio."/".$arrayArquivos[2]; echo"".$dados_imovel['respo
        <div class="row">
         <div class="widget span3" style="width: 30%">
            <div class="title">
-            <h2>Informaç&otilde;es</h2>
+            <h2>Informa&ccedil;&otilde;es</h2>
           </div>
            <!-- /.title -->
            
@@ -537,9 +214,9 @@ $primeira_imagem = $diretorio."/".$arrayArquivos[2]; echo"".$dados_imovel['respo
             <table class="contact">
                <tbody>
                 <tr>
-                   <th class="address">Endereço:</th>
-                   <td>Rua Izabel a Redentora, n&deg; 1050 - São Jos&eacute; dos Pinhais, Centro<br>
-                    Paraná;<br></td>
+                   <th class="address">Endere&ccedil;o:</th>
+                   <td>Rua Izabel a Redentora, n&deg; 1050 - S&atilde;o Jos&eacute; dos Pinhais, Centro<br>
+                    Paran&aacute;<br></td>
                  </tr>
                 <tr>
                    <th class="phone">Telefone:</th>
@@ -567,9 +244,9 @@ $primeira_imagem = $diretorio."/".$arrayArquivos[2]; echo"".$dados_imovel['respo
             <ul class="menu nav">
                <li class="first leaf"><a href="#">Principal</a></li>
                <li class="leaf"><a href="#">Im&oacute;veis</a></li>
-               <li class="leaf"><a href="#">Serviços</a></li>
-               <li class="leaf"><a href="#">Imobiliá;rias</a></li>
-               <li class="leaf"><a href="#">Anúncie</a></li>
+               <li class="leaf"><a href="#">Servi&ccedil;os</a></li>
+               <li class="leaf"><a href="#">Imobili&aacute;rias</a></li>
+               <li class="leaf"><a href="#">An&uacute;ncie</a></li>
                <li class="leaf"><a href="#">Contato</a></li>
              </ul>
           </div>
@@ -578,7 +255,7 @@ $primeira_imagem = $diretorio."/".$arrayArquivos[2]; echo"".$dados_imovel['respo
         <!-- /.widget -->
         <div class="widget properties span3" style="width: 35%;">
            <div class="title">
-            <h2>Localização</h2>
+            <h2>Localiza&ccedil;&atilde;o</h2>
           </div>
            <!-- /.title -->
            
