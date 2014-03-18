@@ -2075,8 +2075,8 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary {
   color: #fff;
-  background-color: #511212;
-  border-color: #511212;
+  background-color: #E47136;
+  border-color: #E47136;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -2084,8 +2084,8 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #fff;
-  background-color: #E47236;
-  border-color: #285e8e;
+  background-color: #D16C38;
+  border-color: #D16C38;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -2119,6 +2119,33 @@ fieldset[disabled] .btn-primary.active {
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #E47136;
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+    box-shadow: #E47136;
+  -webkit-box-shadow: inset 0 1px 1px #E47136, 0 0 8px #E47136;
+  -moz-box-shadow: inset 0 1px 1px #E47136, 0 0 8px #E47136;
+  box-shadow: inset 0 1px 1px #E47136, 0 0 8px #E47136;
+}
+
 .btn-success:hover,
 .btn-success:focus,
 .btn-success:active,
