@@ -13,6 +13,11 @@ class Admin_CadastroController extends Zend_Controller_Action
         /*
          * Edita as informações do usuário logado
          */
+        $usuario = new Admin_Model_Usuario();
+        
+        $dados = $usuario->pesquisaUsuario(1);
+        
+        $this->view->dados = $dados;
     }
 
 

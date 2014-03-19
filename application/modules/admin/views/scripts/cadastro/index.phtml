@@ -1,19 +1,23 @@
 <h2>Informações de cadastro</h2>
 <br>
 <address>
-    <strong>NOME PESSOA</strong>,
-    <a href="mailto:#">first.last@example.com</a>
+    <strong><?php echo $this->dados['nome']?></strong>,
+    <a href="mailto:<?php echo $this->dados['emailContato']?>"><?php echo $this->dados['emailContato']?></a>
 </address>
 <hr>
-<address>
-  <strong>Endereço Comercial</strong><br>
-  795 Folsom Ave, Suite 600<br>
-  San Francisco, CA 94107<br>
-  <abbr title="Phone">P:</abbr> (123) 456-7890
-</address>
-<address>
-  <strong>Endereço Residencial</strong><br>
-  795 Folsom Ave, Suite 600<br>
-  San Francisco, CA 94107<br>
-  <abbr title="Phone">P:</abbr> (123) 456-7890
-</address>
+
+<?php
+
+foreach($this->dados['enderecos'] as $key=>$value){
+    foreach($value as $chave=>$valor){
+        ?>
+        <address>
+            <strong>Endereço Comercial</strong><br>
+            <?php echo $valor['logradouro'].','.$valor['numero']?><br>
+            <?php echo $valor['complemento']?>
+            
+            <?php echo $valor['cidade'].','.$valor['estado'].' - '.$valor['CEP']?><br>
+        </address>
+<?php
+    }
+}
