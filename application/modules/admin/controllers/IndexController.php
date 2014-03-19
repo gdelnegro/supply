@@ -62,7 +62,7 @@ class Admin_IndexController extends Zend_Controller_Action
 
     public function testeAction()
     {
-        // action body
+        $this->_helper->layout()->disableLayout();
     }
 
 

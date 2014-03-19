@@ -60,8 +60,22 @@
     .nav-sidebar > li > a {
         padding-left: 20px;
         padding-right: 20px;
+        color: #E47136;
+        background-color: #494748;
     }
     .nav-sidebar > .active > a {
+        color: #E47136;
+        background-color: #494748;
+        border-right: 1px solid #E47136;
+    }
+    
+    .nav-sidebar > .active{
+        color: #E47136;
+        background-color: #494748;
+        border-right: 1px solid #E47136;
+    }
+    
+    .nav > .active > a{
         color: #E47136;
         background-color: #494748;
         border-right: 1px solid #E47136;
@@ -114,7 +128,12 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right" >
-            <li ><a href="#" style='color:#E47136'>Logout</a></li>
+              <li style="border: 1px solid #E47136;border-bottom: 0px;border-radius: 6px">
+                  <img src="/images/1.jpg" width="200px" height="64px">
+              </li>
+            <li>
+                <a href="#" style='color:#E47136'>Logout</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -122,15 +141,25 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#" target="conteudo">Visão Geral</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Painel de controle</h1>
-          <?php echo $this->layout()->content; ?>
-        </div>
+            <div class="col-sm-2 col-xs-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <li class="active">Orçamento</li>
+                <ul class='nav'>
+                    <li class="active"><a href="#" target="conteudo">Solicitar Orçamento</a></li>
+                    <li class="active"><a href="#" target="conteudo">Enviar Orçamentos</a></li>
+                    <li class="active"><a href="#" target="conteudo">Orçamentos Recebidos</a></li>
+                    <li class="active"><a href="#" target="conteudo">Orçamentos Aprovados</a></li>
+                </ul>
+                <li class="active">Compras</li>
+                <ul class='nav'>
+                    <li class="active"><a href="#" target="conteudo">Orçamentos Aprovados</a></li>
+                </ul>
+              </ul>
+            </div>
+            <div class="col-sm-6 col-sm-offset-3 col-md-7 col-md-offset-2 main">
+              <h1 class="page-header">Painel de controle</h1>
+              <?php echo $this->layout()->content; ?>
+            </div>
         </div>
       </div>
 
