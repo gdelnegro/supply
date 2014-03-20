@@ -173,7 +173,7 @@ button.form-submit:active,button.form-submit:focus,button.form-submit:hover{
 }
 .chzn-container .chzn-drop .chzn-results .active-result.highlighted,.chzn-container .chzn-drop .chzn-results .active-result.result-selected{
     background-image:none;
-    background-color:#e63434;
+    background-color:#E47136;
     color:#fff
 }
 @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2){

@@ -6,7 +6,6 @@ class Admin_Form_Pessoa extends Twitter_Form
     public function init()
     {
         $this->setMethod('post');
-        
         $this->setAttrib('class','form-sigin');
         $this->setAttrib('role','form');
         
@@ -15,22 +14,27 @@ class Admin_Form_Pessoa extends Twitter_Form
         
         $nome = new Zend_Form_Element_Text('nome');
         $nome->setAttrib('class', 'form-control')
+                ->setAttrib('placeholder','Nome')
                 ->removeDecorator('HtmlTag');
         
         $emailContato = new Zend_Form_Element_Text('emailContato');
         $emailContato->setAttrib('class', 'form-control')
+                ->setAttrib('placeholder','Email de contato')
                 ->removeDecorator('HtmlTag');
         
         $telefonePrincipal = new Zend_Form_Element_Text('telefonePrincipal');
         $telefonePrincipal->setAttrib('class', 'form-control')
+                ->setAttrib('placeholder','Telefone de Contato')
                 ->removeDecorator('HtmlTag');
         
-        $senha = new Zend_Form_Element_Text('senha');
+        $senha = new Zend_Form_Element_Password('senha');
         $senha->setAttrib('class', 'form-control')
+                ->setAttrib('placeholder','Senha')
                 ->removeDecorator('HtmlTag');
         
         $tipoPessoa = new Zend_Form_Element_Select('tipoPessoa');
         $tipoPessoa->setAttrib('class', 'form-control')
+                ->setLabel('Pessoa:')
                 ->addMultiOptions(array(
                     '0'=>'Selecione',
                     '1'=>'Física',
