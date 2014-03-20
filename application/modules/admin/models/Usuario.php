@@ -6,19 +6,27 @@ class Admin_Model_Usuario
     protected $id;
     public $email;
     
-    public function pesquisaUsuario($id){
-            $dbPessoaEndereco = new Admin_Model_DbTable_PessoaEndereco();
-            $dbEndereco = new Admin_Model_DbTable_Endereco();
-            $dbPessoa = new Admin_Model_DbTable_Pessoa();
-            $dbTipoEndereco = new Admin_Model_DbTable_TipoEndereco();
+    public function pesquisaUsuario($id,$end = false){
+            $dbPessoa = new Admin_Model_DbTable_Pessoa();            
             
             $selectPessoa = $dbPessoa->select()
                     ->from('pessoa')
                     ->where('id = ?', $id);
             $stmtPessoa = $selectPessoa->query();
             $dadosPessoa = $stmtPessoa->fetchAll();
-            
-            $selectPessoaEndereco = $dbPessoaEndereco->select()
+
+            if($end==true){
+                $dadosPessoa[0]['enderecos']=$this->pesquisaEndereco($id);
+            }
+            return $dadosPessoa[0];
+    }
+    
+    public function pesquisaEndereco($id){
+        $dbPessoaEndereco = new Admin_Model_DbTable_PessoaEndereco();
+        $dbEndereco = new Admin_Model_DbTable_Endereco();
+        $dbTipoEndereco = new Admin_Model_DbTable_TipoEndereco();
+        
+        $selectPessoaEndereco = $dbPessoaEndereco->select()
                     ->from('pessoaEndereco')
                     ->where('pessoa = ?', $id);
             $stmtPessoaEndereco = $selectPessoaEndereco->query();
@@ -41,11 +49,10 @@ class Admin_Model_Usuario
                 $tipoEndereco = $stmtTipoEndereco->fetchAll();
                 $enderecos[$i]=$endereco[0];
                 $enderecos[$i]['tipoEndereco'] = $tipoEndereco[0]['descricao'];
-            }            
-
-            $dadosPessoa[0]['enderecos']=$enderecos;
-            return $dadosPessoa[0];
-    }    
+            }
+            return $enderecos;
+    }
+    
 
 }
 
