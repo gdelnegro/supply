@@ -23,7 +23,7 @@ class Admin_Form_Login extends Twitter_Form
                                 )
                         ))));
                 
-        $desc_senha = new Zend_Form_Element_Password('senha',array(
+        $senha = new Zend_Form_Element_Password('senha',array(
                     'placeholder'=>'Senha',
                     'value' => '',
                     'class' => 'form-control',
@@ -46,9 +46,9 @@ class Admin_Form_Login extends Twitter_Form
                     //'decorators' => $this->requiredElementDecorators,
                     //'description' => '<img src="' . $baseurl . '/images/star.png" alt="required" />',
                 ));
-        $desc_senha->removeDecorator('HtmlTag');
+        $senha->removeDecorator('HtmlTag');
         
-        $this->addElements(array($login,$desc_senha));
+        $this->addElements(array($login,$senha));
         
         $this->addElement(
                 'submit',   'Entrar',   array(
@@ -56,10 +56,7 @@ class Admin_Form_Login extends Twitter_Form
                     'class'     => 'btn btn-lg btn-primary btn-block',
                 )
                 );
-        
-        
+                
     }
 
-
 }
-
