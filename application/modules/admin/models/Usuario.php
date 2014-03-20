@@ -49,6 +49,7 @@ class Admin_Model_Usuario
                 $tipoEndereco = $stmtTipoEndereco->fetchAll();
                 $enderecos[$i]=$endereco[0];
                 $enderecos[$i]['tipoEndereco'] = $tipoEndereco[0]['descricao'];
+                $enderecos[$i]['apelido'] = $dadosPessoaEndereco[$i]['apelido'];
             }
             return $enderecos;
     }

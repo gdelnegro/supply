@@ -25,7 +25,10 @@
         
             echo "<div class=\"col-md-4 \">";
                 echo "<address>";
-                    echo"<strong>".$endereco['tipoEndereco']."</strong><br>";
+                echo"<strong>".$endereco['tipoEndereco']."</strong><br>";
+                if($endereco['complemento'] != ''){
+                        echo "<strong> Apelido: </strong>".$endereco['apelido']."<br>";
+                    }
                     echo $endereco['logradouro'].','.$endereco['numero']."<br>";
                     if($endereco['complemento'] != ''){
                         echo $endereco['complemento']."<br>";

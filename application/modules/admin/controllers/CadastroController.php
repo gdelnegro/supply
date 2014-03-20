@@ -20,8 +20,11 @@ class Admin_CadastroController extends Zend_Controller_Action
     
     public function editAction(){
         $usuario = new Admin_Model_Usuario();
+        $formUsuario = new Admin_Form_Pessoa();
         $dados = $usuario->pesquisaUsuario($this->_getParam('id'));
-        $this->view->dados = $dados;
+        $formUsuario->populate($dados);
+        
+        $this->view->formUsuario = $formUsuario;
     }
 
 
