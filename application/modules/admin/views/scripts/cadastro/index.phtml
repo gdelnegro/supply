@@ -1,20 +1,42 @@
 <h2>Informações de cadastro</h2>
 <br>
+<h3>Dados Pessoais</h3>
+<br>
 <address>
     <strong><?php echo $this->dados['nome']?></strong>,
     <a href="mailto:<?php echo $this->dados['emailContato']?>"><?php echo $this->dados['emailContato']?></a>
 </address>
 <hr>
 
-<?php
-foreach ($this->dados['enderecos'] as $key => $endereco) {
-            echo "<address>";
-            echo"<strong>".$endereco['tipoEndereco']."</strong><br>";
-            echo $endereco['logradouro'].','.$endereco['numero']."<br>";
-            if($endereco['complemento'] != ''){
-                echo $endereco['complemento']."<br>";
-            }
-            echo $endereco['cidade'].','.$endereco['estado'].' - '.$endereco['CEP']."<br>";
-            echo "</address>";
+<h3>Endereços Cadastrados</h3>
+<hr>
+<div class="row">
+    <?php
+    $i = 0;
+    foreach ($this->dados['enderecos'] as $indice => $endereco) {
+        if($indice==0 AND $indice % 2 !=0){
+            echo "<div class=\"row\">";
+        }
+        
+            echo "<div class=\"col-md-4 \">";
+                echo "<address>";
+                    echo"<strong>".$endereco['tipoEndereco']."</strong><br>";
+                    echo $endereco['logradouro'].','.$endereco['numero']."<br>";
+                    if($endereco['complemento'] != ''){
+                        echo $endereco['complemento']."<br>";
+                    }
+                    echo $endereco['cidade'].','.$endereco['estado'].' - '.$endereco['CEP']."<br>";
+                echo "</address>";
             echo "<hr>";
-}
+            echo "</div>";
+            echo "<div class=\"col-md-2\">";
+                echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+                echo " ";
+                echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+            echo "</div>";
+            $i=$i++;
+        if($i>0 AND $i % 2 ==0){
+            echo "</div>"; 
+        }
+    }?>
+</div>
