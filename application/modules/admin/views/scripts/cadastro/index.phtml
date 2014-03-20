@@ -7,17 +7,14 @@
 <hr>
 
 <?php
-
-foreach($this->dados['enderecos'] as $key=>$value){
-    foreach($value as $chave=>$valor){
-        ?>
-        <address>
-            <strong>Endereço Comercial</strong><br>
-            <?php echo $valor['logradouro'].','.$valor['numero']?><br>
-            <?php echo $valor['complemento']?>
-            
-            <?php echo $valor['cidade'].','.$valor['estado'].' - '.$valor['CEP']?><br>
-        </address>
-<?php
-    }
+foreach ($this->dados['enderecos'] as $key => $endereco) {
+            echo "<address>";
+            echo"<strong>".$endereco['tipoEndereco']."</strong><br>";
+            echo $endereco['logradouro'].','.$endereco['numero']."<br>";
+            if($endereco['complemento'] != ''){
+                echo $endereco['complemento']."<br>";
+            }
+            echo $endereco['cidade'].','.$endereco['estado'].' - '.$endereco['CEP']."<br>";
+            echo "</address>";
+            echo "<hr>";
 }

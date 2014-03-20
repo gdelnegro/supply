@@ -10,12 +10,11 @@ class Admin_Model_Usuario
             $dbPessoaEndereco = new Admin_Model_DbTable_PessoaEndereco();
             $dbEndereco = new Admin_Model_DbTable_Endereco();
             $dbPessoa = new Admin_Model_DbTable_Pessoa();
-            
+            $dbTipoEndereco = new Admin_Model_DbTable_TipoEndereco();
             
             $selectPessoa = $dbPessoa->select()
                     ->from('pessoa')
-                    ->where('id = ?', $id)
-                    ->limit(1);
+                    ->where('id = ?', $id);
             $stmtPessoa = $selectPessoa->query();
             $dadosPessoa = $stmtPessoa->fetchAll();
             
@@ -26,16 +25,24 @@ class Admin_Model_Usuario
             $dadosPessoaEndereco = $stmtPessoaEndereco->fetchAll();            
             
             $enderecos = array();
+            $numeroRegistros = count($dadosPessoaEndereco);
             
-            foreach($dadosPessoaEndereco as $key => $matriz){
-                foreach($matriz as $chave=>$valor){
-                        $selectEndereco = $dbEndereco->select()
-                                ->from('endereco')
-                                ->where('idEndereco = ?', $matriz['endereco']);
-                        $stmtEndereco = $selectEndereco->query();
-                        $enderecos[0]=$stmtEndereco->fetchAll();
-                }
-            }
+            for($i=0;$i<$numeroRegistros;$i++){
+                $selectEndereco = $dbEndereco->select()
+                        ->from('endereco')
+                        ->where('idEndereco = ?', $dadosPessoaEndereco[$i]['endereco']);
+                $stmtEndereco = $selectEndereco->query();
+                $endereco=$stmtEndereco->fetchAll();
+                
+                $selectTipoEndereco = $dbTipoEndereco->select()
+                        ->from('tipoEndereco',array('descricao'))
+                        ->where('id = ?', $dadosPessoaEndereco[$i]['tipoEndereco']);
+                $stmtTipoEndereco = $selectTipoEndereco->query();
+                $tipoEndereco = $stmtTipoEndereco->fetchAll();
+                $enderecos[$i]=$endereco[0];
+                $enderecos[$i]['tipoEndereco'] = $tipoEndereco[0]['descricao'];
+            }            
+
             $dadosPessoa[0]['enderecos']=$enderecos;
             return $dadosPessoa[0];
     }    
