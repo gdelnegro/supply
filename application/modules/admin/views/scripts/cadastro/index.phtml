@@ -1,6 +1,11 @@
 <h2>Informações de cadastro</h2>
 <br>
 <h3>Dados Pessoais</h3>
+<p>
+    <a href="" title="Editar cadastro"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a href="" title="Visualizar cadastro"><span class="glyphicon glyphicon-search"></span></a>
+</p>
+
 <br>
 <address>
     <strong><?php echo $this->dados['nome']?></strong>,
@@ -29,10 +34,11 @@
                 echo "</address>";
             echo "<hr>";
             echo "</div>";
-            echo "<div class=\"col-md-2\">";
-                echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+            echo "<div class=\"col-md-2\">";?>
+                <?php
+                echo "<a href=\"\" title=\"Editar endereço\"><span class=\"glyphicon glyphicon-pencil\"></span></a>";
                 echo " ";
-                echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+                echo "<a href=\"\" title=\"Excluir endereço\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
             echo "</div>";
             $i=$i++;
         if($i>0 AND $i % 2 ==0){
