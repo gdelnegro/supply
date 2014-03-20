@@ -21,35 +21,10 @@ class Admin_Form_Pessoa extends Twitter_Form
         $emailContato->setAttrib('class', 'form-control')
                 ->removeDecorator('HtmlTag');
         
-        $telefonePrincipal = new Zend_Form_Element_Text('telefonePrincipal');
-        $telefonePrincipal->setAttrib('class', 'form-control')
-                ->removeDecorator('HtmlTag');
-        
-        $tipoPessoa = new Zend_Form_Element_Select('tipoPessoa');
-        $tipoPessoa->setAttrib('class', 'form-control')
-                ->addMultiOptions(array(
-                    '0'=>'Selecione',
-                    '1'=>'Física',
-                    '2'=>'Jurídica'
-                ))
-                ->removeDecorator('HtmlTag');
-        
-        $grupo = new Zend_Form_Element_Select('grupo');
-        $grupo->setAttrib('class','form-control')
-                ->addMultiOptions(array(
-                    '0'=>'Selecione',
-                    '1'=>'Administrador Sistema'
-                ))
-                ->removeDecorator('HtmlTag');
-        
-        
         $this->addElements(array(
             $id,
             $nome,
-            $emailContato,
-            $telefonePrincipal,
-            $tipoPessoa,
-            $grupo
+            $emailContato
         ));
         
         $this->addElement(
