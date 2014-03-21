@@ -12,7 +12,6 @@
     <a href="mailto:<?php echo $this->dados['emailContato']?>"><?php echo $this->dados['emailContato']?></a>
 </address>
 <hr>
-
 <h3>Endereços Cadastrados</h3>
 <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"adicionarendereco","id"=>"{$this->dados['id']}"),null,true)?>" title="Adicionar Endereço"><span class="glyphicon glyphicon-plus"></span></a>
 <hr>
@@ -27,12 +26,16 @@
             echo "<div class=\"col-md-4 \">";
                 echo "<address>";
                 echo"<strong>".$endereco['tipoEndereco']."</strong><br>";
-                if($endereco['complemento'] != ''){
+                if($endereco['apelido'] != ''){
                         echo "<strong> Apelido: </strong>".$endereco['apelido']."<br>";
+                    }else{
+                        echo "<br>";
                     }
                     echo $endereco['logradouro'].','.$endereco['numero']."<br>";
                     if($endereco['complemento'] != ''){
                         echo $endereco['complemento']."<br>";
+                    }else{
+                        echo "<br>";
                     }
                     echo $endereco['cidade'].','.$endereco['estado'].' - '.$endereco['CEP']."<br>";
                 echo "</address>";
