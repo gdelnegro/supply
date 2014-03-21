@@ -9,7 +9,8 @@
 <br>
 <address>
     <strong><?php echo $this->dados['nome']?></strong>,
-    <a href="mailto:<?php echo $this->dados['emailContato']?>"><?php echo $this->dados['emailContato']?></a>
+    <a href="mailto:<?php echo $this->dados['emailContato']?>"><?php echo $this->dados['emailContato']?></a><br>
+    Tipo de cadastro: <?php if($this->dados['tipoPessoa'] == 1){echo 'Pessoa Física';}else{ echo 'Pessoa Jurídica';}?>
 </address>
 <hr>
 <h3>Endereços Cadastrados</h3>

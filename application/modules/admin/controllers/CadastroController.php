@@ -42,9 +42,23 @@ class Admin_CadastroController extends Zend_Controller_Action
             $formTipoPessoa = new Admin_Form_PessoaJuridica();
         }
         
+        $formTipoPessoa->populate($dados['dadosTipoPessoa']);
+        #die(var_dump($dados['dadosTipoPessoa']));
+        
+        if( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost();
+            
+            if ( $formTipoPessoa->isValid($data) ){
+                $usuario->editTipoPessoa($id, $tipoPessoa, $data);
+                $this->redirect("/admin/cadastro/index/");
+            }else{                
+                $this->view->erro='Dados Invalidos';
+                $this->view->formTipoPessoa = $formTipoPessoa->populate($data);
+            }
+        }
+        
         $this->view->formUsuario = $formUsuario;
         $this->view->formTipoPessoa = $formTipoPessoa;
-        $this->view->id = $id;
     }
     
     public function adicionarenderecoAction(){

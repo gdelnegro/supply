@@ -14,10 +14,27 @@ class Admin_Model_Usuario
                     ->where('id = ?', $id);
             $stmtPessoa = $selectPessoa->query();
             $dadosPessoa = $stmtPessoa->fetchAll();
+            
+            $tipoPessoa = $dadosPessoa[0]['tipoPessoa'];
+            
+            if($tipoPessoa == 1){
+                $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
+                $tabelaTipoPessoa = 'pessoaFisica';
+            }elseif($tipoPessoa == 2){
+                $dbTipoPessoa = new Admin_Model_DbTable_PessoaJuridica();
+                $tabelaTipoPessoa = 'pessoaJuridica';
+            }
+            
+            $selectTipoPessoa = $dbTipoPessoa->select()
+                    ->from($tabelaTipoPessoa)
+                    ->where('idPessoa = ?',$id);
+            $stmtTipoPessoa = $selectTipoPessoa->query();
+            $dadosTipoPessoa = $stmtTipoPessoa->fetchAll();
 
             if($end==true){
                 $dadosPessoa[0]['enderecos']=$this->pesquisaEndereco($id);
             }
+            $dadosPessoa[0]['dadosTipoPessoa'] = $dadosTipoPessoa;
             return $dadosPessoa[0];
     }
     
@@ -58,6 +75,17 @@ class Admin_Model_Usuario
                 $enderecos[$i]['apelido'] = $dadosPessoaEndereco[$i]['apelido'];
             }
             return $enderecos;
+    }
+    
+    public function editTipoPessoa($idUsuario, $tipoPessoa, $dados){
+        if($tipoPessoa == 1){
+            $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
+        }elseif($tipoPessoa == 2){
+            $dbTipoPessoa = new Admin_Model_DbTable_PessoaJuridica();
+        }
+        unset($dados['Enviar']);
+        $dados['idPessoa']=$idUsuario;
+        $dbTipoPessoa->insert($dados);
     }
     
 }
