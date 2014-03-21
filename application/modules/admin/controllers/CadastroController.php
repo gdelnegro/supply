@@ -3,10 +3,13 @@
 class Admin_CadastroController extends Zend_Controller_Action
 {
 
+    private $_usuario ;
+    
     public function init()
     {
         /* Initialize action controller here */
         $usuario = Zend_Auth::getInstance()->getIdentity();
+        $this->_usuario = $usuario;
         //$this->view->usuario = $usuario;
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         
@@ -21,7 +24,7 @@ class Admin_CadastroController extends Zend_Controller_Action
          * Edita as informações do usuário logado
          */
         $usuario = new Admin_Model_Usuario();    
-        $dados = $usuario->pesquisaUsuario($this->_getParam('id'),true);
+        $dados = $usuario->pesquisaUsuario($this->_usuario->id,true);
         $this->view->dados = $dados;
     }
     
@@ -42,7 +45,6 @@ class Admin_CadastroController extends Zend_Controller_Action
         $this->view->formUsuario = $formUsuario;
         $this->view->formTipoPessoa = $formTipoPessoa;
         $this->view->id = $id;
-        $this->redirect("/admin/cadastro/index/id/$id");
     }
     
     public function adicionarenderecoAction(){
@@ -55,6 +57,7 @@ class Admin_CadastroController extends Zend_Controller_Action
             
             if ( $formEndereco->isValid($data) ){
                 $endereco->insereEndereco($idUsuario, $data);
+                $this->redirect("/admin/cadastro/index/");
             }else{                
                 $this->view->erro='Dados Invalidos';
                 $this->view->formEndereco = $formEndereco->populate($data);
@@ -68,13 +71,13 @@ class Admin_CadastroController extends Zend_Controller_Action
     
     public function editarenderecoAction(){
         $usuario = new Admin_Model_Usuario();
-        $id = $this->_getParam('id');
+        $idEndereco = intval($this->_getParam('id'));        
         $formEndereco = new Admin_Form_Endereco();
-        $dados = $usuario->pesquisaEndereco($id);
+        $dados = $usuario->pesquisaEndereco($this->_usuario->id,$idEndereco);
         $formEndereco->populate($dados[0]);
         
         $this->view->formEndereco = $formEndereco;
-        $this->view->id = $id;
+        $this->view->id = $idEndereco;
     }
     
     public function removerenderecoAction(){

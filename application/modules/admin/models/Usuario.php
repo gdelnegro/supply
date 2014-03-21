@@ -3,7 +3,7 @@
 class Admin_Model_Usuario
 {
     public $nome;
-    protected $id;
+    protected $idUsuario;
     public $email;
     
     public function pesquisaUsuario($id,$end = false){
@@ -21,14 +21,20 @@ class Admin_Model_Usuario
             return $dadosPessoa[0];
     }
     
-    public function pesquisaEndereco($id){
+    public function pesquisaEndereco($idUsuario, $idEndereco = null){
         $dbPessoaEndereco = new Admin_Model_DbTable_PessoaEndereco();
         $dbEndereco = new Admin_Model_DbTable_Endereco();
         $dbTipoEndereco = new Admin_Model_DbTable_TipoEndereco();
         
         $selectPessoaEndereco = $dbPessoaEndereco->select()
-                    ->from('pessoaEndereco')
-                    ->where('pessoa = ?', $id);
+                    ->from('pessoaEndereco');
+        if($idEndereco == null){
+            $selectPessoaEndereco->where('pessoa = ?', $idUsuario);
+        }else{
+            $selectPessoaEndereco->where('pessoa = ?', $idUsuario)
+                    ->where('endereco = ?', $idEndereco);
+        }
+                    
             $stmtPessoaEndereco = $selectPessoaEndereco->query();
             $dadosPessoaEndereco = $stmtPessoaEndereco->fetchAll();            
             
@@ -54,6 +60,4 @@ class Admin_Model_Usuario
             return $enderecos;
     }
     
-
 }
-
