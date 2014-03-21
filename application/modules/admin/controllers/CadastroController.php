@@ -21,14 +21,15 @@ class Admin_CadastroController extends Zend_Controller_Action
          * Edita as informações do usuário logado
          */
         $usuario = new Admin_Model_Usuario();    
-        $dados = $usuario->pesquisaUsuario(1,true);
+        $dados = $usuario->pesquisaUsuario($this->_getParam('id'),true);
         $this->view->dados = $dados;
     }
     
     public function editAction(){
         $usuario = new Admin_Model_Usuario();
         $formUsuario = new Admin_Form_Pessoa();
-        $dados = $usuario->pesquisaUsuario($this->_getParam('id'));
+        $id=$this->_getParam('id');
+        $dados = $usuario->pesquisaUsuario($id);
         $formUsuario->populate($dados);
         $tipoPessoa = $dados['tipoPessoa'];
         
@@ -40,16 +41,47 @@ class Admin_CadastroController extends Zend_Controller_Action
         
         $this->view->formUsuario = $formUsuario;
         $this->view->formTipoPessoa = $formTipoPessoa;
-        $this->view->dados = $tipoPessoa;
+        $this->view->id = $id;
+    }
+    
+    public function adicionarenderecoAction(){
+        $idUsuario = $this->_getParam('id');
+        $formEndereco = new Admin_Form_Endereco();
+        
+        if( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost();
+            
+            if ( $formEndereco->isValid($data) ){
+                
+            }else{                
+                $this->view->erro='Dados Invalidos';
+                $this->view->formEndereco = $formEndereco->populate($data);
+            }
+            $this->view->formEndereco = $formEndereco;
+            $this->view->id = $idUsuario;
+        }
+        
+        $this->view->formEndereco = $formEndereco;
+        $this->view->id = $idUsuario;
     }
     
     public function editarenderecoAction(){
         $usuario = new Admin_Model_Usuario();
+        $id = $this->_getParam('id');
         $formEndereco = new Admin_Form_Endereco();
-        $dados = $usuario->pesquisaEndereco($this->_getParam('id'));
+        $dados = $usuario->pesquisaEndereco($id);
         $formEndereco->populate($dados[0]);
         
         $this->view->formEndereco = $formEndereco;
+        $this->view->id = $id;
+    }
+    
+    public function removerenderecoAction(){
+        $this->_helper->viewRenderer->setNoRender(true);
+        $endereco = new Admin_Model_Endereco();
+        $id = $this->_getParam('id');
+        $endereco->removeEndereco($id);
+        
     }
 
 }

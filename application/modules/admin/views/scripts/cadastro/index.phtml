@@ -14,6 +14,7 @@
 <hr>
 
 <h3>Endereços Cadastrados</h3>
+<a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"adicionarendereco","id"=>"{$this->dados['id']}"),null,true)?>" title="Adicionar Endereço"><span class="glyphicon glyphicon-plus"></span></a>
 <hr>
 <div class="row">
     <?php
@@ -42,7 +43,7 @@
                 
                 echo "<a href='".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"editarendereco","id"=>"{$endereco['idEndereco']}"),null,true)."' title=\"Editar endereço\"><span class=\"glyphicon glyphicon-pencil\"></span></a>";
                 echo " ";
-                echo "<a href=\"\" title=\"Excluir endereço\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                echo "<a href='".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"removerendereco","id"=>"{$endereco['idEndereco']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer excluir este endereço?')\" title=\"Remover endereço\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
             echo "</div>";
             $i=$i++;
         if($i>0 AND $i % 2 ==0){

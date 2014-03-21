@@ -12,6 +12,6 @@ echo "<div class=\"row\">";
         echo $this->formTipoPessoa;
     echo "</div><!-- DIV COL-MD-4 -->";
 echo "</div> <!-- ROW-->";
-?>
 
-<a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro"),null,true)?>"" title="Voltar"><span class="glyphicon glyphicon-arrow-left"></span></a>
+?>
+<a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"index","id"=>$this->id),null,true);?>" title="Voltar"><span class="glyphicon glyphicon-arrow-left"></span></a>
