@@ -30,8 +30,17 @@ class Admin_CadastroController extends Zend_Controller_Action
         $formUsuario = new Admin_Form_Pessoa();
         $dados = $usuario->pesquisaUsuario($this->_getParam('id'));
         $formUsuario->populate($dados);
+        $tipoPessoa = $dados['tipoPessoa'];
+        
+        if($tipoPessoa == 1){
+            $formTipoPessoa = new Admin_Form_PessoaFisica();
+        }elseif ($tipoPessoa == 2) {
+            $formTipoPessoa = new Admin_Form_PessoaJuridica();
+        }
         
         $this->view->formUsuario = $formUsuario;
+        $this->view->formTipoPessoa = $formTipoPessoa;
+        $this->view->dados = $tipoPessoa;
     }
 
 

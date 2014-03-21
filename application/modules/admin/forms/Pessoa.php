@@ -34,9 +34,8 @@ class Admin_Form_Pessoa extends Twitter_Form
         
         $tipoPessoa = new Zend_Form_Element_Select('tipoPessoa');
         $tipoPessoa->setAttrib('class', 'form-control')
-                ->setLabel('Pessoa:')
                 ->addMultiOptions(array(
-                    '0'=>'Selecione',
+                    '0'=>'Selecione Tipo de Pessoa',
                     '1'=>'Física',
                     '2'=>'Jurídica'
                 ))

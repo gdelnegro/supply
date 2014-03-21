@@ -121,6 +121,47 @@
     .placeholder img {
         border-radius: 50%;
     }
+    
+    body {
+                padding-top: 40px;
+                padding-bottom: 40px;
+                background-color: #eee;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+         }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+        .form-signin .form-control {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }       
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
     </style>
         
 </head>
@@ -136,7 +177,7 @@
               <li style="border: 1px solid #E47136;border-bottom: 0px;border-radius: 6px">
                   <img src="/images/1.jpg" width="200px" height="64px">
               </li>
-              <li><a href="cadastro" style='color:#E47136'>Editar Cadastro</a></li>
+              <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"index","id"=>$this->layout()->usuario->id),null,true);?>" style='color:#E47136'>Editar Cadastro</a></li>
             <li>
                 <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"index","action"=>"logout"),null,true);?>" style="color:#E47136">Logout</a>
             </li>
