@@ -47,12 +47,13 @@ class Admin_CadastroController extends Zend_Controller_Action
     public function adicionarenderecoAction(){
         $idUsuario = $this->_getParam('id');
         $formEndereco = new Admin_Form_Endereco();
+        $endereco = new Admin_Model_Endereco();
         
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
             
             if ( $formEndereco->isValid($data) ){
-                
+                $endereco->insereEndereco($idUsuario, $data);
             }else{                
                 $this->view->erro='Dados Invalidos';
                 $this->view->formEndereco = $formEndereco->populate($data);
@@ -60,7 +61,6 @@ class Admin_CadastroController extends Zend_Controller_Action
             $this->view->formEndereco = $formEndereco;
             $this->view->id = $idUsuario;
         }
-        
         $this->view->formEndereco = $formEndereco;
         $this->view->id = $idUsuario;
     }

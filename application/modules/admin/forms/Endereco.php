@@ -16,6 +16,15 @@ class Admin_Form_Endereco extends Twitter_Form
                 ->setLabel('Apelido')
                 ->setAttrib('placeholder', 'Apelido');
         
+        $dbTipoEndereco = new Admin_Model_DbTable_TipoEndereco();
+        $listaTipoEndereco = $dbTipoEndereco->getListaTipoEndereco();
+        $tipoEndereco = new Zend_Form_Element_Select('tipoEndereco');
+        $tipoEndereco->removeDecorator('HtmlTag')
+                ->setLabel('Tipo de Endereço')
+                ->setRequired(true)
+                ->addMultiOptions(array('0'=>'Selecione o tipo de endereço'))
+                ->addMultiOptions($listaTipoEndereco);
+        
         $CEP = new Zend_Form_Element_Text('CEP');
         $CEP->removeDecorator('HtmlTag')
                 ->setRequired(true)
@@ -110,6 +119,7 @@ class Admin_Form_Endereco extends Twitter_Form
         $this->addElements(array(
             $idEndereco,
             $apelido,
+            $tipoEndereco,
             $CEP,
             $logradouro,
             $numero,
