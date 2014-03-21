@@ -26,9 +26,9 @@ class Twitter_Form extends Zend_Form
 			"ViewHelper",
 			array("Errors", array("placement" => "append")),
 			array("Description", array("tag" => "span", "class" => "help-block")),
-			array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "controls")),
-			array("Label", array("class" => "control-label")),
-			array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "control-group"))
+			array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "form-group")),
+			array("Label", array("class" => "col-sm-4 control-label")),
+			array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "col-sm-10"))
 		);
 	}
 
@@ -73,14 +73,12 @@ class Twitter_Form extends Zend_Form
 				&& !($element instanceof Zend_Form_Element_Reset)
 			 	&& !($element instanceof Zend_Form_Element_Button))
 			{
-				$class = "btn-primary";
+				$class = "btn btn-lg btn-primary btn-block";
 			}
 
 			$element->setAttrib("class", trim("btn $class " . $element->getAttrib("class")));
 			$element->removeDecorator("Label");
-			$element->removeDecorator("outerwrapper");
-			$element->removeDecorator("innerwrapper");
-
+			
 			$this->_addActionsDisplayGroupElement($element);
 
 			//$element->addDecorator(array(
@@ -97,8 +95,8 @@ class Twitter_Form extends Zend_Form
 				array(array("labelclosing" => "HtmlTag"), array("tag" => "label", "closeOnly" => true)),
 				array("Errors", array("placement" => "append")),
 				array("Description", array("tag" => "span", "class" => "help-block")),
-				array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "controls")),
-				array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "control-group"))
+				array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "form-group")),
+				array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "col-sm-10"))
 			));
 		}
 
@@ -135,9 +133,9 @@ class Twitter_Form extends Zend_Form
 				"ViewHelper",
 				array("Errors", array("placement" => "append")),
 				array("Description", array("tag" => "span", "class" => "help-block")),
-				array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "controls")),
+				array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "form-group")),
 				array("Label", array("class" => "control-label")),
-				array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "control-group"))
+				array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "col-sm-10"))
 			));
 		}
 

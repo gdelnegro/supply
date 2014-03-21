@@ -39,7 +39,8 @@
             echo "</div>";
             echo "<div class=\"col-md-2\">";?>
                 <?php
-                echo "<a href=\"\" title=\"Editar endereço\"><span class=\"glyphicon glyphicon-pencil\"></span></a>";
+                
+                echo "<a href='".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"editarendereco","id"=>"{$endereco['idEndereco']}"),null,true)."' title=\"Editar endereço\"><span class=\"glyphicon glyphicon-pencil\"></span></a>";
                 echo " ";
                 echo "<a href=\"\" title=\"Excluir endereço\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
             echo "</div>";

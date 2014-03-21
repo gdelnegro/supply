@@ -42,6 +42,15 @@ class Admin_CadastroController extends Zend_Controller_Action
         $this->view->formTipoPessoa = $formTipoPessoa;
         $this->view->dados = $tipoPessoa;
     }
+    
+    public function editarenderecoAction(){
+        $usuario = new Admin_Model_Usuario();
+        $formEndereco = new Admin_Form_Endereco();
+        $dados = $usuario->pesquisaEndereco($this->_getParam('id'));
+        $formEndereco->populate($dados[0]);
+        
+        $this->view->formEndereco = $formEndereco;
+    }
 
 
 }
