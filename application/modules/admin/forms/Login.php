@@ -43,19 +43,14 @@ class Admin_Form_Login extends Twitter_Form
 
                     ),
                     'filters' => array('StringTrim'),
-                    //'decorators' => $this->requiredElementDecorators,
-                    //'description' => '<img src="' . $baseurl . '/images/star.png" alt="required" />',
                 ));
         $senha->removeDecorator('HtmlTag');
         
         $this->addElements(array($login,$senha));
         
         $this->addElement(
-                'submit',   'Entrar',   array(
-                    'ignore'    =>  true,
-                    'class'     => 'btn btn-lg btn-primary btn-block',
-                )
-                );
+                'submit',   'Entrar',   array('ignore'    =>  true,)
+        );
                 
     }
 

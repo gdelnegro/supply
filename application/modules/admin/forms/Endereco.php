@@ -6,7 +6,7 @@ class Admin_Form_Endereco extends Twitter_Form
     public function init()
     {
         $this->setMethod('post');
-        $this->setAttrib('class','form-sigin');
+        $this->setAttrib('class','form-horizontal');
         $this->setAttrib('role','form');
         
         $idEndereco = new Zend_Form_Element_Hidden('idEndereco');

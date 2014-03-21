@@ -29,10 +29,7 @@ class Admin_Form_PessoaJuridica extends Zend_Form
         ));
         
         $this->addElement(
-                'submit',   'Enviar',   array(
-                    'ignore'    =>  true,
-                    'class'     => 'btn btn-lg btn-primary btn-block',
-                )
+                'submit',   'Enviar',   array()
                 );
     }
 

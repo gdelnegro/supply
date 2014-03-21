@@ -52,6 +52,5 @@ class Admin_CadastroController extends Zend_Controller_Action
         $this->view->formEndereco = $formEndereco;
     }
 
-
 }
 
