@@ -27,8 +27,6 @@ class Admin_Model_Endereco
             'apelido'       =>  $apelido
         );
         $bdPessoaEndereco->insert($data);
-        var_dump($idEndereco);
-        #var_dump($dados);
     }
 
 }

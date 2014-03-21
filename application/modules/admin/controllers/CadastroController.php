@@ -42,6 +42,7 @@ class Admin_CadastroController extends Zend_Controller_Action
         $this->view->formUsuario = $formUsuario;
         $this->view->formTipoPessoa = $formTipoPessoa;
         $this->view->id = $id;
+        $this->redirect("/admin/cadastro/index/id/$id");
     }
     
     public function adicionarenderecoAction(){
