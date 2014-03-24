@@ -2,7 +2,25 @@
 
 class Admin_Form_Pessoa extends Twitter_Form
 {
-
+   
+    private $_tipo;
+    protected $_editavel;
+    protected $_usr;
+    
+    
+    public function __construct($options = null, $tipo, $usr) {
+        if(strtoupper($tipo) == 'EDIT' OR strtoupper($tipo) == 'NEW'){
+            $this->_editavel = true;
+        }else{
+            $this->_editavel = false;
+        }
+        if($usr == 1){
+            $this->_usr = 'admin';
+        }
+        $this->_tipo = $tipo;
+        parent::__construct($options);
+    }
+    
     public function init()
     {
         $this->setMethod('post');
@@ -50,26 +68,30 @@ class Admin_Form_Pessoa extends Twitter_Form
                 ))
                 ->removeDecorator('HtmlTag');
         
+        
         $this->addElements(array(
             $id,
             $nome,
             $emailContato,
             $telefonePrincipal,
             $senha,
-            $tipoPessoa,
-            $grupo
         ));
+        
+        if($this->_usr == 'admin'){
+            $this->addElements(array(
+                $tipoPessoa,
+                $grupo
+            ));
+        }
         
         foreach($this->getElements() as $element ){
             $element->setAttrib('class', 'form-control');
         }
         
-        
-        $this->addElement('submit',   'Enviar',   array('ignore'    =>  true,));
-        
+        if($this->_tipo == 'edit' OR $this->_tipo == 'new'){
+            $this->addElement('submit',   'Enviar',   array('ignore'    =>  true,));
+        }
         
     }
-
-
 }
 
