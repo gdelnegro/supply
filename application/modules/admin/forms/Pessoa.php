@@ -8,7 +8,7 @@ class Admin_Form_Pessoa extends Twitter_Form
     protected $_usr;
     
     
-    public function __construct($options = null, $tipo, $usr) {
+    public function __construct($tipo, $usr,$options = null) {
         if(strtoupper($tipo) == 'EDIT' OR strtoupper($tipo) == 'NEW'){
             $this->_editavel = true;
         }else{
