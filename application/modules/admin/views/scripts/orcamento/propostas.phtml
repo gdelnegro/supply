@@ -20,19 +20,17 @@ function custom_echo($x)
     <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
    <tr>
         <th><center>Id</center></th>
-        <th><center>Descrição</center></th>        
+        <th><center>Valor</center></th>        
         <th><center>Data de Criação</center></th>
-        <th><center>Propostas Recebidas</center></th>
         <th><center>Ações</center></th>
    </tr>
-   <?php foreach($this->paginator AS $key => $orcamento):?>
+   <?php foreach($this->paginator AS $key => $proposta):?>
    <tr>
-        <td><center><?php  echo $orcamento['id']?></center></td>
-        <td><center><?php  echo $orcamento['comprador']?></center></td>
-        <td><center><?php echo $orcamento['dtCriacao']?></center></td>
-        <td><center><?php echo $orcamento['totalPropostas']?></center></td>
+        <td><center><?php  echo $proposta['id']?></center></td>
+        <td><center><?php  echo $proposta['valor']?></center></td>
+        <td><center><?php echo $proposta['dtCriacao']?></center></td>
       <td><center>
-         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$proposta['id']}"),null,true)?>" title="Aprovar"><span class="glyphicon glyphicon-check"></span></a>
          </center>
       </td>
    </tr>
