@@ -22,10 +22,16 @@ class Admin_Form_PessoaJuridica extends Zend_Form
                 ->setAttrib('placeholder','Data de Fundação')
                 ->removeDecorator('HtmlTag');
         
+        $logo = new Zend_Form_Element_File('logo');
+        $logo->setAttrib('class', 'form-control')
+                ->setAttrib('placeholder', 'Logotipo')
+                ->removeDecorator('HtmlTag');
+        
         $this->addElements(array(
             $idPessoa,
             $CNPJ,
-            $dtFundacao
+            $dtFundacao,
+            $logo
         ));
         
         $this->addElement(
