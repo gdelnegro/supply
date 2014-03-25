@@ -30,14 +30,14 @@ class Admin_Form_Orcamento extends Twitter_Form
         /* Form Elements & Other Definitions Here ... */
         $id = new Zend_Form_Element_Hidden('id');
         
-        $comprador = new Zend_Form_Element_Text('comprador');
-        $comprador->setLabel('Comprador')                
-                ->setAttrib('placeholder','Comprador')
+        $descricao = new Zend_Form_Element_Text('descricao');
+        $descricao->setLabel('Descricao')                
+                ->setAttrib('placeholder','Descricao')
                 ->removeDecorator('HtmlTag');
         
         $this->addElements(array(
             $id,
-            $comprador,
+            $descricao,
         ));
         
         
