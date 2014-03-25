@@ -33,22 +33,18 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     public function newAction(){
         $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);
         $this->view->formOrcamento = $formOrcamento;
-        
+        $produto = new Admin_Model_Produto();
+        $dadosProduto = $produto->pesquisaProduto($idProduto,$subCategoria);
     }
     
     public function propostasAction(){
-        
         $idOrcamento = $this->_getParam('id');
         $dadosOrcamento = $this->_orcamento->pesquisaPropostas($idOrcamento);
-        
         $paginator = Zend_Paginator::factory($dadosOrcamento);
         $paginator->setItemCountPerPage(50);
         $paginator->setPageRange(10);
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
-        
     }
 
-
 }
-
