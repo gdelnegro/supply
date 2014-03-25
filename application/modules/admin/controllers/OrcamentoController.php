@@ -33,6 +33,7 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     public function newAction(){
         $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);
         $this->view->formOrcamento = $formOrcamento;
+        
     }
     
     public function propostasAction(){
