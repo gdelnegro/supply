@@ -189,7 +189,8 @@
                 </ul>
                   <li class="active"><h4>Orçamento</h4></li>
                 <ul class='nav'>
-                    <li class="active"><a href="orcamento/" >Solicitar Orçamento</a></li>
+                    <li class="active"><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>" >Ver todos os orçamentos</a></li>
+                    <li class="active"><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true);?>" >Solicitar Orçamento</a></li>
                     <li class="active"><a href="#" >Enviar Orçamentos</a></li>
                     <li class="active"><a href="#" >Orçamentos Recebidos</a></li>
                     <li class="active"><a href="#" >Orçamentos Aprovados</a></li>

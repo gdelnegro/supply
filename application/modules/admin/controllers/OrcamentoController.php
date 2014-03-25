@@ -30,6 +30,10 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
     }
     
+    public function newAction(){
+        
+    }
+    
     public function propostasAction(){
         
         $idOrcamento = $this->_getParam('id');
