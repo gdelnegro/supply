@@ -94,16 +94,19 @@ class Admin_RevisaoController extends Zend_Controller_Action
         $tipo = $this->_getParam('tipo');//tipo de cadastro que será removido
         switch (strtoupper($tipo)) {
             case 'USR':
-                var_dump(Admin_Model_Usuario::aprovarUsuario($this->_getParam('id')));
+                Admin_Model_Usuario::aprovarUsuario($this->_getParam('id'));
                 $this->_redirect('admin/revisao');
                 break;
             case 'CAT':
                 $modelo = new Admin_Model_Categoria();
                 $modelo->removerCadastro($this->_getParam('id'));
+                $this->_redirect('admin/revisao');
                 break;
             case 'SUBCAT':
+                $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
+                $this->_redirect('admin/revisao');
                 break;
             default:
                 break;
