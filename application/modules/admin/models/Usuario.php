@@ -101,4 +101,10 @@ class Admin_Model_Usuario
             return $dadosPessoa;
     }
     
+    public static function removerUsuario($id){
+        $dbPessoa = new Admin_Model_DbTable_Pessoa();
+        $where =  $dbPessoa->getAdapter()->quoteInto('id = ?', $id);
+        $dbPessoa->delete($where);
+    }
+    
 }

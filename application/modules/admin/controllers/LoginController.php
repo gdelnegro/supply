@@ -37,6 +37,9 @@ class Admin_LoginController extends Zend_Controller_Action
                 if( $result->isValid() ) {
                     $user = $authAdapter->getResultRowObject();
                     $auth->getStorage()->write($user);
+                    #if($status == 4){
+                    #    $this->_redirect($url);
+                    #}
                     $this->_redirect('admin/');
                 }
                 else{

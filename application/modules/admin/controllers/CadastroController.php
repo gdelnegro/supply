@@ -101,6 +101,17 @@ class Admin_CadastroController extends Zend_Controller_Action
         $endereco->removeEndereco($id);
         
     }
+    
+    public function showAction(){
+        $controller = $this->_getParam('ctrl');
+        $usuario = new Admin_Model_Usuario();
+        $formUsuario = new Admin_Form_Pessoa('edit',$this->_usuario->grupo);
+        $id=$this->_getParam('id');
+        $dados = $usuario->pesquisaUsuario($id);
+        $formUsuario->populate($dados);
+        $this->view->formUsuario = $formUsuario;
+        $this->view->ctrl = $controller;
+    }
 
 }
 
