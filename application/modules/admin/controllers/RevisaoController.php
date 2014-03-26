@@ -65,6 +65,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
         $this->view->titulo = $titulo;
+        $this->view->tipo = $tipo;
     }
     
     public function deletarAction(){
@@ -73,6 +74,27 @@ class Admin_RevisaoController extends Zend_Controller_Action
         switch (strtoupper($tipo)) {
             case 'USR':
                 Admin_Model_Usuario::removerUsuario($this->_getParam('id'));
+                $this->_redirect('admin/revisao');
+                break;
+            case 'CAT':
+                $modelo = new Admin_Model_Categoria();
+                $modelo->removerCadastro($this->_getParam('id'));
+                break;
+            case 'SUBCAT':
+                break;
+            case 'ITEM':
+                break;
+            default:
+                break;
+        }
+    }
+    
+    public function aprovarAction(){
+        $this->_helper->viewRenderer->setNoRender(true);
+        $tipo = $this->_getParam('tipo');//tipo de cadastro que será removido
+        switch (strtoupper($tipo)) {
+            case 'USR':
+                Admin_Model_Usuario::aprovarUsuario($this->_getParam('id'));
                 $this->_redirect('admin/revisao');
                 break;
             case 'CAT':

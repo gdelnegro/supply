@@ -107,4 +107,13 @@ class Admin_Model_Usuario
         $dbPessoa->delete($where);
     }
     
+    public static function aprovarUsuario($id){
+        $dbPessoa = new Admin_Model_DbTable_Pessoa();
+        $data = array(
+            'status'=>'1',
+        );
+        $where =  $dbPessoa->getAdapter()->quoteInto('id = ?', $id);
+        $dbPessoa->update($data, $where);
+    }
+    
 }

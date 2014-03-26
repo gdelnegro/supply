@@ -19,9 +19,9 @@
                         echo "<td>".$usuario['nome']."</td>";
                         echo "<td>".$usuario['dtCriacao']."</td>";
                         echo "<td>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$usuario['id']}","ctrl"=>"revisao"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$usuario['id']}"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$usuario['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$usuario['id']}"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
                         echo "</td>";
                     echo "</tr>";
                 endforeach;?>
@@ -62,7 +62,7 @@
                 </tr>
             </table>
         </div>
-        <a>Ver Mais ...</a> 
+        <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"cat"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
     </div>
 </div>
     
@@ -100,10 +100,10 @@
                     </tr>
                 </table>
             </div>
-            <a>Ver Mais ...</a>
+            <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"subcat"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
     </div>
     <div class="col-md-4 col-md-offset-3 ">
-        <h3>Cadastros de Sub-Categorias</h3>
+        <h3>Cadastros de Itens</h3>
         <br>
             <div class="table-responsive">
                 <table class="table-bordered table-condensed table-striped table-hover">
@@ -135,6 +135,6 @@
                     </tr>
                 </table>
             </div>
-            <a>Ver Mais ...</a>
+            <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"item"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
     </div>
 </div>
