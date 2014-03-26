@@ -34,7 +34,7 @@ class Admin_Model_Usuario
             if($end==true){
                 $dadosPessoa[0]['enderecos']=$this->pesquisaEndereco($id);
             }
-            $dadosPessoa[0]['dadosTipoPessoa'] = $dadosTipoPessoa;
+            $dadosPessoa[0]['dadosTipoPessoa'] = $dadosTipoPessoa[0];
             return $dadosPessoa[0];
     }
     

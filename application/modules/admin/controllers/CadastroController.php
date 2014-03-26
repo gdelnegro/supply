@@ -32,7 +32,7 @@ class Admin_CadastroController extends Zend_Controller_Action
         $usuario = new Admin_Model_Usuario();
         $formUsuario = new Admin_Form_Pessoa('edit',$this->_usuario->grupo);
         $id=$this->_getParam('id');
-        $dados = $usuario->pesquisaUsuario($id);
+        $dados = $usuario->pesquisaUsuario($id);        
         $formUsuario->populate($dados);
         $tipoPessoa = $dados['tipoPessoa'];
         
@@ -43,7 +43,6 @@ class Admin_CadastroController extends Zend_Controller_Action
         }
         
         $formTipoPessoa->populate($dados['dadosTipoPessoa']);
-        #die(var_dump($dados['dadosTipoPessoa']));
         
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
