@@ -88,4 +88,17 @@ class Admin_Model_Usuario
         $dbTipoPessoa->insert($dados);
     }
     
+    public function pesquisaUsuarioPendente(){
+            $dbPessoa = new Admin_Model_DbTable_Pessoa();            
+            $selectPessoa = $dbPessoa->select()
+                    ->from('pessoa', array('id','nome','dtCriacao'))
+                    ->where('status = ?',4)
+                    ->limit(10)
+                    ->order('dtCriacao DESC');
+            $stmtPessoa = $selectPessoa->query();
+            $dadosPessoa = $stmtPessoa->fetchAll();
+            
+            return $dadosPessoa;
+    }
+    
 }

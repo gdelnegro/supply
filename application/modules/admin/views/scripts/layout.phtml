@@ -182,6 +182,16 @@
       <div class="row">
             <div class="col-sm-2 col-xs-2 sidebar">
               <ul class="nav nav-sidebar">
+       <?php if($this->layout()->usuario->grupo == 1){?>
+                  <li class="active"><h4>Revisão de Cadastros</h4></li>
+                    <ul class='nav'>
+                        <li class="active"><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" >Revisar cadastros pendentes</a></li>
+                    </ul> 
+       <?php }?>
+                  <li class="active"><h4>Preferências</h4></li>
+                <ul class='nav'>
+                    <li class="active"><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"index"),null,true);?>" >Ver preferências</a></li>
+                </ul>
                   <li class="active"><h4>Itens</h4></li>
                 <ul class='nav'>
                     <li class="active"><a href="" >Itens a venda</a></li>
