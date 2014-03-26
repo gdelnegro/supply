@@ -1,130 +1,140 @@
 <h2>Revisão de cadastros pendentes</h2>
 <br>
-<h3>Cadastros de usuários</h3>
-<br>
-<div class="table-responsive">
-    <table class="table-bordered table-condensed table-striped table-hover">
-        <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Data de cadastro</th>
-            <th>Ações</th>
-        </tr>
-        <?php foreach($this->dadosUsuario as $chave => $usuario):
-            echo "<tr>";
-                echo "<td>".$usuario['id']."</td>";
-                echo "<td>".$usuario['nome']."</td>";
-                echo "<td>".$usuario['dtCriacao']."</td>";
-                echo "<td>";
-                echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
-                echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$usuario['id']}","ctrl"=>"revisao"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
-                echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
-                echo "</td>";
-            echo "</tr>";
-        endforeach;?>
-    </table>
-</div>
-<a>Ver Mais ...</a>
 
-<hr>
-<h3>Cadastros de Categorias</h3>
-<div class="table-responsive">
-    <table class="table-bordered table-condensed table-striped table-hover">
-        <tr>
-            <th>Teste</th>
-            <th>Teste</th>
-            <th>Teste</th>
-            <th>Ações</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>
-                <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>
-                <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-        </tr>
-    </table>
+<div class="row">
+    <div class="col-md-4 ">
+        <h3>Cadastros de usuários</h3>
+        <br>
+        <div class="table-responsive">
+            <table class="table-bordered table-condensed table-striped table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Data de cadastro</th>
+                    <th>Ações</th>
+                </tr>
+                <?php foreach($this->dadosUsuario as $chave => $usuario):
+                    echo "<tr>";
+                        echo "<td>".$usuario['id']."</td>";
+                        echo "<td>".$usuario['nome']."</td>";
+                        echo "<td>".$usuario['dtCriacao']."</td>";
+                        echo "<td>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$usuario['id']}","ctrl"=>"revisao"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$usuario['id']}"),null,true)." title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                        echo "</td>";
+                    echo "</tr>";
+                endforeach;?>
+            </table>
+        </div>
+        <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"usr"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
+    </div>
+    <div class="col-md-4 col-md-offset-3">
+       <h3>Cadastros de Categorias</h3>
+       <br>
+        <div class="table-responsive">
+            <table class="table-bordered table-condensed table-striped table-hover">
+                <tr>
+                    <th>Teste</th>
+                    <th>Teste</th>
+                    <th>Teste</th>
+                    <th>Ações</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>
+                        <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
+                        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
+                        <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>
+                        <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
+                        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
+                        <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <a>Ver Mais ...</a> 
+    </div>
 </div>
-<a>Ver Mais ...</a>
-<hr>
-
-<h3>Cadastros de Sub-Categorias</h3>
-<div class="table-responsive">
-    <table class="table-bordered table-condensed table-striped table-hover">
-        <tr>
-            <th>Teste</th>
-            <th>Teste</th>
-            <th>Teste</th>
-            <th>Ações</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>
-                <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>
-                <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-        </tr>
-    </table>
+    
+<div class="row">
+    <div class="col-md-4 ">
+        <h3>Cadastros de Sub-Categorias</h3>
+        <br>
+            <div class="table-responsive">
+                <table class="table-bordered table-condensed table-striped table-hover">
+                    <tr>
+                        <th>Teste</th>
+                        <th>Teste</th>
+                        <th>Teste</th>
+                        <th>Ações</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>
+                            <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
+                            <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>
+                            <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
+                            <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <a>Ver Mais ...</a>
+    </div>
+    <div class="col-md-4 col-md-offset-3 ">
+        <h3>Cadastros de Sub-Categorias</h3>
+        <br>
+            <div class="table-responsive">
+                <table class="table-bordered table-condensed table-striped table-hover">
+                    <tr>
+                        <th>Teste</th>
+                        <th>Teste</th>
+                        <th>Teste</th>
+                        <th>Ações</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>
+                            <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
+                            <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>
+                            <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
+                            <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <a>Ver Mais ...</a>
+    </div>
 </div>
-<a>Ver Mais ...</a>
-<hr>
-
-<h3>Cadastros de Itens</h3>
-<div class="table-responsive">
-    <table class="table-bordered table-condensed table-striped table-hover">
-        <tr>
-            <th>Teste</th>
-            <th>Teste</th>
-            <th>Teste</th>
-            <th>Ações</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$this->dados['id']}"),null,true)?>" title="Ver cadastro"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>
-                <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-            </td>
-        </tr>
-    </table>
-</div>
-<a>Ver Mais ...</a>
-<hr>

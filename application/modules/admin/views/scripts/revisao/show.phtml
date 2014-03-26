@@ -1,0 +1,41 @@
+<head>
+</head>
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}
+?>
+<body>
+<center>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
+        <tr>
+             <th><center>Id</center></th>
+             <th><center>Descrição</center></th>        
+             <th><center>Data de Criação</center></th>
+             <th><center>Ações</center></th>
+        </tr>
+        <?php foreach($this->paginator AS $key => $dados):?>
+        <tr>
+             <td><center><?php  echo $dados['id']?></center></td>
+             <td><center><?php  echo $dados['nome']?></center></td>
+             <td><center><?php echo $dados['dtCriacao']?></center></td>
+           <td><center>
+              <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$dados['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+              </center>
+           </td>
+        </tr>
+        <?php endforeach;?>
+    </table>    
+</center>
+<a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" title="Voltar"><span class="glyphicon glyphicon-arrow-left"></span></a>
+</body>

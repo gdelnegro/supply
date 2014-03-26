@@ -31,6 +31,42 @@ class Admin_RevisaoController extends Zend_Controller_Action
         
     }
     
+    public function showAction(){
+        $tipo = $this->_getParam('tipo');//tipo de cadastro que será pesquisado
+        $dados = array();
+        switch (strtoupper($tipo)) {
+            case 'USR':
+                $model = new Admin_Model_Usuario();
+                $dados = $model->pesquisaUsuarioPendente();
+                $titulo = 'Usuários';
+                break;
+            case 'CAT':
+                #$model = new Admin_Model_Categoria();
+                #$dados = $model->pesquisarCategoriaPendente();
+                $titulo = 'Categorias';
+                break;
+            case 'SUBCAT':
+                #$model = new Admin_Model_Subcategoria();
+                #$dados = $model->pesquisarSubcategoriaPendente();
+                $titulo = 'Sub-Categorias';
+                break;
+            case 'ITEM':
+                #$model = new Admin_Model_Itens();
+                #$dados = $model->pesquisarItemPendente();
+                $titulo = 'Itens';
+                break;
+            default:
+                break;
+        }
+
+        $paginator = Zend_Paginator::factory($dados);
+        $paginator->setItemCountPerPage(50);
+        $paginator->setPageRange(10);
+        $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
+        $this->view->paginator = $paginator;
+        $this->view->titulo = $titulo;
+    }
+    
     public function deletarAction(){
         $this->_helper->viewRenderer->setNoRender(true);
         $tipo = $this->_getParam('tipo');//tipo de cadastro que será removido
