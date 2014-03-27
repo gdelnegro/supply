@@ -35,9 +35,9 @@
         <div class="table-responsive">
             <table class="table-bordered table-condensed table-striped table-hover">
                 <tr>
-                    <th>Teste</th>
-                    <th>Teste</th>
-                    <th>Teste</th>
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Data de Cadastro</th>
                     <th>Ações</th>
                 </tr>
                 <tr>
@@ -108,31 +108,24 @@
             <div class="table-responsive">
                 <table class="table-bordered table-condensed table-striped table-hover">
                     <tr>
-                        <th>Teste</th>
-                        <th>Teste</th>
-                        <th>Teste</th>
+                        <th>Id</th>
+                        <th>Descrição</th>
+                        <th>Data de Cadastro</th>
                         <th>Ações</th>
                     </tr>
+                    <?php foreach($this->dadosItens as $chave => $item):
+                    echo "<tr>";
+                        echo "<td>".$item['id']."</td>";
+                        echo "<td>".$item['descricao']."</td>";
+                        echo "<td>".$item['dtCriacao']."</td>";
+                        echo "<td>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$item['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$item['id']}","tipo"=>"item"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$item['id']}","tipo"=>"item"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                        echo "</td>";
+                    echo "</tr>";
+                endforeach;?>
                     <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>
-                            <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                            <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>
-                            <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                            <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-                        </td>
-                    </tr>
                 </table>
             </div>
             <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"item"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>

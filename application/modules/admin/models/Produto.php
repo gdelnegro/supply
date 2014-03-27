@@ -20,15 +20,17 @@ class Admin_Model_Produto
     }
     
     
-    public function editTipoPessoa($idUsuario, $tipoPessoa, $dados){
-        if($tipoPessoa == 1){
-            $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
-        }elseif($tipoPessoa == 2){
-            $dbTipoPessoa = new Admin_Model_DbTable_PessoaJuridica();
-        }
-        unset($dados['Enviar']);
-        $dados['idPessoa']=$idUsuario;
-        $dbTipoPessoa->insert($dados);
-    }
+    public function pesquisaProdutoPendente(){
+            $dbProduto = new Admin_Model_DbTable_Produto();            
+            $selectProduto = $dbProduto->select()
+                    ->from('produto', array('id','descricao','dtCriacao'))
+                    ->where('status = ?',4)
+                    ->limit(10)
+                    ->order('dtCriacao DESC');
+            $stmtProduto = $selectProduto->query();
+            $dadosProduto = $stmtProduto->fetchAll();
+            
+            return $dadosProduto;
+    }    
     
 }

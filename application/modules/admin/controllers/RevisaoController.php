@@ -21,13 +21,15 @@ class Admin_RevisaoController extends Zend_Controller_Action
     public function indexAction()
     {
         $usuario = new Admin_Model_Usuario();
-        #$itens = new admin_model_Itens();
+        $itens = new Admin_Model_Produto();
         #$categorias = new admin_model_categorias();
         #$subCategorias = new Admin_Model_Subcategorias();
         
         $dadosUsuario = $usuario->pesquisaUsuarioPendente();
+        $dadosItens = $itens->pesquisaProdutoPendente();
         
         $this->view->dadosUsuario = $dadosUsuario;
+        $this->view->dadosItens = $dadosItens;
         
     }
     
@@ -51,8 +53,8 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $titulo = 'Sub-Categorias';
                 break;
             case 'ITEM':
-                #$model = new Admin_Model_Itens();
-                #$dados = $model->pesquisarItemPendente();
+                $model = new Admin_Model_Produto();
+                $dados = $model->pesquisaProdutoPendente();
                 $titulo = 'Itens';
                 break;
             default:
