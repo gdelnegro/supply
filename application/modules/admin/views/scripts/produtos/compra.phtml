@@ -30,7 +30,7 @@ function custom_echo($x)
             <tr>
                 <td><center><input type="checkbox" name="produtos[]" value="<?php echo $produto['id']?>"></center></td>
                  <td><center><?php  echo $produto['produto']?></center></td>
-                 <td><center><?php echo $produto['quantidade']?></center></td>
+                 <td><center><input type="text" name="quantidade[]" value="<?php echo $produto['quantidade']?>"></center></td>
                  <td><center><?php echo $produto['dtCriacao']?></center></td>
                  <td><center>
                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$produto['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>

@@ -34,14 +34,15 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);
         $this->view->formOrcamento = $formOrcamento;
         $produto = new Admin_Model_Produto();
-        #$dadosProduto = $produto->pesquisaProduto($idProduto,$subCategoria);
         $produtos = $this->_getParam('produtos');
+        $quantidade = $this->_getParam('quantidade');
         if($produtos != null){
-            foreach($produtos as $idProduto){
+            foreach($produtos as $indice => $idProduto){
                 $dadosProdutos[] = $produto->pesquisaProduto($idProduto);
+                $dadosProdutos[]['quantidade'] = $quantidade[$indice];
             }
+            $this->view->dados = $dadosProdutos;
         }
-        $this->view->dados = $dadosProdutos;
     }
     
     public function propostasAction(){

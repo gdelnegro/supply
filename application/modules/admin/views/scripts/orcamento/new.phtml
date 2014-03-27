@@ -1,5 +1,13 @@
+<table>
+    <tr>
+        <td>Descricao</td>
+        <td>Quantidade</td>
+    </tr>
 <?php
-    foreach($this->dados as $chave => $produto){
-        echo $produto['descricao']."<br>";
-    }
-?>
+    foreach($this->dados as $chave => $produto){?>
+    <tr>
+        <td><?php echo $produto['descricao'] ?></td>
+        <td><?php echo $produto['quantidade'] ?></td>
+    </tr>
+    <?php }?>
+</table>
