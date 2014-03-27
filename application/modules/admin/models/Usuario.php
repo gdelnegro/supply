@@ -85,6 +85,18 @@ class Admin_Model_Usuario
         }
         unset($dados['Enviar']);
         $dados['idPessoa']=$idUsuario;
+        $where = $dbTipoPessoa->getAdapter()->quoteInto('idPessoa = ?', $idUsuario);
+        $dbTipoPessoa->update($dados, $where);
+    }
+    
+    public function insereTipoPessoa($idUsuario, $tipoPessoa, $dados){
+        if($tipoPessoa == 1){
+            $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
+        }elseif($tipoPessoa == 2){
+            $dbTipoPessoa = new Admin_Model_DbTable_PessoaJuridica();
+        }
+        unset($dados['Enviar']);
+        $dados['idPessoa']=$idUsuario;
         $dbTipoPessoa->insert($dados);
     }
     

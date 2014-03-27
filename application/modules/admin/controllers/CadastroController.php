@@ -32,17 +32,25 @@ class Admin_CadastroController extends Zend_Controller_Action
         $dados = $usuario->pesquisaUsuario($id);        
         $formUsuario->populate($dados);
         $tipoPessoa = $dados['tipoPessoa'];
+        
         if($tipoPessoa == 1){
             $formTipoPessoa = new Admin_Form_PessoaFisica();
         }elseif ($tipoPessoa == 2) {
             $formTipoPessoa = new Admin_Form_PessoaJuridica();
         }
-        $formTipoPessoa->populate($dados['dadosTipoPessoa']);
+        if($dados['dadosTipoPessoa'] != null){
+            $formTipoPessoa->populate($dados['dadosTipoPessoa']);
+        }
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
             
             if ( $formTipoPessoa->isValid($data) ){
-                $usuario->editTipoPessoa($id, $tipoPessoa, $data);
+                if($dados['dadosTipoPessoa'] == null){
+                    $usuario->insereTipoPessoa($id, $tipoPessoa, $data);
+                }else{
+                    $usuario->editTipoPessoa($id, $tipoPessoa, $data);
+                }
+                
                 $this->redirect("/admin/cadastro/index/");
             }else{                
                 $this->view->erro='Dados Invalidos';

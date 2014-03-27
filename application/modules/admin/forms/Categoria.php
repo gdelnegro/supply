@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_Produto extends Twitter_Form
+class Admin_Form_Categoria extends Twitter_Form
 {
    
     private $_tipo;
