@@ -20,9 +20,6 @@ class Admin_CadastroController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        /*
-         * Edita as informações do usuário logado
-         */
         $usuario = new Admin_Model_Usuario();    
         $dados = $usuario->pesquisaUsuario($this->_usuario->id,true);
         $this->view->dados = $dados;
@@ -35,15 +32,12 @@ class Admin_CadastroController extends Zend_Controller_Action
         $dados = $usuario->pesquisaUsuario($id);        
         $formUsuario->populate($dados);
         $tipoPessoa = $dados['tipoPessoa'];
-        
         if($tipoPessoa == 1){
             $formTipoPessoa = new Admin_Form_PessoaFisica();
         }elseif ($tipoPessoa == 2) {
             $formTipoPessoa = new Admin_Form_PessoaJuridica();
         }
-        
         $formTipoPessoa->populate($dados['dadosTipoPessoa']);
-        
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
             
@@ -55,7 +49,6 @@ class Admin_CadastroController extends Zend_Controller_Action
                 $this->view->formTipoPessoa = $formTipoPessoa->populate($data);
             }
         }
-        
         $this->view->formUsuario = $formUsuario;
         $this->view->formTipoPessoa = $formTipoPessoa;
     }
@@ -64,10 +57,8 @@ class Admin_CadastroController extends Zend_Controller_Action
         $idUsuario = $this->_getParam('id');
         $formEndereco = new Admin_Form_Endereco();
         $endereco = new Admin_Model_Endereco();
-        
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
-            
             if ( $formEndereco->isValid($data) ){
                 $endereco->insereEndereco($idUsuario, $data);
                 $this->redirect("/admin/cadastro/index/");
@@ -88,7 +79,6 @@ class Admin_CadastroController extends Zend_Controller_Action
         $formEndereco = new Admin_Form_Endereco();
         $dados = $usuario->pesquisaEndereco($this->_usuario->id,$idEndereco);
         $formEndereco->populate($dados[0]);
-        
         $this->view->formEndereco = $formEndereco;
         $this->view->id = $idEndereco;
     }
@@ -98,7 +88,6 @@ class Admin_CadastroController extends Zend_Controller_Action
         $endereco = new Admin_Model_Endereco();
         $id = $this->_getParam('id');
         $endereco->removeEndereco($id);
-        
     }
     
     public function showAction(){
