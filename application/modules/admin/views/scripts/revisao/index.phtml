@@ -1,3 +1,9 @@
+<style>
+    table{
+        width: 100%
+    }
+</style>
+    
 <h2>Revisão de cadastros pendentes</h2>
 <br>
 
@@ -32,7 +38,7 @@
         </div>
         <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"usr"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
     </div>
-    <div class="col-md-5 col-md-offset-2">
+    <div class="col-md-5 col-md-offset-1">
        <h3>Cadastros de Categorias</h3>
        <br>
         <div class="table-responsive">
@@ -105,7 +111,7 @@
             </div>
             <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"subcat"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
     </div>
-    <div class="col-md-5 col-md-offset-2 ">
+    <div class="col-md-5 col-md-offset-1 ">
         <h3>Cadastros de Itens</h3>
         <br>
             <div class="table-responsive">

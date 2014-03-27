@@ -608,6 +608,27 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `osuply_app`.`fornecedorProduto`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `osuply_app`;
+INSERT INTO `osuply_app`.`fornecedorProduto` (`id`, `produto`, `quantidade`, `precoItem`, `fornecedor`, `codigo`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (NULL, 1, 100, 120, 1, 'lol123', '2014-03-21', NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `osuply_app`.`compradorProduto`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `osuply_app`;
+INSERT INTO `osuply_app`.`compradorProduto` (`id`, `produto`, `quantidade`, `comprador`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (NULL, 2, 100, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`compradorProduto` (`id`, `produto`, `quantidade`, `comprador`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (NULL, 3, 50, 1, NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `osuply_app`.`tipos`
 -- -----------------------------------------------------
 START TRANSACTION;

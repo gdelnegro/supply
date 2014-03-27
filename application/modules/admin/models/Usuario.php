@@ -100,13 +100,15 @@ class Admin_Model_Usuario
         $dbTipoPessoa->insert($dados);
     }
     
-    public function pesquisaUsuarioPendente(){
+    public function pesquisaUsuarioPendente($limit = null){
             $dbPessoa = new Admin_Model_DbTable_Pessoa();            
             $selectPessoa = $dbPessoa->select()
                     ->from('pessoa', array('id','nome','dtCriacao'))
-                    ->where('status = ?',4)
-                    ->limit(10)
-                    ->order('dtCriacao DESC');
+                    ->where('status = ?',4);
+            if($limit != null){
+                $selectPessoa->limit($limit);
+            }
+                    $selectPessoa->order('dtCriacao DESC');
             $stmtPessoa = $selectPessoa->query();
             $dadosPessoa = $stmtPessoa->fetchAll();
             

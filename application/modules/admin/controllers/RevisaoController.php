@@ -25,8 +25,8 @@ class Admin_RevisaoController extends Zend_Controller_Action
         #$categorias = new admin_model_categorias();
         #$subCategorias = new Admin_Model_Subcategorias();
         
-        $dadosUsuario = $usuario->pesquisaUsuarioPendente();
-        $dadosItens = $itens->pesquisaProdutoPendente();
+        $dadosUsuario = $usuario->pesquisaUsuarioPendente(10);
+        $dadosItens = $itens->pesquisaProdutoPendente(10);
         
         $this->view->dadosUsuario = $dadosUsuario;
         $this->view->dadosItens = $dadosItens;

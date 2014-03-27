@@ -2414,6 +2414,7 @@ input[type="button"].btn-block {
 }
 .glyphicon-plus:before {
   content: "\2b";
+  color: #407941;
 }
 .glyphicon-euro:before {
   content: "\20ac";
@@ -2429,6 +2430,7 @@ input[type="button"].btn-block {
 }
 .glyphicon-pencil:before {
   content: "\270f";
+  color: #407941;
 }
 .glyphicon-glass:before {
   content: "\e001";
@@ -2438,7 +2440,7 @@ input[type="button"].btn-block {
 }
 .glyphicon-search:before {
   content: "\e003";
-  color: #3A7694;
+  color: #0A46A8;
 }
 .glyphicon-heart:before {
   content: "\e005";
