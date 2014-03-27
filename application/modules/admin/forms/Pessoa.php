@@ -4,15 +4,15 @@ class Admin_Form_Pessoa extends Twitter_Form
 {
    
     private $_tipo;
-    protected $_editavel;
+    protected $_exibir;
     protected $_usr;
     
     
     public function __construct($tipo, $usr,$options = null) {
         if(strtoupper($tipo) == 'EDIT' OR strtoupper($tipo) == 'NEW'){
-            $this->_editavel = true;
+            $this->_exibir = null;
         }else{
-            $this->_editavel = false;
+            $this->_exibir = TRUE;
         }
         if($usr == 1){
             $this->_usr = 'admin';
@@ -33,22 +33,26 @@ class Admin_Form_Pessoa extends Twitter_Form
         $nome = new Zend_Form_Element_Text('nome');
         $nome->setLabel('Nome')                
                 ->setAttrib('placeholder','Nome')
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         $emailContato = new Zend_Form_Element_Text('emailContato');
         $emailContato->setLabel('Email de Contato')
                 ->setAttrib('placeholder','Email de contato')
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         $telefonePrincipal = new Zend_Form_Element_Text('telefonePrincipal');
         $telefonePrincipal->setLabel('Telefone Principal')
                 ->setAttrib('placeholder','Telefone de Contato')
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         $senha = new Zend_Form_Element_Password('senha');
         $senha->setLabel('Senha')
                 ->setAttrib('placeholder','Senha')
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         $tipoPessoa = new Zend_Form_Element_Select('tipoPessoa');
         $tipoPessoa->setLabel('Tipo de Pessoa')
@@ -57,7 +61,8 @@ class Admin_Form_Pessoa extends Twitter_Form
                     '1'=>'Física',
                     '2'=>'Jurídica'
                 ))
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         $grupo = new Zend_Form_Element_Select('grupo');
         $grupo->setLabel('Grupo')
@@ -66,7 +71,8 @@ class Admin_Form_Pessoa extends Twitter_Form
                     '1'=>'Administrador Sistema',
                     '2'=>'Jurídica'
                 ))
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         
         $this->addElements(array(

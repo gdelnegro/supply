@@ -3,7 +3,8 @@
 <h3>Dados Pessoais</h3>
 <p>
     <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Editar cadastro"><span class="glyphicon glyphicon-pencil"></span></a>
-    <a href="" title="Visualizar cadastro"><span class="glyphicon glyphicon-search"></span></a>
+    
+    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$this->dados['id']}"),null,true)?>" title="Editar cadastro"><span class="glyphicon glyphicon-search"></span></a>
 </p>
 
 <br>
