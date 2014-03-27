@@ -63,12 +63,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `osuply_app`.`status`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `osuply_app`.`status` (
+  `id` INT NOT NULL,
+  `descricao` VARCHAR(45) NULL,
+  `dtAlteracao` DATE NULL,
+  `dtCriacao` DATE NULL,
+  `usrCriou` INT NULL,
+  `usrAlterou` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `osuply_app`.`produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `osuply_app`.`produto` (
   `id` INT(12) NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
   `categoria` INT(12) NOT NULL,
+  `status` INT NULL,
   `dtAlteracao` DATE NULL,
   `dtCriacao` DATE NULL,
   `usrCriou` INT NULL,
@@ -78,9 +93,15 @@ CREATE TABLE IF NOT EXISTS `osuply_app`.`produto` (
   INDEX `categoria` USING BTREE (`categoria` ASC),
   INDEX `auditoria` USING BTREE (`dtAlteracao` ASC, `dtCriacao` ASC, `usrCriou` ASC, `usrAlterou` ASC),
   INDEX `pesquisa` USING BTREE (`descricao` ASC, `categoria` ASC, `usrCriou` ASC, `usrAlterou` ASC),
+  INDEX `fk_produto_status_idx` (`status` ASC),
   CONSTRAINT `fk_produto_subcategoria`
     FOREIGN KEY (`categoria`)
     REFERENCES `osuply_app`.`subCategoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produto_status`
+    FOREIGN KEY (`status`)
+    REFERENCES `osuply_app`.`status` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -98,20 +119,6 @@ CREATE TABLE IF NOT EXISTS `osuply_app`.`tipoPessoa` (
   `usrAlterou` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `osuply_app`.`status`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `osuply_app`.`status` (
-  `id` INT NOT NULL,
-  `descricao` VARCHAR(45) NULL,
-  `dtAlteracao` DATE NULL,
-  `dtCriacao` DATE NULL,
-  `usrCriou` INT NULL,
-  `usrAlterou` INT NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -511,18 +518,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `osuply_app`.`tipoPessoa`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `osuply_app`;
-INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Administrador', NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Física', NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Jurídica', NULL, NULL, NULL, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `osuply_app`.`status`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -536,11 +531,46 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `osuply_app`.`produto`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `osuply_app`;
+INSERT INTO `osuply_app`.`produto` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Chave de Fenda', 1, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`produto` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Chave Philips', 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`produto` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Parafusadeira Elétrica', 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`produto` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 'Furadeira', 1, 4, NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `osuply_app`.`tipoPessoa`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `osuply_app`;
+INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Administrador', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Física', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Jurídica', NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `osuply_app`.`pessoa`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `osuply_app`;
 INSERT INTO `osuply_app`.`pessoa` (`id`, `nome`, `emailContato`, `telefonePrincipal`, `senha`, `grupo`, `tipoPessoa`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Gustavo', 'gustavo@gustavo.com.br', '(11)98286-3430', 'gustavo', 1, 1, NULL, NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `osuply_app`.`pessoaFisica`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `osuply_app`;
+INSERT INTO `osuply_app`.`pessoaFisica` (`idPessoa`, `CPF`, `dtNascimento`, `RG`, `nomeMae`) VALUES (1, '08327490958', '1991-12-11', '', 'Teste');
 
 COMMIT;
 
