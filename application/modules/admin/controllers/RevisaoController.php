@@ -90,7 +90,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 break;
         }
     }
-    
+
     public function aprovarAction(){
         $this->_helper->viewRenderer->setNoRender(true);
         $tipo = $this->_getParam('tipo');//tipo de cadastro que será removido
@@ -114,7 +114,4 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 break;
         }
     }
-
-
 }
-

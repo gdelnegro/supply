@@ -1,3 +1,4 @@
+<br>
 <h2>Revisão de cadastros pendentes</h2>
 <br>
 
@@ -123,8 +124,11 @@
                         echo "<td>".$item['dtCriacao']."</td>";
                         echo "<td>";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$item['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo " ";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$item['id']}","tipo"=>"item"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
+                        echo " ";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$item['id']}","tipo"=>"item"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                        echo " ";
                         echo "</td>";
                     echo "</tr>";
                 endforeach;?>
