@@ -20,8 +20,11 @@
                         echo "<td>".$usuario['dtCriacao']."</td>";
                         echo "<td>";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$usuario['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo " ";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
+                        echo " ";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$usuario['id']}","tipo"=>"usr"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                        echo " ";
                         echo "</td>";
                     echo "</tr>";
                 endforeach;?>

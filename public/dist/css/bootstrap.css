@@ -2438,6 +2438,7 @@ input[type="button"].btn-block {
 }
 .glyphicon-search:before {
   content: "\e003";
+  color: #3A7694;
 }
 .glyphicon-heart:before {
   content: "\e005";
@@ -2624,6 +2625,7 @@ input[type="button"].btn-block {
 }
 .glyphicon-check:before {
   content: "\e067";
+  color: #407941;
 }
 .glyphicon-move:before {
   content: "\e068";
