@@ -125,8 +125,8 @@
                     <li><h4>Preferências</h4></li>
                         <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"index"),null,true);?>" >Ver preferências</a></li>
                     <li><h4>Itens</h4></li>
-                        <li><a href="" >Itens a venda</a></li>
-                        <li><a href="#" >Itens para comprar</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"venda"),null,true);?>" >Itens a venda</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"compra"),null,true);?>" >Itens para comprar</a></li>
                     <li><h4>Orçamento</h4></li>
                         <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>" >Ver todos os orçamentos</a></li>
                         <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true);?>" >Solicitar Orçamento</a></li>

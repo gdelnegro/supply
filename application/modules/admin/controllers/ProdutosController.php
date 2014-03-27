@@ -1,6 +1,6 @@
 <?php
 
-class Admin_PreferenciasController extends Zend_Controller_Action
+class Admin_ProdutosController extends Zend_Controller_Action
 {
 
     public function init()
@@ -17,7 +17,15 @@ class Admin_PreferenciasController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $this->_helper->viewRenderer->setNoRender(true);
+    }
+    
+    public function vendaAction(){
+        
+    }
+    
+    public function compraAction(){
+        
     }
 
 
