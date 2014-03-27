@@ -99,15 +99,23 @@ class Admin_CadastroController extends Zend_Controller_Action
     }
     
     public function showAction(){
-        $controller = $this->_getParam('ctrl');
         $usuario = new Admin_Model_Usuario();
         $formUsuario = new Admin_Form_Pessoa('show',$this->_usuario->grupo);
         $id=$this->_getParam('id');
-        $dados = $usuario->pesquisaUsuario($id);
+        $dados = $usuario->pesquisaUsuario($id);        
         $formUsuario->populate($dados);
+        $tipoPessoa = $dados['tipoPessoa'];
+        if($tipoPessoa == 1){
+            $formTipoPessoa = new Admin_Form_PessoaFisica('show',$this->_usuario->grupo);
+        }elseif ($tipoPessoa == 2) {
+            $formTipoPessoa = new Admin_Form_PessoaJuridica('show',$this->_usuario->grupo);
+        }
+        if($dados['dadosTipoPessoa'] != null){
+            $formTipoPessoa->populate($dados['dadosTipoPessoa']);
+            $this->view->formTipoPessoa = $formTipoPessoa;
+        }
         $this->view->formUsuario = $formUsuario;
-        $this->view->ctrl = $controller;
+        
     }
-
 }
 

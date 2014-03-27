@@ -2,6 +2,23 @@
 
 class Admin_Form_PessoaFisica extends Twitter_Form
 {
+    private $_tipo;
+    protected $_exibir;
+    protected $_usr;
+    
+    
+    public function __construct($tipo, $usr,$options = null) {
+        if(strtoupper($tipo) == 'EDIT' OR strtoupper($tipo) == 'NEW'){
+            $this->_exibir = null;
+        }else{
+            $this->_exibir = TRUE;
+        }
+        if($usr == 1){
+            $this->_usr = 'admin';
+        }
+        $this->_tipo = $tipo;
+        parent::__construct($options);
+    }
 
     public function init()
     {
@@ -42,12 +59,13 @@ class Admin_Form_PessoaFisica extends Twitter_Form
         ));
         
         foreach($this->getElements() as $element ){
-            $element->setAttrib('class', 'form-control');
+            $element->setAttrib('class', 'form-control')
+                ->setAttrib('disabled', $this->_exibir);
         }
         
-        $this->addElement(
-                'submit',   'Enviar',   array()
-                );
+        if($this->_tipo == 'edit' OR $this->_tipo == 'new'){
+            $this->addElement('submit',   'Enviar',   array('ignore'    =>  true,));
+        }        
     }
 
 
