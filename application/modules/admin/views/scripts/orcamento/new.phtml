@@ -1,7 +1,5 @@
-SOLICITAR ORÇAMENTO
-
-<ul>
-    <li>Selecionar Categoria</li>
-    <?php echo $this->formOrcamento?>
-    <li>Selecionar item</li>
-</ul>
+<?php
+    foreach($this->dados as $chave => $produto){
+        echo $produto['descricao']."<br>";
+    }
+?>

@@ -4,7 +4,7 @@ class Admin_Model_Produto
 {
     protected $idUsuario;
     
-    public function pesquisaProduto($idProduto = null, $subcategoria){
+    public function pesquisaProduto($idProduto = null, $subcategoria = null){
             $dbProduto = new Admin_Model_DbTable_Produto();
             $selectProduto = $dbProduto->select()
                     ->from('produto');
@@ -16,7 +16,12 @@ class Admin_Model_Produto
             }
             $stmtProduto = $selectProduto->query();
             $dadosProduto = $stmtProduto->fetchAll();
-            return $dadosProduto;
+            if($idProduto != null){
+                return $dadosProduto[0];
+            }else{
+                return $dadosProduto;
+            }
+            
     }
     
     
