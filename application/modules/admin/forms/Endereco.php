@@ -16,8 +16,8 @@ class Admin_Form_Endereco extends Twitter_Form
                 ->setLabel('Apelido')
                 ->setAttrib('placeholder', 'Apelido');
         
-        $dbTipoEndereco = new Admin_Model_DbTable_TipoEndereco();
-        $listaTipoEndereco = $dbTipoEndereco->getListaTipoEndereco();
+        $endereco = new Admin_Model_Endereco();
+        $listaTipoEndereco = $endereco->getListaTipoEndereco();
         $tipoEndereco = new Zend_Form_Element_Select('tipoEndereco');
         $tipoEndereco->removeDecorator('HtmlTag')
                 ->setLabel('Tipo de Endereço')

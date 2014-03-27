@@ -28,6 +28,15 @@ class Admin_Model_Endereco
         );
         $bdPessoaEndereco->insert($data);
     }
+    
+    public function getListaTipoEndereco(){
+        $bdEndereco = new Admin_Model_DbTable_TipoEndereco();
+        $select = $bdEndereco->select()
+                ->from('tipoEndereco', array('key'=>'id','value'=>'descricao'));
+        $stmt = $select->query();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
 
 }
 
