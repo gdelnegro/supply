@@ -467,13 +467,78 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `osuply_app`.`preferencias`
+-- Table `osuply_app`.`preferenciasCompra`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `osuply_app`.`preferencias` (
-  `id` INT(12) NOT NULL,
-  `pessoa` INT(12) NULL,
-  `preferenciascol` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasCompra` (
+  `id` INT(12) NOT NULL AUTO_INCREMENT,
+  `pessoa` INT(12) NOT NULL,
+  `categoria` INT(12) NULL,
+  `tipo` INT(12) NULL,
+  `subcategoria` INT(12) NULL,
+  PRIMARY KEY (`id`, `pessoa`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_preferencias_pessoa_idx` (`pessoa` ASC),
+  INDEX `fk_preferencias_categoria_idx` (`categoria` ASC),
+  INDEX `fk_preferencias_tipo_idx` (`tipo` ASC),
+  INDEX `fk_preferencias_subcategoria_idx` (`subcategoria` ASC),
+  CONSTRAINT `fk_preferencias_pessoa`
+    FOREIGN KEY (`pessoa`)
+    REFERENCES `osuply_app`.`pessoa` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preferencias_categoria`
+    FOREIGN KEY (`categoria`)
+    REFERENCES `osuply_app`.`categoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preferencias_tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `osuply_app`.`tipos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preferencias_subcategoria`
+    FOREIGN KEY (`subcategoria`)
+    REFERENCES `osuply_app`.`subCategoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `osuply_app`.`preferenciasVenda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasVenda` (
+  `id` INT(12) NOT NULL AUTO_INCREMENT,
+  `pessoa` INT(12) NOT NULL,
+  `categoria` INT(12) NULL,
+  `tipo` INT(12) NULL,
+  `subcategoria` INT(12) NULL,
+  PRIMARY KEY (`id`, `pessoa`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_preferencias_pessoa_idx` (`pessoa` ASC),
+  INDEX `fk_preferencias_categoria_idx` (`categoria` ASC),
+  INDEX `fk_preferencias_tipo_idx` (`tipo` ASC),
+  INDEX `fk_preferencias_subcategoria_idx` (`subcategoria` ASC),
+  CONSTRAINT `fk_preferencias_pessoa0`
+    FOREIGN KEY (`pessoa`)
+    REFERENCES `osuply_app`.`pessoa` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preferencias_categoria0`
+    FOREIGN KEY (`categoria`)
+    REFERENCES `osuply_app`.`categoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preferencias_tipo0`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `osuply_app`.`tipos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preferencias_subcategoria0`
+    FOREIGN KEY (`subcategoria`)
+    REFERENCES `osuply_app`.`subCategoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -560,7 +625,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `osuply_app`;
-INSERT INTO `osuply_app`.`pessoa` (`id`, `nome`, `emailContato`, `telefonePrincipal`, `senha`, `grupo`, `tipoPessoa`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Gustavo', 'gustavo@gustavo.com.br', '(11)98286-3430', 'gustavo', 1, 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`pessoa` (`id`, `nome`, `emailContato`, `telefonePrincipal`, `senha`, `grupo`, `tipoPessoa`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Gustavo', 'gustavo@gustavo.com.br', '(11)98286-3430', '4c96f8324e3ba54a99e78249b95daa30', 1, 1, NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
 

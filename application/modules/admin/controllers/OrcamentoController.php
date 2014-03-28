@@ -38,8 +38,8 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $quantidade = $this->_getParam('quantidade');
         if($produtos != null){
             foreach($produtos as $indice => $idProduto){
-                $dadosProdutos[] = $produto->pesquisaProduto($idProduto);
-                $dadosProdutos[]['quantidade'] = $quantidade[$indice];
+                $dadosProdutos[$indice] = $produto->pesquisaProduto($idProduto);
+                $dadosProdutos[$indice]['quantidade'] = $quantidade[$indice];
             }
             $this->view->dados = $dadosProdutos;
         }
