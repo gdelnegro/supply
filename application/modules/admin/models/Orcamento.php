@@ -114,12 +114,18 @@ class Admin_Model_Orcamento
      * @return array
      */
     public function pesquisaProdutos($idOrcamento){       
+        $produto = new Admin_Model_Produto();
         $dbOrcamentoProduto = new Admin_Model_DbTable_OrcamentoProduto();
         $selectProdutosOrcamento = $dbOrcamentoProduto->select()
                 ->from('orcamentoProduto')
                 ->where('orcamento = ?', $idOrcamento);
         $stmtProdutosOrcamento = $selectProdutosOrcamento->query();
         $dadosProdutos = $stmtProdutosOrcamento->fetchAll();
+        foreach($dadosProdutos as $indice => $produtos){
+            $id = $produtos['produto'];
+            $descricao = $produto->pesquisaProduto($id);
+            $dadosProdutos[$indice]['descricao']= $descricao['descricao'];
+        }
         return $dadosProdutos;
     }
     

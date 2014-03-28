@@ -22,7 +22,7 @@
                     <td><center><?php  echo $item['descricao']?></center></td>
                     <td><center><?php  echo $item['quantidade']?></center></td>
                     <td><center>
-                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$item['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"delitem","id"=>"{$item['produto']}"),null,true)?>" title="Remover Item do Orçamento"><span class="glyphicon glyphicon-remove"></span></a>
                       </center>
                     </td>
                 </tr>
