@@ -109,6 +109,18 @@ class Admin_Model_Orcamento
     }
     
     /**
+     * Método responsável por adicionar produtos ao orçamento
+     * @param int $idOrcamento
+     * @param int $idProduto
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
+    public function removeProdutos($idOrcamento, $idProduto){
+        $dbOrcamentoProduto = new Admin_Model_DbTable_OrcamentoProduto();
+        $dbOrcamentoProduto->delete(array("orcamento = {$idOrcamento}","produto = {$idProduto}"));
+    }
+    
+    /**
      * Método responsável pela pesquisa dos produtos atrelados ao orçamento
      * @param int $idOrcamento
      * @return array

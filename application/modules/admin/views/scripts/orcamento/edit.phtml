@@ -22,7 +22,7 @@
                     <td><center><?php  echo $item['descricao']?></center></td>
                     <td><center><?php  echo $item['quantidade']?></center></td>
                     <td><center>
-                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"delitem","id"=>"{$item['produto']}"),null,true)?>" title="Remover Item do Orçamento"><span class="glyphicon glyphicon-remove"></span></a>
+                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"delitem","id"=>"{$item['produto']}","orcamento"=>"{$this->id}"),null,true)?>" title="Remover Item do Orçamento"><span class="glyphicon glyphicon-remove"></span></a>
                       </center>
                     </td>
                 </tr>
@@ -30,7 +30,6 @@
             </table>
             <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
                 
-
-        <a href="#" class="btn btn-primary">Adicionar Itens</a>
+        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"compra","orcamento"=>"{$this->id}"),null,true)?>" class="btn btn-primary">Adicionar Itens</a>
     </div>
 </div>

@@ -68,6 +68,7 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     }
     
     public function editAction(){
+        unset($_SESSION['produtos']);
         $idOrcamento = $this->_getParam('id');
         $formOrcamento = new Admin_Form_Orcamento('show', $this->_usuario->grupo);
         $orcamento = new Admin_Model_Orcamento();
@@ -81,6 +82,7 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
         $this->view->formOrcamento = $formOrcamento;
+        $this->view->id = $idOrcamento;
     }
     
     public function propostasAction(){
@@ -94,12 +96,19 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     }
     
     public function additemAction(){
-        $itens = $this->_getParam('produto');
-        if(is_array($itens)){
-            
-        }else{
-            
-        }
+        unset($_SESSION['produtos']);
+        
+        die(var_dump($this->_getParam('quantidade')));
     }
+    
+    public function delitemAction(){
+        $this->_helper->viewRenderer->setNoRender(true);
+        $idProduto = $this->_getParam('id');
+        $idOrcamento = $this->_getParam('orcamento');
+        $orcamento = new Admin_Model_Orcamento();
+        $orcamento->removeProdutos($idOrcamento, $idProduto);
+        $this->redirect("/admin/orcamento/edit/id/{$idOrcamento}");
+    }
+    
 
 }

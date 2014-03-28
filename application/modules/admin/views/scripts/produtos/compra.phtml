@@ -15,7 +15,15 @@ function custom_echo($x)
 <center>
     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
     <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Adicionar mais produtos de interesse</a></p>
-    <form method="post" action="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">
+    <?php
+        if($this->id != null){
+            echo "<form method=\"post\" action=".$this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"additem"),null,true).">";
+        }else{
+            echo "<form method=\"post\" action=".$this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true).">";
+        }
+    ?>
+    
+        <input type="hidden" value="<?php echo $this->orcamento?>" name="orcamento">
         <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
             <tr>
                  <th><center>Selecionar</center></th>
@@ -37,7 +45,13 @@ function custom_echo($x)
             </tr>
             <?php endforeach;?>
         </table>    
-        <input type="submit" id="enviar" value="Solicitar orçamento dos itens selecionados" class="btn btn-primary">
+        <?php
+        if($this->id == null){
+            echo "<input type=\"submit\" id=\"enviar\" value=\"Solicitar orçamento dos itens selecionados\" class=\"btn btn-primary\">";
+        }else{
+            echo "<input type=\"submit\" id=\"enviar\" value=\"Adicionar os itens selecionados ao orçamento\" class=\"btn btn-primary\">";
+        }?>
+        
     </form>
 </center>
 </body>

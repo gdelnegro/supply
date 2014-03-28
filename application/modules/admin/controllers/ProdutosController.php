@@ -40,6 +40,8 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $paginator->setPageRange(10);
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
+        
+        $this->view->id = $this->_getParam('orcamento');
     }
 
 
