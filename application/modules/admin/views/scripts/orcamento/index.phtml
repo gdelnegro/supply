@@ -38,6 +38,7 @@ function custom_echo($x)
    </tr>
    <?php endforeach;?>
 </table>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
     
 </center>
 </body>

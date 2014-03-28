@@ -113,10 +113,10 @@ class Admin_Model_Orcamento
      * @param int $idOrcamento
      * @return array
      */
-    public function pesquisaProdutos($idOrcamento){
+    public function pesquisaProdutos($idOrcamento){       
         $dbOrcamentoProduto = new Admin_Model_DbTable_OrcamentoProduto();
         $selectProdutosOrcamento = $dbOrcamentoProduto->select()
-                ->from($name)
+                ->from('orcamentoProduto')
                 ->where('orcamento = ?', $idOrcamento);
         $stmtProdutosOrcamento = $selectProdutosOrcamento->query();
         $dadosProdutos = $stmtProdutosOrcamento->fetchAll();

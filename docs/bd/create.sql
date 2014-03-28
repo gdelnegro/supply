@@ -415,6 +415,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `osuply_app`.`orcamentoProduto` (
   `orcamento` INT(12) NOT NULL,
   `produto` INT(12) NOT NULL,
+  `quantidade` INT(9) NOT NULL,
   PRIMARY KEY (`orcamento`, `produto`),
   INDEX `fk_orcamentoProduto_produto_idx` (`produto` ASC),
   CONSTRAINT `fk_orcamentoProduto_orcamento`
