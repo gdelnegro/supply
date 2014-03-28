@@ -58,6 +58,26 @@ class Admin_Model_Usuario
     }
     
     /**
+     * Método responsável por "criar" um usuário
+     * @param array $dados
+     * @param int $tipoUsuario
+     * @return int
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1 
+     */
+    public function insereUsuario($dados, $tipoUsuario){
+        $dbPessoa = new Admin_Model_DbTable_Pessoa();
+        if($tipoUsuario == 1){
+            $dados['status']= 1;
+        }else{
+            $dados['status']= 4;
+        }
+        unset($dados['Enviar']);
+        
+        return $dbTipoPessoa->insert($dados);
+    }
+    
+    /**
      * Método que pesquisa todos os endereços do usuário
      * retorna um array associativo
      * @param int $idUsuario

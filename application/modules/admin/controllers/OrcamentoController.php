@@ -5,9 +5,10 @@ class Admin_OrcamentoController extends Zend_Controller_Action
 
     private $_usuario ;
     private $_orcamento;
+    private $_produtos;
     
     public function init()
-    {
+    {        
         /* Initialize action controller here */
         $usuario = Zend_Auth::getInstance()->getIdentity();
         $this->_usuario = $usuario;
@@ -31,18 +32,47 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     }
     
     public function newAction(){
+        $this->_produtos = $_SESSION['produtos'];
+        $orcamento = new Admin_Model_Orcamento();
         $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);
-        $this->view->formOrcamento = $formOrcamento;
-        $produto = new Admin_Model_Produto();
+
         $produtos = $this->_getParam('produtos');
         $quantidade = $this->_getParam('quantidade');
-        if($produtos != null){
+        
+        if($produtos != null AND $quantidade != null){
             foreach($produtos as $indice => $idProduto){
-                $dadosProdutos[$indice] = $produto->pesquisaProduto($idProduto);
+                $dadosProdutos[$indice]['idProduto'] = $idProduto;
                 $dadosProdutos[$indice]['quantidade'] = $quantidade[$indice];
             }
-            $this->view->dados = $dadosProdutos;
+            $_SESSION['produtos'] = $dadosProdutos;
         }
+        
+        if( $this->_getParam('descricao')!= NULL ) {
+            $data = $this->getRequest()->getPost();   
+            if ( $formOrcamento->isValid($data) ){
+                    $idOrcamento = $orcamento->insereOrcamento($data,$this->_usuario->id);
+                    $idOrcamento = $idOrcamento['id'];
+                    if($this->_produtos != null){
+                        foreach($this->_produtos as $chave => $produto){
+                            $orcamento->insereProdutos($idOrcamento, $produto['idProduto'], $produto['quantidade']);
+                        }
+                    }
+                    unset($_SESSION['produtos']);
+                    $this->redirect("/admin/orcamento/edit/id/{$idOrcamento}");
+                }else{                
+                    $this->view->erro='Dados Invalidos';
+                    $this->view->formOrcamento = $formOrcamento->populate($data);
+                }
+        }
+        $this->view->formOrcamento = $formOrcamento;
+    }
+    
+    public function editAction(){
+        $formOrcamento = new Admin_Form_Orcamento('show', $this->_usuario->grupo);
+        $orcamento = new Admin_Model_Orcamento();
+        $dadosOrcamento = $orcamento->pesquisaOrcamento($this->_usuario->id, $this->_getParam('id'));
+        $formOrcamento->populate($dadosOrcamento);
+        $this->view->formOrcamento = $formOrcamento;
     }
     
     public function propostasAction(){

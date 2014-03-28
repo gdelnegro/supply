@@ -4,15 +4,15 @@ class Admin_Form_Orcamento extends Twitter_Form
 {
    
     private $_tipo;
-    protected $_editavel;
+    protected $_exibir;
     protected $_usr;
     
     
     public function __construct($tipo, $usr,$options = null) {
         if(strtoupper($tipo) == 'EDIT' OR strtoupper($tipo) == 'NEW'){
-            $this->_editavel = true;
+            $this->_exibir = null;
         }else{
-            $this->_editavel = false;
+            $this->_exibir = TRUE;
         }
         if($usr == 1){
             $this->_usr = 'admin';
@@ -31,9 +31,10 @@ class Admin_Form_Orcamento extends Twitter_Form
         $id = new Zend_Form_Element_Hidden('id');
         
         $descricao = new Zend_Form_Element_Text('descricao');
-        $descricao->setLabel('Descricao')                
+        $descricao->setLabel('Descricao do orçamento')                
                 ->setAttrib('placeholder','Descricao')
-                ->removeDecorator('HtmlTag');
+                ->removeDecorator('HtmlTag')
+                ->setAttrib('disabled', $this->_exibir);
         
         $this->addElements(array(
             $id,
