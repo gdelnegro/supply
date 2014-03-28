@@ -92,5 +92,14 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
     }
+    
+    public function additemAction(){
+        $itens = $this->_getParam('produto');
+        if(is_array($itens)){
+            
+        }else{
+            
+        }
+    }
 
 }

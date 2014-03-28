@@ -1,5 +1,3 @@
-<head>
-</head>
 <?php
 function custom_echo($x)
 {
@@ -33,6 +31,7 @@ function custom_echo($x)
         <td><center><?php echo $orcamento['totalPropostas']?></center></td>
       <td><center>
          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$orcamento['id']}"),null,true)?>" title="Editar Orçamento"><span class="glyphicon glyphicon-pencil"></span></a>
          </center>
       </td>
    </tr>
