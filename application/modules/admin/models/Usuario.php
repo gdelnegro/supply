@@ -1,22 +1,43 @@
 <?php
-
+/**
+ * Modelo responsável por manipular os dados referentes aos usuários
+ * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+ * @since v0.1
+ */
 class Admin_Model_Usuario
 {
+    /**
+     *
+     * @var string 
+     */
     public $nome;
+    /**
+     *
+     * @var int 
+     */
     protected $idUsuario;
+    /**
+     *
+     * @var string
+     */
     public $email;
     
+    /**
+     * Método responsável por retornar os dados do usuário
+     * @param int $id
+     * @param boolean $end
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1 
+     */
     public function pesquisaUsuario($id,$end = false){
             $dbPessoa = new Admin_Model_DbTable_Pessoa();            
-            
             $selectPessoa = $dbPessoa->select()
                     ->from('pessoa')
                     ->where('id = ?', $id);
             $stmtPessoa = $selectPessoa->query();
             $dadosPessoa = $stmtPessoa->fetchAll();
-            
             $tipoPessoa = $dadosPessoa[0]['tipoPessoa'];
-            
             if($tipoPessoa == 1){
                 $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
                 $tabelaTipoPessoa = 'pessoaFisica';
@@ -24,13 +45,11 @@ class Admin_Model_Usuario
                 $dbTipoPessoa = new Admin_Model_DbTable_PessoaJuridica();
                 $tabelaTipoPessoa = 'pessoaJuridica';
             }
-            
             $selectTipoPessoa = $dbTipoPessoa->select()
                     ->from($tabelaTipoPessoa)
                     ->where('idPessoa = ?',$id);
             $stmtTipoPessoa = $selectTipoPessoa->query();
             $dadosTipoPessoa = $stmtTipoPessoa->fetchAll();
-
             if($end==true){
                 $dadosPessoa[0]['enderecos']=$this->pesquisaEndereco($id);
             }
@@ -38,6 +57,15 @@ class Admin_Model_Usuario
             return $dadosPessoa[0];
     }
     
+    /**
+     * Método que pesquisa todos os endereços do usuário
+     * retorna um array associativo
+     * @param int $idUsuario
+     * @param int $idEndereco
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function pesquisaEndereco($idUsuario, $idEndereco = null){
         $dbPessoaEndereco = new Admin_Model_DbTable_PessoaEndereco();
         $dbEndereco = new Admin_Model_DbTable_Endereco();
@@ -51,20 +79,16 @@ class Admin_Model_Usuario
             $selectPessoaEndereco->where('pessoa = ?', $idUsuario)
                     ->where('endereco = ?', $idEndereco);
         }
-                    
             $stmtPessoaEndereco = $selectPessoaEndereco->query();
-            $dadosPessoaEndereco = $stmtPessoaEndereco->fetchAll();            
-            
+            $dadosPessoaEndereco = $stmtPessoaEndereco->fetchAll();               
             $enderecos = array();
             $numeroRegistros = count($dadosPessoaEndereco);
-            
             for($i=0;$i<$numeroRegistros;$i++){
                 $selectEndereco = $dbEndereco->select()
                         ->from('endereco')
                         ->where('idEndereco = ?', $dadosPessoaEndereco[$i]['endereco']);
                 $stmtEndereco = $selectEndereco->query();
                 $endereco=$stmtEndereco->fetchAll();
-                
                 $selectTipoEndereco = $dbTipoEndereco->select()
                         ->from('tipoEndereco',array('descricao'))
                         ->where('id = ?', $dadosPessoaEndereco[$i]['tipoEndereco']);
@@ -77,6 +101,15 @@ class Admin_Model_Usuario
             return $enderecos;
     }
     
+    /**
+     * Método responsável pela edição dos dados do tipo de pessoa(física ou jurídica)
+     * do usuário.
+     * @param int $idUsuario
+     * @param int $tipoPessoa
+     * @param array $dados
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function editTipoPessoa($idUsuario, $tipoPessoa, $dados){
         if($tipoPessoa == 1){
             $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
@@ -89,6 +122,14 @@ class Admin_Model_Usuario
         $dbTipoPessoa->update($dados, $where);
     }
     
+    /**
+     * Método responsável por inserir as informações referentes ao tipo de pessoa do usuário;
+     * @param id $idUsuario
+     * @param id $tipoPessoa
+     * @param array $dados
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function insereTipoPessoa($idUsuario, $tipoPessoa, $dados){
         if($tipoPessoa == 1){
             $dbTipoPessoa = new Admin_Model_DbTable_PessoaFisica();
@@ -100,6 +141,15 @@ class Admin_Model_Usuario
         $dbTipoPessoa->insert($dados);
     }
     
+    /**
+     * Método responsável por pesquisar usuários cujo cadastro está pendente
+     * retorna um array associativo com todos os usuários que atenderem ao critério
+     * descrito acima
+     * @param int $limit
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function pesquisaUsuarioPendente($limit = null){
             $dbPessoa = new Admin_Model_DbTable_Pessoa();            
             $selectPessoa = $dbPessoa->select()
@@ -115,12 +165,24 @@ class Admin_Model_Usuario
             return $dadosPessoa;
     }
     
+    /**
+     * Método estático para remoção de cadastro de usuário
+     * @param type $id
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public static function removerUsuario($id){
         $dbPessoa = new Admin_Model_DbTable_Pessoa();
         $where =  $dbPessoa->getAdapter()->quoteInto('id = ?', $id);
         $dbPessoa->delete($where);
     }
     
+    /**
+     * Método estático para aprovação de cadastro de usuário
+     * @param type $id
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public static function aprovarUsuario($id){
         $dbPessoa = new Admin_Model_DbTable_Pessoa();
         $data = array(
@@ -129,5 +191,4 @@ class Admin_Model_Usuario
         $where =  $dbPessoa->getAdapter()->quoteInto('id = ?', $id);
         $dbPessoa->update($data, $where);
     }
-    
 }
