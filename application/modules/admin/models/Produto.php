@@ -1,9 +1,26 @@
 <?php
-
+/**
+ * Modelo responsável por manipular os dados referentes aos produtos
+ * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+ * @since v0.1
+ */
 class Admin_Model_Produto
 {
+    /**
+     *iD do usuário
+     * @var int 
+     */
     protected $idUsuario;
     
+    /**
+     * Método que pesquisa os produtos com base no id, ou na subcategoria
+     * aceita um dos dois parâmetros, os dois, ou nenhum
+     * @param int $idProduto
+     * @param int $subcategoria
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function pesquisaProduto($idProduto = null, $subcategoria = null){
             $dbProduto = new Admin_Model_DbTable_Produto();
             $selectProduto = $dbProduto->select()
@@ -21,10 +38,15 @@ class Admin_Model_Produto
             }else{
                 return $dadosProduto;
             }
-            
     }
     
-    
+    /**
+     * Método que pesquisa produtos cujo cadastro ainda não foi aprovado
+     * @param int $limit
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function pesquisaProdutoPendente($limit = null){
             $dbProduto = new Admin_Model_DbTable_Produto();            
             $selectProduto = $dbProduto->select()
@@ -40,6 +62,14 @@ class Admin_Model_Produto
             return $dadosProduto;
     }    
     
+    /**
+     * Método que pesquisa os produtos fornecidos pelo usuário
+     * retorna um array associativo
+     * @param int $id
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function pesquisaProdutoFornece($id){
         $dbProduto = new Admin_Model_DbTable_FornecedorProduto();
         $selectProduto = $dbProduto->select()
@@ -51,6 +81,14 @@ class Admin_Model_Produto
             return $dadosProduto;
     }
     
+    /**
+     * Método que pesquisa os produtos procurados pelo usuário
+     * retorna um array associativo
+     * @param type $id
+     * @return type
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
     public function pesquisaProdutoCompra($id){
         $dbProduto = new Admin_Model_DbTable_CompradorProduto();
         $selectProduto = $dbProduto->select()
