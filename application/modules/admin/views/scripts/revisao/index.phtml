@@ -55,7 +55,7 @@
                         echo "<td>".$categoria['descricao']."</td>";
                         echo "<td>".$categoria['dtCriacao']."</td>";
                         echo "<td>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$categoria['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"categoria","action"=>"show","id"=>"{$categoria['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
                         echo " ";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$categoria['id']}","tipo"=>"cat"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
                         echo " ";
@@ -123,7 +123,7 @@
                         echo "<td>".$item['descricao']."</td>";
                         echo "<td>".$item['dtCriacao']."</td>";
                         echo "<td>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$item['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"produto","action"=>"show","id"=>"{$item['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
                         echo " ";
                         echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$item['id']}","tipo"=>"item"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
                         echo " ";
