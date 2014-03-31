@@ -1,15 +1,17 @@
 <h3>Selecione e cadastre os itens pertinentes ao seu ramo de atuação e necessidade de suprimentos</h3>
-<?php
-    echo $this->formCategoria;
-    var_dump($this->dados);
-?>
+
 <div class="row">
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
         <h3>Fornece</h3>
+        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"","id"=>"{$this->dados['id']}"),null,true)?>" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
         Exibir em formato de árvore
+        <hr>
     </div>
+    
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
-        <h3>Compra</h3>
+        <h3>Compra</h3><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"","id"=>"{$this->dados['id']}"),null,true)?>" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
+        <hr>
+        
         
     </div>
 </div>
