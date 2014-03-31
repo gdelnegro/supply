@@ -123,5 +123,20 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $this->redirect("/admin/orcamento/edit/id/{$idOrcamento}");
     }
     
+    public function showAction(){
+        $idOrcamento = $this->_getParam('id');
+        $orcamento = new Admin_Model_Orcamento();
+        $dadosOrcamento = $orcamento->pesquisaOrcamento($this->_usuario->id, $idOrcamento);
+        $this->view->dadosOrcamento = $dadosOrcamento;
+        
+        $dadosProdutos = $orcamento->pesquisaProdutos($idOrcamento);
+        $paginator = Zend_Paginator::factory($dadosProdutos);
+        $paginator->setItemCountPerPage(20);
+        $paginator->setPageRange(10);
+        $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
+        $this->view->paginator = $paginator;
+                
+    }
+    
 
 }

@@ -1,0 +1,34 @@
+<div class="row"> 
+    <div class="col-md-2 col-sm-2 col-md-offset-7 col-sm-offset-7">
+        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$item['id']}"),null,true)?>" title="Ver Propostas Recebidas">Propostas Recebidas <span class="badge"><?php echo $this->dadosOrcamento['totalPropostas']?></span></a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5 col-sm-5 col-md-offset-3 col-sm-offset-3">
+        <center>
+            <h2>Orçamento de produtos/serviços</h2>
+            <h3>Itens do orçamento</h3>
+        </center>
+            <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
+            <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
+           <tr>
+                <th><center>Descrição</center></th>        
+                <th><center>Quantidade</center></th>
+                <th><center>Ações</center></th>
+           </tr>
+           <?php foreach($this->paginator AS $key => $item):?>
+           <tr>
+                <td><center><?php  echo $item['descricao']?></center></td>
+                <td><center><?php echo $item['quantidade']?></center></td>
+                <td><center>
+                    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"show","id"=>"{$item['id']}"),null,true)?>" title="Ver Orçamento"><span class="glyphicon glyphicon-search"></span></a>
+                    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$item['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$item['id']}"),null,true)?>" title="Editar Orçamento"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </center>
+                </td>
+           </tr>
+           <?php endforeach;?>
+        </table>
+        <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
+    </div>
+</div>
