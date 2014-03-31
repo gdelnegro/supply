@@ -19,6 +19,14 @@ class Admin_PreferenciasController extends Zend_Controller_Action
     {
         
     }
+    
+    public function vendaAction(){
+        
+    }
+    
+    public function compraAction(){
+        
+    }
 
 
 }
