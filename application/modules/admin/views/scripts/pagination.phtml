@@ -96,7 +96,6 @@ $this->last))); ?>"> &nbsp; Última &nbsp; </a>
 href="<?php echo $this->url(array_merge($params,array('pagina'=>
 $this->last)));    ?>"> &nbsp; Última &nbsp; </a>
 <?php endif; ?>
-<?php echo " - Página(s) ".$this->current; ?> de
-<?php echo $this->pageCount." - Total Registros: ";
+<?php echo "<br><hr> - Página(s) ".$this->current; ?> de <?php echo $this->pageCount." - Total Registros: ";
  echo $this->totalItemCount; ?></div>
 <?php endif; ?>
