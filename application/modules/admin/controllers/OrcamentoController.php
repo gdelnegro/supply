@@ -31,8 +31,8 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
     }
     
-    public function newAction(){        
-        die(var_dump($this->_getParam('quantidade')));
+    public function newAction(){    
+        #die(var_dump($this->getAllParams()));
         $this->_produtos = $_SESSION['produtos'];
         $orcamento = new Admin_Model_Orcamento();
         $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);

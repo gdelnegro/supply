@@ -72,13 +72,20 @@ class Admin_Model_Produto
      */
     public function pesquisaProdutoFornece($id){
         $dbProduto = new Admin_Model_DbTable_FornecedorProduto();
-        $selectProduto = $dbProduto->select()
-                    ->from('fornecedorProduto')
-                    ->where('fornecedor = ?',$id)
-                    ->order('dtCriacao DESC');
-            $stmtProduto = $selectProduto->query();
-            $dadosProduto = $stmtProduto->fetchAll();
-            return $dadosProduto;
+        $selectProduto = $dbProduto->select();
+        $selectProduto->setIntegrityCheck(false);
+        $selectProduto->from('fornecedorProduto')
+                ->joinInner('produto', 'fornecedorProduto.produto = produto.id')
+                ->where('fornecedor = ?',$id)
+                ->order('fornecedorProduto.dtCriacao DESC');
+//        $selectProduto = $dbProduto->select()
+//                    ->from('fornecedorProduto')
+//                    ->where('fornecedor = ?',$id)
+//                    ->order('dtCriacao DESC');
+        #die($selectProduto->__toString());
+        $stmtProduto = $selectProduto->query();
+        $dadosProduto = $stmtProduto->fetchAll();
+        return $dadosProduto;
     }
     
     /**
@@ -91,13 +98,15 @@ class Admin_Model_Produto
      */
     public function pesquisaProdutoCompra($id){
         $dbProduto = new Admin_Model_DbTable_CompradorProduto();
-        $selectProduto = $dbProduto->select()
-                    ->from('compradorProduto')
-                    ->where('comprador = ?',$id)
-                    ->order('dtCriacao DESC');
-            $stmtProduto = $selectProduto->query();
-            $dadosProduto = $stmtProduto->fetchAll();
-            return $dadosProduto;
+        $selectProduto = $dbProduto->select();
+        $selectProduto->setIntegrityCheck(false);
+        $selectProduto->from('compradorProduto')
+                ->joinInner('produto', 'compradorProduto.produto = produto.id')
+                ->where('comprador = ?',$id)
+                ->order('compradorProduto.dtCriacao DESC');
+        $stmtProduto = $selectProduto->query();
+        $dadosProduto = $stmtProduto->fetchAll();
+        return $dadosProduto;
     }
     
 }

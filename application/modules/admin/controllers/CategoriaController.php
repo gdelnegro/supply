@@ -27,6 +27,11 @@ class Admin_CategoriaController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
     }
+    
+    public function cadastrarAction(){
+        $formCategoria = new Admin_Form_Categoria('new', $this->_usuario->grupo);
+        $this->view->formCategoria = $formCategoria;
+    }
 
 
 }
