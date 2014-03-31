@@ -28,10 +28,12 @@ class Admin_RevisaoController extends Zend_Controller_Action
         $dadosUsuario = $usuario->pesquisaUsuarioPendente(10);
         $dadosItens = $itens->pesquisaProdutoPendente(10);
         $dadosCategorias = Admin_Model_Categoria::pesquisaCategoriaPendente(10);
+        $dadosSubCategorias = Admin_Model_Segmento::pesquisaSegmentoPendente(10);
         
         $this->view->dadosUsuario = $dadosUsuario;
         $this->view->dadosItens = $dadosItens;
         $this->view->dadosCategorias = $dadosCategorias;
+        $this->view->dadosSubCategorias = $dadosSubCategorias;
         
     }
     
@@ -49,8 +51,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $titulo = 'Categorias';
                 break;
             case 'SUBCAT':
-                #$model = new Admin_Model_Subcategoria();
-                #$dados = $model->pesquisarSubcategoriaPendente();
+                $dados = Admin_Model_Segmento::pesquisaSegmentoPendente();
                 $titulo = 'Sub-Categorias';
                 break;
             case 'ITEM':
@@ -84,6 +85,8 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $this->_redirect('admin/revisao');
                 break;
             case 'SUBCAT':
+                Admin_Model_Segmento::removerSegmento($this->_getParam('id'));
+                $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
                 break;
@@ -105,6 +108,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $this->_redirect('admin/revisao');
                 break;
             case 'SUBCAT':
+                Admin_Model_Segmento::aprovarSegmento($this->_getParam('id'));
                 $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
