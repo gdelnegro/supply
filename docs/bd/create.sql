@@ -545,6 +545,47 @@ CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasVenda` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `osuply_app` ;
+
+-- -----------------------------------------------------
+-- Placeholder table for view `osuply_app`.`preferenciasDeVenda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasDeVenda` (`nome` INT, `'Categoria'` INT, `'Tipo'` INT, `'SubCategoria'` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `osuply_app`.`preferenciasDeCompra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasDeCompra` (`nome` INT, `'Categoria'` INT, `'Tipo'` INT, `'SubCategoria'` INT);
+
+-- -----------------------------------------------------
+-- View `osuply_app`.`preferenciasDeVenda`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `osuply_app`.`preferenciasDeVenda`;
+USE `osuply_app`;
+CREATE  OR REPLACE VIEW `preferenciasDeVenda` AS
+
+SELECT pessoa.nome, categoria.descricao as 'Categoria', tipos.descricao as 'Tipo', subCategoria.descricao as 'SubCategoria'
+FROM preferenciasVenda
+INNER JOIN pessoa ON pessoa.id = preferenciasVenda.pessoa
+INNER JOIN categoria ON categoria.id = preferenciasVenda.categoria
+INNER JOIN tipos ON tipos.id = preferenciasVenda.tipo
+INNER JOIN subCategoria ON subCategoria.id = preferenciasVenda.subcategoria
+;
+
+-- -----------------------------------------------------
+-- View `osuply_app`.`preferenciasDeCompra`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `osuply_app`.`preferenciasDeCompra`;
+USE `osuply_app`;
+CREATE  OR REPLACE VIEW `preferenciasDeCompra` AS
+
+SELECT pessoa.nome, categoria.descricao as 'Categoria', tipos.descricao as 'Tipo', subCategoria.descricao as 'SubCategoria'
+FROM preferenciasCompra
+INNER JOIN pessoa ON pessoa.id = preferenciasCompra.pessoa
+INNER JOIN categoria ON categoria.id = preferenciasCompra.categoria
+INNER JOIN tipos ON tipos.id = preferenciasCompra.tipo
+INNER JOIN subCategoria ON subCategoria.id = preferenciasCompra.subcategoria
+;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -20,7 +20,8 @@ class Admin_PreferenciasController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        
+        $this->view->dadosCompras = Admin_Model_Preferencias::compra($this->_usuario->id);
+        $this->view->dadosVendas = Admin_Model_Preferencias::venda($this->_usuario->id);
     }
     
     public function vendaAction(){

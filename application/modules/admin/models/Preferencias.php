@@ -3,19 +3,20 @@
 class Admin_Model_Preferencias
 {
 
-    public function compra(){
-        $dbPreferenciaCompra = new Admin_Model_DbTable_PreferenciasCompra();
+    public static function compra($id){
+        $dbPreferenciaCompra = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaCompra->select()
-                ->from('preferenciasCompra');
+                ->from('preferenciasDeCompra')
+                ->where('pessoa = ?', $id);
         $stmt = $select->query();
-        
         return $stmt->fetchAll();
     }
     
-    public function venda(){
-        $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasVenda();
+    public static function venda($id){
+        $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeVenda();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasVenda');
+                ->from('preferenciasDeVenda')
+                ->where('pessoa = ?', $id);
         $stmt = $select->query();
         return $stmt->fetchAll();
     }
