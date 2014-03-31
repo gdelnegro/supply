@@ -6,7 +6,10 @@
         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"","id"=>"{$this->dados['id']}"),null,true)?>" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
         Exibir em formato de árvore
-        <?php var_dump($this->dadosVendas)?>
+        <?php foreach($this->dadosVendas as $key=>$value):
+            var_dump($value);
+        endforeach;
+        ?>
         
     </div>
     
@@ -14,6 +17,9 @@
         <h3>Compra</h3><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"","id"=>"{$this->dados['id']}"),null,true)?>" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
         
-        <?php var_dump($this->dadosCompras)?>
+        <?php foreach($this->dadosCompras as $key=>$value):
+            
+        endforeach;
+        ?>
     </div>
 </div>
