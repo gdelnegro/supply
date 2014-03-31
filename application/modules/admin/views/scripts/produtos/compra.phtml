@@ -17,7 +17,7 @@ function custom_echo($x)
     <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Adicionar mais produtos de interesse</a></p>
     <?php
         if($this->id != null){
-            echo "<form method=\"post\" action=".$this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"additem"),null,true).">";
+            echo "<form method=\"post\" action=".$this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"additem","orcamento"=>"$this->id"),null,true).">";
         }else{
             echo "<form method=\"post\" action=".$this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true).">";
         }

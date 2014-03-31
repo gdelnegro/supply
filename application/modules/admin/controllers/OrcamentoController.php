@@ -31,16 +31,12 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
     }
     
-    public function newAction(){    
-        #die(var_dump($this->getAllParams()));
-        #die(var_dump($this->_getParam('produtos')));
-        
+    public function newAction(){            
         $this->_produtos = $_SESSION['produtos'];
         $orcamento = new Admin_Model_Orcamento();
         $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);        
         $produto = $this->_getParam('produtos');
         $quantidades = $this->_getParam('quantidade');
-        
         if($produto != null AND $quantidades != null){
             foreach($produto as $key => $value){
                 if(isset($quantidades[$key])){
@@ -51,17 +47,14 @@ class Admin_OrcamentoController extends Zend_Controller_Action
             $_SESSION['produtos'] =$produtos;
         }
         
-        var_dump($this->_produtos);
-        die();
-        
         if( $this->_getParam('descricao')!= NULL ) {
             $data = $this->getRequest()->getPost();   
             if ( $formOrcamento->isValid($data) ){
                     $idOrcamento = $orcamento->insereOrcamento($data,$this->_usuario->id);
                     $idOrcamento = $idOrcamento['id'];
                     if($this->_produtos != null){
-                        foreach($this->_produtos as $chave => $produto){
-                            $orcamento->insereProdutos($idOrcamento, $produto['idProduto'], $produto['quantidade']);
+                        foreach($this->_produtos as $chave => $produto){                            
+                            $orcamento->insereProdutos($idOrcamento, $produto['id'], $produto['qtde']);
                         }
                     }
                     unset($_SESSION['produtos']);
@@ -81,7 +74,6 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $orcamento = new Admin_Model_Orcamento();
         $dadosOrcamento = $orcamento->pesquisaOrcamento($this->_usuario->id, $idOrcamento);
         $formOrcamento->populate($dadosOrcamento);
-        
         $dadosProdutos = $orcamento->pesquisaProdutos($idOrcamento);
         $paginator = Zend_Paginator::factory($dadosProdutos);
         $paginator->setItemCountPerPage(20);
@@ -104,8 +96,22 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     
     public function additemAction(){
         unset($_SESSION['produtos']);
-        
-        die(var_dump($this->_getParam('quantidade')));
+        $orcamento = new Admin_Model_Orcamento();
+        $idOrcamento=$this->_getParam('orcamento');
+        $produto = $this->_getParam('produtos');
+        $quantidades = $this->_getParam('quantidade');
+        if($produto != null AND $quantidades != null){
+            foreach($produto as $key => $value){
+                if(isset($quantidades[$key])){
+                    $produtos[$key]['id'] = $value;
+                    $produtos[$key]['qtde'] = $quantidades[$key];
+                }
+            }
+            foreach($produtos as $chave => $produto){                            
+                $orcamento->insereProdutos($idOrcamento, $produto['id'], $produto['qtde']);
+            }
+        }
+        $this->redirect("/admin/orcamento/edit/id/{$idOrcamento}");
     }
     
     public function delitemAction(){
