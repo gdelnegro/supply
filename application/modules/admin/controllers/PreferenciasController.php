@@ -21,7 +21,6 @@ class Admin_PreferenciasController extends Zend_Controller_Action
     public function indexAction()
     {
         $formCategoria = new Admin_Form_Categoria('new', $this->_usuario->grupo);
-        $this->view->dados = $dados;
         
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
