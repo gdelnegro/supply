@@ -3,10 +3,13 @@
 class Admin_AnunciosController extends Zend_Controller_Action
 {
 
+    private $_usuario ;
+    
     public function init()
     {
         /* Initialize action controller here */
         $usuario = Zend_Auth::getInstance()->getIdentity();
+        $this->_usuario = $usuario;
         //$this->view->usuario = $usuario;
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         

@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_Categoria extends Twitter_Form
+class Admin_Form_Tipo extends Twitter_Form
 {
     
     private $_tipo;
@@ -30,24 +30,14 @@ class Admin_Form_Categoria extends Twitter_Form
         $id = new Zend_Form_Element_Hidden('id');
         
         $descricao = new Zend_Form_Element_Text('descricao');
-        $descricao->setLabel('Nome da categoria')                
+        $descricao->setLabel('Descricao do orçamento')                
                 ->setAttrib('placeholder','Descricao')
                 ->removeDecorator('HtmlTag')
                 ->setAttrib('disabled', $this->_exibir);
         
-        $tipo = new Zend_Form_Element_MultiCheckbox('Tipo');
-        $tipo->setLabel('Tipo de categoria')
-                ->removeDecorator('HtmlTag')
-                ->setAttrib('disabled', $this->_exibir)
-                ->setMultiOptions(Admin_Model_Tipo::listaTipo());
-        
-        #$tipo = new Zend_Form_Element_Select('tipo');
-        
-        
         $this->addElements(array(
             $id,
             $descricao,
-            $tipo,
         ));
         
         

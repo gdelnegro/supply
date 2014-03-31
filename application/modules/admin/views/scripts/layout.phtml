@@ -121,6 +121,7 @@
                   <?php if($this->layout()->usuario->grupo == 1){?>
                     <li><h4>Revisão de Cadastros</h4></li>
                         <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" >Revisar cadastros pendentes</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"categoria","action"=>"index"),null,true);?>" >Revisar cadastros de categorias</a></li>
                     <?php }?>
                     <li><h4>Preferências</h4></li>
                         <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"index"),null,true);?>" >Ver preferências</a></li>

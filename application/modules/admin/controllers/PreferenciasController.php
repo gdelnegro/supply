@@ -3,10 +3,13 @@
 class Admin_PreferenciasController extends Zend_Controller_Action
 {
 
+    private $_usuario ;
+    
     public function init()
     {
         /* Initialize action controller here */
         $usuario = Zend_Auth::getInstance()->getIdentity();
+        $this->_usuario = $usuario;
         //$this->view->usuario = $usuario;
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         
@@ -17,17 +20,29 @@ class Admin_PreferenciasController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $formCategoria = new Admin_Form_Categoria('new', $this->_usuario->grupo);
+        $this->view->dados = $dados;
         
+        if( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost();
+            $this->view->dados = $data;
+        }
+        $this->view->formCategoria = $formCategoria;
     }
     
     public function vendaAction(){
+        $preferencia = new Admin_Model_Preferencias();
+        $dadosVenda = $preferencia->venda();
         
+        $this->view->dadosVenda = $dadosVenda;
     }
     
     public function compraAction(){
+        $preferencia = new Admin_Model_Preferencias();
+        $dadosCompra = $preferencia->compra();
         
+        $this->view->dadosCompra = $dadosCompra;
     }
 
 
 }
-

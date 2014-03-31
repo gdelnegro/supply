@@ -2,6 +2,24 @@
 
 class Admin_Form_Endereco extends Twitter_Form
 {
+    
+    private $_tipo;
+    protected $_exibir;
+    protected $_usr;
+    
+    
+    public function __construct($tipo = null, $usr = null ,$options = null) {
+        if(strtoupper($tipo) == 'EDIT' OR strtoupper($tipo) == 'NEW'){
+            $this->_exibir = null;
+        }else{
+            $this->_exibir = TRUE;
+        }
+        if($usr == 1){
+            $this->_usr = 'admin';
+        }
+        $this->_tipo = $tipo;
+        parent::__construct($options);
+    }
 
     public function init()
     {
