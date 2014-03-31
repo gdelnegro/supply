@@ -33,20 +33,26 @@ class Admin_OrcamentoController extends Zend_Controller_Action
     
     public function newAction(){    
         #die(var_dump($this->getAllParams()));
+        #die(var_dump($this->_getParam('produtos')));
+        
         $this->_produtos = $_SESSION['produtos'];
         $orcamento = new Admin_Model_Orcamento();
-        $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);
-
-        $produtos = $this->_getParam('produtos');
-        $quantidade = $this->_getParam('quantidade');
+        $formOrcamento = new Admin_Form_Orcamento('new', $this->_usuario->grupo);        
+        $produto = $this->_getParam('produtos');
+        $quantidades = $this->_getParam('quantidade');
         
-        if($produtos != null AND $quantidade != null){
-            foreach($produtos as $indice => $idProduto){
-                $dadosProdutos[$indice]['idProduto'] = $idProduto;
-                $dadosProdutos[$indice]['quantidade'] = $quantidade[$indice];
+        if($produto != null AND $quantidades != null){
+            foreach($produto as $key => $value){
+                if(isset($quantidades[$key])){
+                    $produtos[$key]['id'] = $value;
+                    $produtos[$key]['qtde'] = $quantidades[$key];
+                }
             }
-            $_SESSION['produtos'] = $dadosProdutos;
+            $_SESSION['produtos'] =$produtos;
         }
+        
+        var_dump($this->_produtos);
+        die();
         
         if( $this->_getParam('descricao')!= NULL ) {
             $data = $this->getRequest()->getPost();   
