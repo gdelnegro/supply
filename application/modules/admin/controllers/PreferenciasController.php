@@ -24,6 +24,9 @@ class Admin_PreferenciasController extends Zend_Controller_Action
         
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
+            if($formCategoria->isValid($data)){
+                Admin_Model_Categoria::insereCategoria($data);
+            }
             $this->view->dados = $data;
         }
         $this->view->formCategoria = $formCategoria;

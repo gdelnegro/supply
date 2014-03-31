@@ -49,26 +49,21 @@
                     <th>Data de Cadastro</th>
                     <th>Ações</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>
-                        <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                        <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>
-                        <a href="" title="Ver cadastro completo"><span class="glyphicon glyphicon-search"></span></a>
-                        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"edit","id"=>"{$this->dados['id']}"),null,true)?>" title="Aprovar cadastro"><span class="glyphicon glyphicon-check"></span></a>
-                        <a href="" title="Deletar cadastro"><span class="glyphicon glyphicon-remove"></span></a>
-                    </td>
-                </tr>
+                <?php foreach($this->dadosCategorias as $chave => $categoria):
+                    echo "<tr>";
+                        echo "<td>".$categoria['id']."</td>";
+                        echo "<td>".$categoria['descricao']."</td>";
+                        echo "<td>".$categoria['dtCriacao']."</td>";
+                        echo "<td>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$categoria['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
+                        echo " ";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$categoria['id']}","tipo"=>"cat"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
+                        echo " ";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$categoria['id']}","tipo"=>"cat"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+                        echo " ";
+                        echo "</td>";
+                    echo "</tr>";
+                endforeach;?>
             </table>
         </div>
         <?php echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"show","tipo"=>"cat"),null,true)." title=\"Ver mais\">Ver mais...</a>";?>
