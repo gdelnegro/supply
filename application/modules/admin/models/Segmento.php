@@ -2,6 +2,15 @@
 
 class Admin_Model_Segmento
 {
+    
+    public static function listaSegmento(){
+        $dbSegmento = new Admin_Model_DbTable_SubCategoria(); 
+        $select = $dbSegmento->select()
+                ->from('subCategoria', array('key'=>'id','value'=>'descricao'))
+                ->where('id = 1');
+        $stmt = $select->query();
+        return $stmt->fetchAll();
+    }
 
     /**
      * Método que pesquisa segmentos cujo cadastro ainda não foi aprovado

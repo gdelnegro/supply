@@ -35,6 +35,11 @@ class Admin_Form_Produto extends Twitter_Form
                 ->removeDecorator('HtmlTag')
                 ->setAttrib('disabled', $this->_exibir);
         
+        $categoria = new Zend_Form_Element_Select('categoria');
+        $categoria->setLabel('Segmento')
+                ->setAttrib('disabled', $this->_exibir)
+                ->addMultiOptions(Admin_Model_Segmento::listarSegmento);
+        
         
         $this->addElements(array(
             $id,
