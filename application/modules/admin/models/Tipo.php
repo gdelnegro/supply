@@ -7,7 +7,7 @@ class Admin_Model_Tipo
         $dbCategoria = new Admin_Model_DbTable_Tipos();
         $select = $dbCategoria->select()
                 ->from('tipos', array('key'=>'id','value'=>'descricao'))
-                ->where('id = 1');
+                ->where('status = 1');
         $stmt = $select->query();
         return $stmt->fetchAll();                
     }

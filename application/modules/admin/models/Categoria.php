@@ -3,12 +3,15 @@
 class Admin_Model_Categoria
 {
 
-    public static function pesquisaCategoria($idCategoria = null){
+    public static function pesquisaCategoria($idCategoria = null,$tipo = null){
         $dbCategoria = new Admin_Model_DbTable_Categoria();
         $select = $dbCategoria->select()
                 ->from('categoria');
         if($idCategoria!= null){
             $select->where('id = ?', $idCategoria);
+        }
+        if($tipo != null){
+            $select->where('tipo = ?', $tipo);
         }
         $stmt = $select->query();
         return $stmt->fetchAll();
@@ -18,7 +21,7 @@ class Admin_Model_Categoria
         $dbCategoria = new Admin_Model_DbTable_Categoria();
         $select = $dbCategoria->select()
                 ->from('categoria', array('key'=>'id','value'=>'descricao'))
-                ->where('id = 1');
+                ->where('status = 1');
         $stmt = $select->query();
         return $stmt->fetchAll();
     }
@@ -26,29 +29,27 @@ class Admin_Model_Categoria
     public static function insereCategoria($dados){
         $bdCategoria = new Admin_Model_DbTable_Categoria();
         $bdCategoriaTipo = new Admin_Model_DbTable_CategoriaTipo();        
-        $tipo = $dados['Tipo'];
-        unset($dados['Tipo']);
         unset($dados['Enviar']);
         $dados['status'] = 4;
         $bdCategoria->insert($dados);
-        $idCategoria = $bdCategoria->getAdapter()->lastInsertId();
+        #$idCategoria = $bdCategoria->getAdapter()->lastInsertId();
         
-        if(is_array($tipo)){
-            foreach($tipo as $key => $value){
-                $data = array(
-                    'categoria'  =>  $idCategoria,
-                    'tipo'       =>  $value
-                );
-                $bdCategoriaTipo->insert($data);
-            }
-        }else{
-            $data = array(
-                'categoria'  =>  $idCategoria,
-                'tipo'       =>  $tipo
-            );
-            
-            $bdCategoriaTipo->insert($data);
-        }
+//        if(is_array($tipo)){
+//            foreach($tipo as $key => $value){
+//                $data = array(
+//                    'categoria'  =>  $idCategoria,
+//                    'tipo'       =>  $value
+//                );
+//                $bdCategoriaTipo->insert($data);
+//            }
+//        }else{
+//            $data = array(
+//                'categoria'  =>  $idCategoria,
+//                'tipo'       =>  $tipo
+//            );
+//            
+//            $bdCategoriaTipo->insert($data);
+//        }
     }
     
     /**

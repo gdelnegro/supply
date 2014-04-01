@@ -36,6 +36,22 @@ class Admin_PreferenciasController extends Zend_Controller_Action
         
         $this->view->dadosCompra = $dadosCompra;
     }
+    
+    public function cadastrarAction(){
+        $idUsuario = $this->_usuario->id;
+        $tipo = $this->_getParam('tipo');
+        $dadosCategorias = Admin_Model_Categoria::pesquisaCategoria();
+        $dadosTipos = Admin_Model_Tipo::listaTipo();
+        if($tipo == 'venda'){
+            echo "<h3>Venda</h3>";
+        }elseif($tipo == 'compra'){
+            echo '<h3>Compra</h3>';
+        }
+        
+        $this->view->dadosCategorias = $dadosCategorias;
+        $this->view->dadosTipos = $dadosTipos;
+        $this->view->dados = $this->getAllParams();
+    }
 
 
 }

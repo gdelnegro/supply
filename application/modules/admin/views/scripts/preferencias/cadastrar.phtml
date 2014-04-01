@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
+      <form class="form-inline" role="form" action="">
+          <select class="form-control" id='tipo' onchange='window.location="tipo/venda/cat=" + this.value;'>
+              <option value=""> Selecione um Tipo</option>
+              <?php foreach($this->dadosTipos as $chave => $tipo){
+                  echo '<option value='.$tipo['key'].'>'.$tipo['value'].'</option>';
+              }?>
+          </select>
+          <select class="form-control" id='categoria'>
+              <option value=""> Selecione uma categoria</option>
+              <?php foreach($this->dadosCategorias as $chave => $tipo){
+                  echo '<option value='.$tipo['id'].'>'.$tipo['descricao'].'</option>';
+              }?>
+          </select>
+          <input type="submit" value="Enviar">
+      </form>
+  </div>
+</div>
