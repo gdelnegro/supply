@@ -40,10 +40,10 @@ class Admin_Model_Preferencias
                     ->where('tipo = ?', $valor);
                 $stmt = $select->query();
                 $categorias =  $stmt->fetchAll();
-                $dadosCategorias = $categorias;
             }
         }
         #$dados[$tipos]['categorias']= $dadosCategorias;
+        var_dump($dados);
     }
 
 }
