@@ -5,8 +5,6 @@
         <h3>Fornece</h3>
         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"","id"=>"{$this->dados['id']}"),null,true)?>" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
-        Exibir em formato de árvore
-        
         <?php 
         foreach($this->dadosVendas as $key=>$value):
             echo"<ul>";
@@ -31,8 +29,21 @@
         <h3>Compra</h3><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"","id"=>"{$this->dados['id']}"),null,true)?>" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
         
-        <?php foreach($this->dadosCompras as $key=>$value):
-            
+        <?php 
+        foreach($this->dadosCompras as $key=>$value):
+            echo"<ul>";
+            echo"<li>".$value['tipo']."</li>";
+            foreach($value['categorias'] as $indice => $categoria){
+                echo "<ul>";
+                echo "<li>".$indice."</li>";
+                    echo "<ul>";
+                foreach($categoria as $subcategorias){
+                    echo "<li>".$subcategorias."</li>";
+                }
+                    echo "</ul>";
+                echo "</ul>";
+            }
+            echo "</ul>";
         endforeach;
         ?>
     </div>
