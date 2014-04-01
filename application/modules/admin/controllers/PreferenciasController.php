@@ -27,7 +27,6 @@ class Admin_PreferenciasController extends Zend_Controller_Action
     public function vendaAction(){
         $preferencia = new Admin_Model_Preferencias();
         $dadosVenda = $preferencia->venda();
-        
         $this->view->dadosVenda = $dadosVenda;
     }
     
