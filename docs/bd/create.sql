@@ -22,18 +22,41 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `osuply_app`.`categoria`
+-- Table `osuply_app`.`tipos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `osuply_app`.`categoria` (
+CREATE TABLE IF NOT EXISTS `osuply_app`.`tipos` (
   `id` INT(12) NOT NULL AUTO_INCREMENT,
-  `status` INT NULL,
   `descricao` VARCHAR(45) NULL,
+  `status` INT NULL,
   `dtAlteracao` DATE NULL,
   `dtCriacao` DATE NULL,
   `usrCriou` INT NULL,
   `usrAlterou` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `osuply_app`.`categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `osuply_app`.`categoria` (
+  `id` INT(12) NOT NULL AUTO_INCREMENT,
+  `status` INT NULL,
+  `descricao` VARCHAR(45) NULL,
+  `tipo` INT(12) NULL,
+  `dtAlteracao` DATE NULL,
+  `dtCriacao` DATE NULL,
+  `usrCriou` INT NULL,
+  `usrAlterou` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_categoria_tipo_idx` (`tipo` ASC),
+  CONSTRAINT `fk_categoria_tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `osuply_app`.`tipos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -434,43 +457,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `osuply_app`.`tipos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `osuply_app`.`tipos` (
-  `id` INT(12) NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(45) NULL,
-  `status` VARCHAR(45) NULL,
-  `dtAlteracao` DATE NULL,
-  `dtCriacao` DATE NULL,
-  `usrCriou` INT NULL,
-  `usrAlterou` INT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `osuply_app`.`categoriaTipo`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `osuply_app`.`categoriaTipo` (
-  `categoria` INT(12) NOT NULL,
-  `tipo` INT(12) NOT NULL,
-  PRIMARY KEY (`categoria`, `tipo`),
-  INDEX `fk_categoriaTipo_tipo_idx` (`tipo` ASC),
-  CONSTRAINT `fk_categoriaTipo_categoria`
-    FOREIGN KEY (`categoria`)
-    REFERENCES `osuply_app`.`categoria` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_categoriaTipo_tipo`
-    FOREIGN KEY (`tipo`)
-    REFERENCES `osuply_app`.`tipos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `osuply_app`.`preferenciasCompra`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasCompra` (
@@ -485,6 +471,7 @@ CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasCompra` (
   INDEX `fk_preferencias_categoria_idx` (`categoria` ASC),
   INDEX `fk_preferencias_tipo_idx` (`tipo` ASC),
   INDEX `fk_preferencias_subcategoria_idx` (`subcategoria` ASC),
+  UNIQUE INDEX `unico` (`pessoa` ASC, `tipo` ASC, `categoria` ASC, `subcategoria` ASC),
   CONSTRAINT `fk_preferencias_pessoa`
     FOREIGN KEY (`pessoa`)
     REFERENCES `osuply_app`.`pessoa` (`id`)
@@ -523,6 +510,7 @@ CREATE TABLE IF NOT EXISTS `osuply_app`.`preferenciasVenda` (
   INDEX `fk_preferencias_categoria_idx` (`categoria` ASC),
   INDEX `fk_preferencias_tipo_idx` (`tipo` ASC),
   INDEX `fk_preferencias_subcategoria_idx` (`subcategoria` ASC),
+  UNIQUE INDEX `unico` (`pessoa` ASC, `categoria` ASC, `tipo` ASC, `subcategoria` ASC),
   CONSTRAINT `fk_preferencias_pessoa0`
     FOREIGN KEY (`pessoa`)
     REFERENCES `osuply_app`.`pessoa` (`id`)
@@ -599,14 +587,27 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `osuply_app`.`tipos`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `osuply_app`;
+INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Produtos', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Serviços', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Equipamentos', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 'Componentes', 4, NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `osuply_app`.`categoria`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `osuply_app`;
-INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, NULL, 'Mecânico', NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, NULL, 'Elétrico', NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, NULL, 'Eletrônico', NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, NULL, 'Hidráulico', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `tipo`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 1, 'Mecânico', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `tipo`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 1, 'Elétrico', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `tipo`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 1, 'Eletrônico', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`categoria` (`id`, `status`, `descricao`, `tipo`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 4, 'Hidráulico', 1, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
@@ -616,10 +617,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `osuply_app`;
-INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Ferramentas', 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Abrasivos', 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Rolamentos', 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 'Mangueiras', 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Ferramentas', 1, '1', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Abrasivos', 1, '1', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Rolamentos', 1, '4', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`subCategoria` (`id`, `descricao`, `categoria`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 'Mangueiras', 1, '1', NULL, NULL, NULL, NULL);
 
 COMMIT;
 
@@ -731,19 +732,6 @@ START TRANSACTION;
 USE `osuply_app`;
 INSERT INTO `osuply_app`.`compradorProduto` (`id`, `produto`, `quantidade`, `comprador`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (NULL, 2, 100, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `osuply_app`.`compradorProduto` (`id`, `produto`, `quantidade`, `comprador`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (NULL, 3, 50, 1, NULL, NULL, NULL, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `osuply_app`.`tipos`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `osuply_app`;
-INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Produtos', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Serviços', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Equipamentos', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `osuply_app`.`tipos` (`id`, `descricao`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 'Componentes', NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
 

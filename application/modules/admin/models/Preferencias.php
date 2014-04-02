@@ -98,8 +98,10 @@ class Admin_Model_Preferencias
     public static function salvarPreferencias($tipoPref,$dados, $usr){
         if($tipoPref == 'compra'){
             $bd = new Admin_Model_DbTable_PreferenciasCompra();
+            $tabela = "preferenciasCompra";
         }elseif($tipoPref == 'venda'){
             $bd = new Admin_Model_DbTable_PreferenciasVenda();
+            $tabela = "preferenciasVenda";
         }
         $subcategoria = $dados['subcat'];
         
@@ -111,7 +113,19 @@ class Admin_Model_Preferencias
         
         foreach($subcategoria as $value){
             $data['subcategoria'] = $value;
-            $bd->insert($data);
+            #var_dump($data);
+            #$stmt = $bd->getAdapter()->query("REPLACE INTO ".$tabela." SET pessoa='".$data['pessoa']."', tipo='".$data['tipo']."', categoria = '".$data['categoria']."', subCategoria='".$data['categoria']."'");
+            #$stmt->execute();
+            try {
+                $bd->insert($data);
+            } catch (Exception $exc) {
+                $codigo = $exc->getCode();
+                #if($codigo != 2300){
+                #    echo $exc->getMessage();
+                #}
+            }
+
+            
         }
     }
 }

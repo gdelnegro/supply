@@ -1,9 +1,23 @@
+<script language="JavaScript">
+function abrir(URL) {
+ 
+  var width = 400;
+  var height = 400;
+ 
+  var left = 99;
+  var top = 99;
+ 
+  window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
+ 
+}
+</script>
+
 <h3>Selecione e cadastre os itens pertinentes ao seu ramo de atuação e necessidade de suprimentos</h3>
 
 <div class="row">
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
         <h3>Fornece</h3>
-        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrar","tipo"=>"venda"),null,true)?>" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarvenda"),null,true)?>')" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
         <?php 
         foreach($this->dadosVendas as $key=>$value):
@@ -26,7 +40,7 @@
     </div>
     
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
-        <h3>Compra</h3><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"cadastrar","tipo"=>"venda"),null,true)?>" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
+        <h3>Compra</h3><a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarcompra"),null,true)?>')" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
         
         <?php 

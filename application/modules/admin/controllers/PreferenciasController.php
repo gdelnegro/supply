@@ -64,8 +64,68 @@ class Admin_PreferenciasController extends Zend_Controller_Action
     }
     
     public function inserirAction(){
-        $this->_helper->viewRenderer->setNoRender(TRUE);
-        Admin_Model_Preferencias::salvarPreferencias('compra',$this->getAllParams(),$this->_usuario->id);
-        $this->redirect("/admin/preferencias");
+        #$this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->layout()->disableLayout();
+        
+        if($this->_getParam('tipoPref') == 'compra' || $this->_getParam('tipoPref') == 'venda'){
+            Admin_Model_Preferencias::salvarPreferencias($this->_getParam('tipoPref'),$this->getAllParams(),$this->_usuario->id);
+        }
+        
+        #$this->redirect("/admin/preferencias");
     }
+    
+    public function cadastrarcompraAction(){
+        $this->_helper->layout()->disableLayout();
+        $idUsuario = $this->_usuario->id;
+        $tipo = $this->_getParam('tipo');
+        $categoria = $this->_getParam('cat');
+        if($tipo == ''){
+            $dadosTipos = Admin_Model_Tipo::listaTipo();
+        }
+        if($tipo>0){
+            $dadosCategorias = Admin_Model_Categoria::pesquisaCategoria(null,$this->_getParam('tipo'));
+        }
+        if($categoria>0){
+            $formSubCategoria = new Admin_Form_Preferencias('new', $this->_usuario->id, $categoria);
+            $dados = array('tipo'=>$tipo,'categoria'=>$categoria);
+            $formSubCategoria->populate($dados);
+            $this->view->form = $formSubCategoria;
+        }
+        
+        $dadosSubcategorias = Admin_Model_Subcategoria::pesquisaSubCategoria($idSubCategoria, $categoria);
+        
+        $this->view->tipo = $tipo;
+        $this->view->categoria = $categoria;
+        $this->view->dadosCategorias = $dadosCategorias;
+        $this->view->dadosTipos = $dadosTipos;        
+        $this->view->dadosSubcategorias = $dadosSubcategorias;
+    }
+    
+    public function cadastrarvendaAction(){
+        $this->_helper->layout()->disableLayout();
+        $idUsuario = $this->_usuario->id;
+        $tipo = $this->_getParam('tipo');
+        $categoria = $this->_getParam('cat');
+        if($tipo == ''){
+            $dadosTipos = Admin_Model_Tipo::listaTipo();
+        }
+        if($tipo>0){
+            $dadosCategorias = Admin_Model_Categoria::pesquisaCategoria(null,$this->_getParam('tipo'));
+        }
+        if($categoria>0){
+            $formSubCategoria = new Admin_Form_Preferencias('new', $this->_usuario->id, $categoria);
+            $dados = array('tipo'=>$tipo,'categoria'=>$categoria);
+            $formSubCategoria->populate($dados);
+            $this->view->form = $formSubCategoria;
+        }
+        
+        $dadosSubcategorias = Admin_Model_Subcategoria::pesquisaSubCategoria($idSubCategoria, $categoria);
+        
+        $this->view->tipo = $tipo;
+        $this->view->categoria = $categoria;
+        $this->view->dadosCategorias = $dadosCategorias;
+        $this->view->dadosTipos = $dadosTipos;        
+        $this->view->dadosSubcategorias = $dadosSubcategorias;
+    }
+    
 }
