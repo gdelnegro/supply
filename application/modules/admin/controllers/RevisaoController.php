@@ -22,8 +22,6 @@ class Admin_RevisaoController extends Zend_Controller_Action
     {
         $usuario = new Admin_Model_Usuario();
         $itens = new Admin_Model_Produto();
-        #$categorias = new admin_model_categorias();
-        #$subCategorias = new Admin_Model_Subcategorias();
         
         $dadosUsuario = $usuario->pesquisaUsuarioPendente(10);
         $dadosItens = $itens->pesquisaProdutoPendente(10);
@@ -89,6 +87,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
+                Admin_Model_Produto::aprovarProduto($this->_getParam('id'));
                 break;
             default:
                 break;
@@ -112,6 +111,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
+                Admin_Model_Produto::aprovarProduto($this->_getParam('id'));
                 $this->_redirect('admin/revisao');
                 break;
             default:

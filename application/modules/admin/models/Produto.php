@@ -70,14 +70,18 @@ class Admin_Model_Produto
      * @author Gustavo Del Negro <gustavo@opisystem.com.br>
      * @since v0.1
      */
-    public function pesquisaProdutoFornece($id){
+    public function pesquisaProdutoFornece($idUsuario,$subCategoria = null){
         $dbProduto = new Admin_Model_DbTable_FornecedorProduto();
         $selectProduto = $dbProduto->select();
         $selectProduto->setIntegrityCheck(false);
         $selectProduto->from('fornecedorProduto')
                 ->joinInner('produto', 'fornecedorProduto.produto = produto.id')
-                ->where('fornecedor = ?',$id)
-                ->order('fornecedorProduto.dtCriacao DESC');
+                ->where('fornecedor = ?',$idUsuario);
+        if($subCategoria != null){
+            $selectProduto->where('categoria = ?', $subCategoria);
+        }
+                
+        $selectProduto->order('fornecedorProduto.dtCriacao DESC');
 //        $selectProduto = $dbProduto->select()
 //                    ->from('fornecedorProduto')
 //                    ->where('fornecedor = ?',$id)
@@ -107,6 +111,33 @@ class Admin_Model_Produto
         $stmtProduto = $selectProduto->query();
         $dadosProduto = $stmtProduto->fetchAll();
         return $dadosProduto;
+    }
+    
+    /**
+     * Método estático para remoção de cadastro de produto
+     * @param int $id
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
+    public static function removerProduto($id){
+        $dbProduto = new Admin_Model_DbTable_Produto(); 
+        $where =  $dbProduto->getAdapter()->quoteInto('id = ?', $id);
+        $dbProduto->delete($where);
+    }
+    
+    /**
+     * Método estático para aprovação de cadastro de produto
+     * @param int $id
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
+    public static function aprovarProduto($id){
+        $dbProduto = new Admin_Model_DbTable_Produto(); 
+        $data = array(
+            'status'=>'1',
+        );
+        $where =  $dbProduto->getAdapter()->quoteInto('id = ?', $id);
+        $dbProduto->update($data, $where);
     }
     
 }
