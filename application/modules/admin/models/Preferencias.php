@@ -94,4 +94,24 @@ class Admin_Model_Preferencias
         }
         return $dados;
     }
+    
+    public static function salvarPreferencias($tipoPref,$dados, $usr){
+        if($tipoPref == 'compra'){
+            $bd = new Admin_Model_DbTable_PreferenciasCompra();
+        }elseif($tipoPref == 'venda'){
+            $bd = new Admin_Model_DbTable_PreferenciasVenda();
+        }
+        $subcategoria = $dados['subcat'];
+        
+        $data = array(
+            'pessoa'        =>  $usr,
+            'tipo'      =>  $dados['tipo'],
+            'categoria'  =>  $dados['categoria'],
+        );
+        
+        foreach($subcategoria as $value){
+            $data['subcategoria'] = $value;
+            $bd->insert($data);
+        }
+    }
 }

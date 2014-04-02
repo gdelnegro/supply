@@ -40,18 +40,32 @@ class Admin_PreferenciasController extends Zend_Controller_Action
     public function cadastrarAction(){
         $idUsuario = $this->_usuario->id;
         $tipo = $this->_getParam('tipo');
-        $dadosCategorias = Admin_Model_Categoria::pesquisaCategoria();
-        $dadosTipos = Admin_Model_Tipo::listaTipo();
-        if($tipo == 'venda'){
-            echo "<h3>Venda</h3>";
-        }elseif($tipo == 'compra'){
-            echo '<h3>Compra</h3>';
+        $categoria = $this->_getParam('cat');
+        if($tipo == ''){
+            $dadosTipos = Admin_Model_Tipo::listaTipo();
+        }
+        if($tipo>0){
+            $dadosCategorias = Admin_Model_Categoria::pesquisaCategoria(null,$this->_getParam('tipo'));
+        }
+        if($categoria>0){
+            $formSubCategoria = new Admin_Form_Preferencias('new', $this->_usuario->id, $categoria);
+            $dados = array('tipo'=>$tipo,'categoria'=>$categoria);
+            $formSubCategoria->populate($dados);
+            $this->view->form = $formSubCategoria;
         }
         
+        $dadosSubcategorias = Admin_Model_Subcategoria::pesquisaSubCategoria($idSubCategoria, $categoria);
+        
+        $this->view->tipo = $tipo;
+        $this->view->categoria = $categoria;
         $this->view->dadosCategorias = $dadosCategorias;
-        $this->view->dadosTipos = $dadosTipos;
-        $this->view->dados = $this->getAllParams();
+        $this->view->dadosTipos = $dadosTipos;        
+        $this->view->dadosSubcategorias = $dadosSubcategorias;
     }
-
-
+    
+    public function inserirAction(){
+        $this->_helper->viewRenderer->setNoRender(TRUE);
+        Admin_Model_Preferencias::salvarPreferencias('compra',$this->getAllParams(),$this->_usuario->id);
+        $this->redirect("/admin/preferencias");
+    }
 }
