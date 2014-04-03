@@ -20,6 +20,7 @@ function custom_echo($x)
             <tr>
                  <th><center>Id</center></th>
                  <th><center>Valor</center></th>        
+                 <th><center>Usuário que enviou</center></th>    
                  <th><center>Data de Criação</center></th>
                  <th><center>Ações</center></th>
             </tr>
@@ -27,6 +28,7 @@ function custom_echo($x)
             <tr>
                  <td><center><?php  echo $proposta['id']?></center></td>
                  <td><center><?php  echo $proposta['valor']?></center></td>
+                 <td><center><?php  echo $proposta['usrCriou']?></center></td>
                  <td><center><?php echo $proposta['dtCriacao']?></center></td>
                <td><center>
                   <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$proposta['id']}"),null,true)?>" title="Aprovar"><span class="glyphicon glyphicon-check"></span></a>

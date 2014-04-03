@@ -92,6 +92,7 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $paginator->setPageRange(10);
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
+        $this->view->idOrcamento = $idOrcamento;
     }
     
     public function additemAction(){
@@ -128,6 +129,7 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $orcamento = new Admin_Model_Orcamento();
         $dadosOrcamento = $orcamento->pesquisaOrcamento($this->_usuario->id, $idOrcamento);
         $this->view->dadosOrcamento = $dadosOrcamento;
+        $this->view->idOrcamento = $idOrcamento;
         
         $dadosProdutos = $orcamento->pesquisaProdutos($idOrcamento);
         $paginator = Zend_Paginator::factory($dadosProdutos);

@@ -1,6 +1,6 @@
 <div class="row"> 
     <div class="col-md-2 col-sm-2 col-md-offset-7 col-sm-offset-7">
-        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$item['id']}"),null,true)?>" title="Ver Propostas Recebidas">Propostas Recebidas <span class="badge"><?php echo $this->dadosOrcamento['totalPropostas']?></span></a></p>
+        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$this->idOrcamento}"),null,true)?>" title="Ver Propostas Recebidas">Propostas Recebidas <span class="badge"><?php echo $this->dadosOrcamento['totalPropostas']?></span></a></p>
     </div>
 </div>
 <div class="row">
@@ -14,21 +14,16 @@
            <tr>
                 <th><center>Descrição</center></th>        
                 <th><center>Quantidade</center></th>
-                <th><center>Ações</center></th>
            </tr>
            <?php foreach($this->paginator AS $key => $item):?>
            <tr>
                 <td><center><?php  echo $item['descricao']?></center></td>
                 <td><center><?php echo $item['quantidade']?></center></td>
-                <td><center>
-                    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"show","id"=>"{$item['id']}"),null,true)?>" title="Ver Orçamento"><span class="glyphicon glyphicon-search"></span></a>
-                    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$item['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
-                    <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$item['id']}"),null,true)?>" title="Editar Orçamento"><span class="glyphicon glyphicon-pencil"></span></a>
-                    </center>
                 </td>
            </tr>
            <?php endforeach;?>
         </table>
         <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
+        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"proposta","action"=>"new","orcamento"=>"{$this->idOrcamento}"),null,true)?>" title="Enviar Propostas">Enviar propostas <span class="glyphicon glyphicon-envelope"></span></a></p>
     </div>
 </div>

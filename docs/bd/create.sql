@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `osuply_app`.`subCategoria` (
   INDEX `usuario` USING BTREE (`usrCriou` ASC, `usrAlterou` ASC),
   INDEX `data` USING BTREE (`dtAlteracao` ASC, `dtCriacao` ASC),
   INDEX `fk_subCategoria_categoria_idx` (`categoria` ASC),
+  UNIQUE INDEX `unico` (`id` ASC, `categoria` ASC),
   CONSTRAINT `fk_subCategoria_categoria`
     FOREIGN KEY (`categoria`)
     REFERENCES `osuply_app`.`categoria` (`id`)
@@ -380,6 +381,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `osuply_app`.`propostas` (
   `id` INT(12) NOT NULL AUTO_INCREMENT,
   `orcamento` INT(12) NOT NULL,
+  `descricao` VARCHAR(45) NULL,
   `valor` INT NULL,
   `dtAlteracao` DATE NULL,
   `dtCriacao` DATE NULL,
