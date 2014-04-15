@@ -1,0 +1,32 @@
+<style>
+    table{
+        width: 100%
+    }
+</style>
+    
+<h2>Visualização de cadastro de categoria</h2>
+<br>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        <div class="table-responsive">
+            <table class="table-bordered table-condensed table-striped table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Data de cadastro</th>
+                </tr>
+                <?php foreach($this->dados as $chave => $usuario):
+                    echo "<tr>";
+                        echo "<td>".$usuario['id']."</td>";
+                        echo "<td>".$usuario['descricao']."</td>";
+                        echo "<td>".Admin_Model_Status::pesquisaStatus($usuario['status'])."</td>";
+                        echo "<td>".$usuario['dtCriacao']."</td>";
+                    echo "</tr>";
+                endforeach;?>
+            </table>
+            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" title="Voltar"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        </div>
+    </div>
+</div>

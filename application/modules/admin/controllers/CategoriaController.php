@@ -32,6 +32,11 @@ class Admin_CategoriaController extends Zend_Controller_Action
         $formCategoria = new Admin_Form_Categoria('new', $this->_usuario->grupo);
         $this->view->formCategoria = $formCategoria;
     }
+    
+    public function showAction(){
+        $dados = Admin_Model_Categoria::pesquisaCategoria($this->_getParam('id'));        
+        $this->view->dados = $dados;
+    }
 
 
 }
