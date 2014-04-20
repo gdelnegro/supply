@@ -21,7 +21,7 @@ class Admin_Model_Produto
      * @author Gustavo Del Negro <gustavo@opisystem.com.br>
      * @since v0.1
      */
-    public function pesquisaProduto($idProduto = null, $subcategoria = null){
+    public static function pesquisaProduto($idProduto = null, $subcategoria = null){
             $dbProduto = new Admin_Model_DbTable_Produto();
             $selectProduto = $dbProduto->select()
                     ->from('produto');

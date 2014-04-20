@@ -3,6 +3,34 @@
 class Admin_Model_Segmento
 {
     
+    /**
+     * Método que pesquisa os segmentos com base no id
+     * aceita um dos dois parâmetros, os dois, ou nenhum
+     * @param int $idProduto
+     * @param int $subcategoria
+     * @return array
+     * @author Gustavo Del Negro <gustavo@opisystem.com.br>
+     * @since v0.1
+     */
+    public static function pesquisaSegmento($idSegmento = null){
+            $dbSegmento = new Admin_Model_DbTable_SubCategoria();
+            $selectSegmento = $dbSegmento->select()
+                    ->from('subCategoria');
+            if($idSegmento != null){
+                $selectSegmento->where('id = ?', $idSegmento);
+            }
+            $stmtSegmento = $selectSegmento->query();
+            $dadosSegmento = $stmtSegmento->fetchAll();
+            if($idSegmento != null){
+                return $dadosSegmento[0];
+            }else{
+                return $dadosSegmento;
+            }
+    }
+    
+    
+    
+    
     public static function listaSegmento(){
         $dbSegmento = new Admin_Model_DbTable_SubCategoria(); 
         $select = $dbSegmento->select()
