@@ -6,8 +6,10 @@
             <name>osuply</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>CATEGORIA</word>
             <word>lorem</word>
             <word>Quantidade</word>
+            <word>TIPO</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

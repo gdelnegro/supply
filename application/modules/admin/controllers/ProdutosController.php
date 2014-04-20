@@ -47,7 +47,6 @@ class Admin_ProdutosController extends Zend_Controller_Action
     public function addvendaAction(){
         $idUsuario = $this->_usuario->id;
         $dadosPreferencias = Admin_Model_Preferencias::venda($idUsuario);
-        
         $this->view->dadosPreferencias = $dadosPreferencias;
     }    
 

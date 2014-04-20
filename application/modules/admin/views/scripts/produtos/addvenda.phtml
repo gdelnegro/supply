@@ -1,0 +1,23 @@
+<?php var_dump($this->dadosPreferencias);?>
+
+SELECIONE O TIPO
+
+SELECIONE A CATEGORIA
+
+<?php 
+        foreach($this->dadosPreferencias as $key=>$value):
+            echo"<ul>";
+            echo"<li>".$value['tipo']."</li>";
+            foreach($value['categorias'] as $indice => $categoria){
+                echo "<ul>";
+                echo "<li>".$indice."</li>";
+                    echo "<ul>";
+                foreach($categoria as $subcategorias){
+                    echo "<li>".$subcategorias."</li>";
+                }
+                    echo "</ul>";
+                echo "</ul>";
+            }
+            echo "</ul>";
+        endforeach;
+        ?>
