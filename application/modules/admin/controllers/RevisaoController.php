@@ -83,11 +83,12 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $this->_redirect('admin/revisao');
                 break;
             case 'SUBCAT':
-                Admin_Model_Segmento::removerSegmento($this->_getParam('id'));
+                Admin_Model_Subcategoria::removerSegmento($this->_getParam('id'));
                 $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
                 Admin_Model_Produto::aprovarProduto($this->_getParam('id'));
+                $this->_redirect('admin/revisao');
                 break;
             default:
                 break;
@@ -107,7 +108,7 @@ class Admin_RevisaoController extends Zend_Controller_Action
                 $this->_redirect('admin/revisao');
                 break;
             case 'SUBCAT':
-                Admin_Model_Segmento::aprovarSegmento($this->_getParam('id'));
+                Admin_Model_Subcategoria::aprovarSegmento($this->_getParam('id'));
                 $this->_redirect('admin/revisao');
                 break;
             case 'ITEM':
