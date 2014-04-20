@@ -1,23 +1,41 @@
-<?php var_dump($this->dadosPreferencias);?>
-
-SELECIONE O TIPO
-
-SELECIONE A CATEGORIA
-
-<?php 
-        foreach($this->dadosPreferencias as $key=>$value):
-            echo"<ul>";
-            echo"<li>".$value['tipo']."</li>";
-            foreach($value['categorias'] as $indice => $categoria){
-                echo "<ul>";
-                echo "<li>".$indice."</li>";
-                    echo "<ul>";
-                foreach($categoria as $subcategorias){
-                    echo "<li>".$subcategorias."</li>";
-                }
-                    echo "</ul>";
-                echo "</ul>";
+<script>
+    var matriz=<?php echo json_encode($this->dadosPreferencias); ?>;
+    
+    function teste(){
+        var valor = $('#tipo').find(":selected").text();        
+        if(valor != 'Selecione um tipo'){
+            $('#teste').val(valor);
+            
+        }if(valor == 'Selecione um tipo'){
+            $('#teste').val('');
+        }
+    }
+</script>
+<?php
+$tipos = array();
+$categorias = array();
+    foreach($this->dadosPreferencias as $chave=>$valor){
+        $tipos[]=$valor['tipo'];
+    }
+    
+    foreach($this->dadosPreferencias as $key=>$value){
+        foreach($tipos as $chave=>$valor){
+            if(in_array($valor, $value)){
+                echo $valor;
             }
-            echo "</ul>";
-        endforeach;
-        ?>
+        }
+    }
+?>
+<br>
+<br>
+<br>
+<br>
+<select name="tipo" id="tipo" onchange="teste()">
+    <option value="0">Selecione um tipo</option>
+    <?php    
+    foreach($this->dadosPreferencias as $key=>$value){
+        echo "<option value='".$value['tipo']."'>".$value['tipo']."</option>";
+    }
+    ?>
+</select>
+<input type="text" value="" id="teste">

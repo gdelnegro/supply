@@ -44,6 +44,14 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $this->view->id = $this->_getParam('orcamento');
     }
     
+    public function prefvendaAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        $idUsuario = $this->_usuario->id;
+        $dadosPreferencias = Admin_Model_Preferencias::venda($idUsuario);
+        echo json_encode($dadosPreferencias);
+    }
+    
     public function addvendaAction(){
         $idUsuario = $this->_usuario->id;
         $dadosPreferencias = Admin_Model_Preferencias::venda($idUsuario);
