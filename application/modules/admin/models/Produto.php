@@ -153,9 +153,25 @@ class Admin_Model_Produto
         $data['descricao'] = $nome_produto;
         $data['categoria'] = $segmento;
         try{
-            $dbProduto->insert($data);
+            return $dbProduto->insert($data);
         } catch (Exception $ex) {
-
+            die($ex->getMessage());
+        }
+    }
+    
+    public static function addProdutoFornece($idUsuario, $idProduto, $preco, $quantidade, $codigo){
+        $dbProdutoFornece = new Admin_Model_DbTable_FornecedorProduto();
+        $data = array(
+            "fornecedor"    =>  "$idUsuario",
+            "produto"       =>  "$idProduto",
+            "quantidade"    =>  "$quantidade" ,
+            "precoItem"     =>  "$preco",
+            "codigo"        =>  "$codigo"
+        );
+        try{
+            return $dbProdutoFornece->insert($data);
+        } catch (Exception $ex) {
+            die($ex->getMessage());
         }
     }
     

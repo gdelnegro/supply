@@ -142,8 +142,11 @@
 <hr>
 <?php
     if($_POST):?>
-        <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addproduto"),null,true);?>">
-            <input type="text" name="nome_produto" id="nome_produto">
+        <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addprodutovenda"),null,true);?>">
+            <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto">
+            <input type="text" name="quantidade_produto" id="quantidade_produto" placeholder="Quantidade Disponível">
+            <input type="text" name="preco_produto" id="preco_produto" placeholder="Preço do Produto">
+            <input type="text" name="codigo_produto" id="codigo_produto" placeholder="Referência do produto">
             <input type="hidden" name="produto_tipo" id="produto_tipo" value="<?php echo $_POST['tipo']?>">
             <input type="hidden" name="produto_categoria" id="produto_categoria" value="<?php echo $_POST['categoria']?>">
             <input type="hidden" name="produto_segmento" id="produto_segmento" value="<?php echo $_POST['segmento']?>">
