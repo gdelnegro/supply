@@ -83,6 +83,33 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $dadosPreferencias = Admin_Model_Preferencias::getTipoCompra($idUsuario);
         $this->view->dadosPreferencias = $dadosPreferencias;
     }
+    
+    public function addprodutocompraAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        if($this->_usuario->grupo != 1){
+            $idUsuario = $this->_usuario->id;
+        }else{
+            $idUsuario = null;
+        }
+        if($this->getRequest()){
+            $nome_produto = $this->_getParam('nome_produto');
+            $idTipo = Admin_Model_Tipo::getId($this->_getParam('produto_tipo'));
+            $idcategoria = Admin_Model_Categoria::getId($idTipo,$this->_getParam('produto_categoria'));
+            $idSegmento = Admin_Model_Segmento::getId($idcategoria,$this->_getParam('produto_segmento'));
+            try{
+                $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
+                try{
+                    Admin_Model_Produto::addProdutoCompra($this->_usuario->id, $idProduto, $this->_getParam('quantidade_produto'));
+                    $this->_redirect('admin/produtos/compra');
+                } catch (Exception $ex) {
+                    Admin_Model_Produto::removerProduto($idProduto);
+                }
+            } catch (Exception $ex) {
+                #die($ex->getMessage());
+            }
+        }
+    }
 
     public function showAction(){
         $dados  = Admin_Model_Produto::pesquisaProduto($this->_getParam('id'),null);

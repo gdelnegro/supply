@@ -175,4 +175,18 @@ class Admin_Model_Produto
         }
     }
     
+    public static function addProdutoCompra($idUsuario, $idProduto, $quantidade){
+        $dbProdutoCompra = new Admin_Model_DbTable_CompradorProduto();
+        $data = array(
+            "comprador"    =>  "$idUsuario",
+            "produto"       =>  "$idProduto",
+            "quantidade"    =>  "$quantidade"
+        );
+        try{
+            return $dbProdutoCompra->insert($data);
+        } catch (Exception $ex) {
+            die($ex->getMessage());
+        }
+    }
+    
 }
