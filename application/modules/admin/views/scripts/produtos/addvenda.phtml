@@ -1,15 +1,106 @@
 <script>
     var matriz=<?php echo json_encode($this->dadosPreferencias); ?>;
-    
+    var categorias = [];
+    var segmentos = [];
+    var idTipo = 0;
+    var idCategoria = 0;
     function teste(){
         var valor = $('#tipo').find(":selected").text();        
         if(valor != 'Selecione um tipo'){
             $('#teste').val(valor);
-            
+            $.ajax({
+                    url: "/admin/tipo/listanome/nome/"+valor,
+                    type: 'get',
+                    dataType: 'json',
+                    async: false,
+                    success: function(data) {
+                        idTipo = data;
+                    }
+            });
+            getCategoria(idTipo);
         }if(valor == 'Selecione um tipo'){
             $('#teste').val('');
         }
     }
+    
+    function getCategoria(){
+        categorias = [];  
+        $("#categoria").empty();
+        var url = "/admin/categoria/pesquisarcategoria/id/"+idTipo;
+        var result = null;
+        $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+            success: function(data) {
+                result = data;
+            }
+        });
+        if(result.length >0){
+            for(var i=0;i<result.length;i++){
+                var dados = new Array();
+                dados["id"] = [result[i]['id']];
+                dados["descricao"] = [result[i]['descricao']];
+                categorias.push(dados);
+            }
+            for(var i = 0; i<categorias.length;i++){
+                //alert(categorias[i].toSource());
+                var option = document.createElement("option");
+                option.text = categorias[i]['descricao'];
+                option.value = categorias[i]['id'];
+                //option.value = "myvalue";
+                var select = document.getElementById("categoria");
+                select.appendChild(option);
+            }
+
+        }else{
+            var option = document.createElement("option");
+            option.text = "Tipo sem categorias cadastradas";
+            option.value = 0;
+            var select = document.getElementById("categoria");
+            select.appendChild(option);
+        }
+    }
+    
+    function getSegmento(idCategoria){
+        $("#segmento").empty();
+        segmentos = [];  
+        var url = "/admin/segmento/listasegmentos/id/"+idCategoria;
+        var result = null;
+        $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+            success: function(data) {
+                result = data;
+            }
+        });
+        if(result.length >0){
+            for(var i=0;i<result.length;i++){
+                var dados = new Array();
+                dados["id"] = [result[i]['key']];
+                dados["descricao"] = [result[i]['value']];
+                segmentos.push(dados);
+            }
+            for(var i = 0; i<segmentos.length;i++){
+                var option = document.createElement("option");
+                option.text = segmentos[i]['descricao'];
+                option.value = segmentos[i]['id'];
+                var select = document.getElementById("segmento");
+                select.appendChild(option);
+            }
+        }else{
+            $("#segmento").empty();
+            var option = document.createElement("option");
+            option.text = "Categoria sem segmentos cadastrados";
+            option.value = 0;
+            var select = document.getElementById("segmento");
+            select.appendChild(option);
+        }
+    }
+    
 </script>
 <?php
 $tipos = array();
@@ -17,25 +108,34 @@ $categorias = array();
     foreach($this->dadosPreferencias as $chave=>$valor){
         $tipos[]=$valor['tipo'];
     }
-    
-    foreach($this->dadosPreferencias as $key=>$value){
-        foreach($tipos as $chave=>$valor){
-            if(in_array($valor, $value)){
-                echo $valor;
-            }
-        }
-    }
 ?>
-<br>
-<br>
-<br>
-<br>
-<select name="tipo" id="tipo" onchange="teste()">
-    <option value="0">Selecione um tipo</option>
-    <?php    
-    foreach($this->dadosPreferencias as $key=>$value){
-        echo "<option value='".$value['tipo']."'>".$value['tipo']."</option>";
-    }
-    ?>
-</select>
-<input type="text" value="" id="teste">
+
+<table>
+    <tr>
+        <th>Tipo</th>
+        <th>Categoria</th>
+        <th>Segmento</th>
+    </tr>
+    <tr>
+        <td>
+            <select name="tipo" id="tipo" onchange="teste()">
+                <option value="0">Selecione um tipo</option>
+                <?php    
+                foreach($this->dadosPreferencias as $key=>$value){
+                    echo "<option value='".$value['tipo']."'>".$value['tipo']."</option>";
+                }
+                ?>
+            </select>
+        </td>
+        <td>
+            <select name="categoria" id="categoria" onchange="getSegmento(this.value)">
+                <option value="0">Selecione uma categoria</option>
+            </select>
+        </td>
+        <td>
+            <select name="segmento" id="segmento">
+                <option value="0">Selecione um segmento</option>
+            </select>
+        </td>
+    </tr>
+</table>

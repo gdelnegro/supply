@@ -11,5 +11,16 @@ class Admin_Model_Tipo
         $stmt = $select->query();
         return $stmt->fetchAll();                
     }
+    
+    public static function getId($nome){
+        $dbCategoria = new Admin_Model_DbTable_Tipos();
+        $select = $dbCategoria->select()
+                ->from('tipos', array('id'=>'id'))
+                ->where('status = 1')
+                ->where("descricao = '{$nome}'");
+        $stmt = $select->query();
+        $dados = $stmt->fetchAll();
+        return intval($dados[0]['id']);
+    }
 }
 

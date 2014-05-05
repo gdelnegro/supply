@@ -37,6 +37,12 @@ class Admin_CategoriaController extends Zend_Controller_Action
         $dados = Admin_Model_Categoria::pesquisaCategoria($this->_getParam('id'));        
         $this->view->dados = $dados;
     }
+    
+    public function pesquisarcategoriaAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        echo json_encode(Admin_Model_Categoria::pesquisaCategoria(null, $this->_getParam('id')));
+    }
 
 
 }

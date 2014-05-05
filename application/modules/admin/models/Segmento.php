@@ -28,14 +28,16 @@ class Admin_Model_Segmento
             }
     }
     
-    
-    
-    
-    public static function listaSegmento(){
+    public static function listaSegmento($idCategoria = null ,$idSegmento = null){
         $dbSegmento = new Admin_Model_DbTable_SubCategoria(); 
         $select = $dbSegmento->select()
-                ->from('subCategoria', array('key'=>'id','value'=>'descricao'))
-                ->where('id = 1');
+                ->from('subCategoria', array('key'=>'id','value'=>'descricao'));
+        if(!is_null($idSegmento)){
+            $select->where("id = '{$idSegmento}'");
+        }
+        if(!is_null($idCategoria)){
+            $select->where("categoria = {$idCategoria}");
+        };
         $stmt = $select->query();
         return $stmt->fetchAll();
     }

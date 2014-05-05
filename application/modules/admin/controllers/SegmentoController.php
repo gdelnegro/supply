@@ -28,6 +28,12 @@ class Admin_SegmentoController extends Zend_Controller_Action
         $dados = Admin_Model_Segmento::pesquisaSegmento($this->_getParam('id'));
         $this->view->dados = $dados;
     }
+    
+    public function listasegmentosAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        echo json_encode(Admin_Model_Segmento::listaSegmento($this->_getParam('id'),null ));
+    }
         
 
 
