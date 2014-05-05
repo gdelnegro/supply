@@ -45,14 +45,10 @@ class Admin_ProdutosController extends Zend_Controller_Action
         echo json_encode($dadosPreferencias);
     }
     
-    public function addvendaAction(){
-        if($this->getRequest()->getMethod == "get"){
-            die(var_dump($this->getRequest()));
-        }else{
-            $idUsuario = $this->_usuario->id;
-            $dadosPreferencias = Admin_Model_Preferencias::getTipoVenda($idUsuario);
-            $this->view->dadosPreferencias = $dadosPreferencias;
-        }
+    public function addvendaAction(){        
+        $idUsuario = $this->_usuario->id;
+        $dadosPreferencias = Admin_Model_Preferencias::getTipoVenda($idUsuario);
+        $this->view->dadosPreferencias = $dadosPreferencias;
     }
     
     public function addprodutovendaAction(){
@@ -80,6 +76,12 @@ class Admin_ProdutosController extends Zend_Controller_Action
                 #die($ex->getMessage());
             }
         }
+    }
+    
+    public function addcompraAction(){
+        $idUsuario = $this->_usuario->id;
+        $dadosPreferencias = Admin_Model_Preferencias::getTipoCompra($idUsuario);
+        $this->view->dadosPreferencias = $dadosPreferencias;
     }
 
     public function showAction(){

@@ -14,7 +14,7 @@ function custom_echo($x)
 <body>
 <center>
     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
-    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Adicionar mais produtos de interesse</a></p>
+    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addcompra"),null,true)?>">Adicionar mais produtos de interesse</a></p>
     <?php
         if($this->id != null){
             echo "<form method=\"post\" action=".$this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"additem","orcamento"=>"$this->id"),null,true).">";
