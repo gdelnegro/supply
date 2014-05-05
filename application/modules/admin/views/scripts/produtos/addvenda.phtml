@@ -4,20 +4,12 @@
     var segmentos = [];
     var idTipo = 0;
     var idCategoria = 0;
+    var Tipo = null;
     function teste(){
         var valor = $('#tipo').find(":selected").text();        
         if(valor != 'Selecione um tipo'){
-            $('#teste').val(valor);
-            $.ajax({
-                    url: "/admin/tipo/listanome/nome/"+valor,
-                    type: 'get',
-                    dataType: 'json',
-                    async: false,
-                    success: function(data) {
-                        idTipo = data;
-                    }
-            });
-            getCategoria(idTipo);
+            Tipo = valor;
+            getCategoria();
         }if(valor == 'Selecione um tipo'){
             $('#teste').val('');
         }
@@ -26,7 +18,8 @@
     function getCategoria(){
         categorias = [];  
         $("#categoria").empty();
-        var url = "/admin/categoria/pesquisarcategoria/id/"+idTipo;
+        //var url = "/admin/categoria/pesquisarcategoria/id/"+idTipo;
+        var url = "/admin/preferencias/listacategorias/filtro/venda/tipo/"+Tipo;
         var result = null;
         $.ajax({
         url: url,
@@ -40,15 +33,14 @@
         if(result.length >0){
             for(var i=0;i<result.length;i++){
                 var dados = new Array();
-                dados["id"] = [result[i]['id']];
-                dados["descricao"] = [result[i]['descricao']];
+                dados["descricao"] = [result[i]['Categoria']];
                 categorias.push(dados);
             }
             for(var i = 0; i<categorias.length;i++){
                 //alert(categorias[i].toSource());
                 var option = document.createElement("option");
                 option.text = categorias[i]['descricao'];
-                option.value = categorias[i]['id'];
+                option.value = categorias[i]['descricao'];
                 //option.value = "myvalue";
                 var select = document.getElementById("categoria");
                 select.appendChild(option);
@@ -63,10 +55,11 @@
         }
     }
     
-    function getSegmento(idCategoria){
+    function getSegmento(categoria){
         $("#segmento").empty();
         segmentos = [];  
-        var url = "/admin/segmento/listasegmentos/id/"+idCategoria;
+        //var url = "/admin/segmento/listasegmentos/id/"+idCategoria;
+        var url = "/admin/preferencias/listasegmentos/filtro/venda/tipo/"+Tipo+"/categoria/"+categoria;
         var result = null;
         $.ajax({
         url: url,
@@ -80,14 +73,13 @@
         if(result.length >0){
             for(var i=0;i<result.length;i++){
                 var dados = new Array();
-                dados["id"] = [result[i]['key']];
-                dados["descricao"] = [result[i]['value']];
+                dados["descricao"] = [result[i]['SubCategoria']];
                 segmentos.push(dados);
             }
             for(var i = 0; i<segmentos.length;i++){
                 var option = document.createElement("option");
                 option.text = segmentos[i]['descricao'];
-                option.value = segmentos[i]['id'];
+                option.value = segmentos[i]['descricao'];
                 var select = document.getElementById("segmento");
                 select.appendChild(option);
             }
@@ -102,14 +94,6 @@
     }
     
 </script>
-<?php
-$tipos = array();
-$categorias = array();
-    foreach($this->dadosPreferencias as $chave=>$valor){
-        $tipos[]=$valor['tipo'];
-    }
-?>
-
 <table>
     <tr>
         <th>Tipo</th>
@@ -122,7 +106,7 @@ $categorias = array();
                 <option value="0">Selecione um tipo</option>
                 <?php    
                 foreach($this->dadosPreferencias as $key=>$value){
-                    echo "<option value='".$value['tipo']."'>".$value['tipo']."</option>";
+                    echo "<option value='".$value['Tipo']."'>".$value['Tipo']."</option>";
                 }
                 ?>
             </select>

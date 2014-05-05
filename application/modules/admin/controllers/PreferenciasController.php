@@ -128,4 +128,34 @@ class Admin_PreferenciasController extends Zend_Controller_Action
         $this->view->dadosSubcategorias = $dadosSubcategorias;
     }
     
+    public function listatiposAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        if(strtoupper($this->_getParam('filtro'))== 'VENDA'){
+            echo json_encode(Admin_Model_Preferencias::getTipoVenda($this->_usuario->id));
+        }elseif(strtoupper($this->_getParam('filtro'))== 'COMPRA'){
+            echo json_encode(Admin_Model_Preferencias::getTipoCompra($this->_usuario->id));
+        }
+    }
+    
+    public function listacategoriasAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        if(strtoupper($this->_getParam('filtro'))== 'VENDA'){
+            echo json_encode(Admin_Model_Preferencias::getCategoriaVenda($this->_usuario->id, $this->_getParam('tipo'), $this->_getParam('categoria')));
+        }elseif(strtoupper($this->_getParam('filtro'))== 'COMPRA'){
+            echo json_encode(Admin_Model_Preferencias::getCategoriaCompra($this->_usuario->id, $this->_getParam('tipo'), $this->_getParam('categoria')));
+        }
+    }
+    
+    public function listasegmentosAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        if(strtoupper($this->_getParam('filtro'))== 'VENDA'){
+            echo json_encode(Admin_Model_Preferencias::getSegmentoVenda($this->_usuario->id, $this->_getParam('tipo'), $this->_getParam('categoria'), $this->_getParam('segmento')));
+        }elseif(strtoupper($this->_getParam('filtro'))== 'COMPRA'){
+            echo json_encode(Admin_Model_Preferencias::getSegmentoCompra($this->_usuario->id, $this->_getParam('tipo'), $this->_getParam('categoria'), $this->_getParam('segmento')));
+        }
+    }
+    
 }
