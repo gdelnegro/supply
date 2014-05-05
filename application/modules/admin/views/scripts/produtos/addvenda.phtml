@@ -5,6 +5,9 @@
     var idTipo = 0;
     var idCategoria = 0;
     var Tipo = null;
+    var Categoria = null;
+    var Segmento = null;
+    
     function teste(){
         var valor = $('#tipo').find(":selected").text();        
         if(valor != 'Selecione um tipo'){
@@ -18,6 +21,11 @@
     function getCategoria(){
         categorias = [];  
         $("#categoria").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione uma categoria";
+        option.value = 0;
+        var select = document.getElementById("categoria");
+        select.appendChild(option);
         //var url = "/admin/categoria/pesquisarcategoria/id/"+idTipo;
         var url = "/admin/preferencias/listacategorias/filtro/venda/tipo/"+Tipo;
         var result = null;
@@ -56,7 +64,12 @@
     }
     
     function getSegmento(categoria){
+        Categoria = categoria;
         $("#segmento").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione um segmento";
+        option.value = 0;
+        var select = document.getElementById("segmento");
         segmentos = [];  
         //var url = "/admin/segmento/listasegmentos/id/"+idCategoria;
         var url = "/admin/preferencias/listasegmentos/filtro/venda/tipo/"+Tipo+"/categoria/"+categoria;
@@ -94,32 +107,47 @@
     }
     
 </script>
-<table>
-    <tr>
-        <th>Tipo</th>
-        <th>Categoria</th>
-        <th>Segmento</th>
-    </tr>
-    <tr>
-        <td>
-            <select name="tipo" id="tipo" onchange="teste()">
-                <option value="0">Selecione um tipo</option>
-                <?php    
-                foreach($this->dadosPreferencias as $key=>$value){
-                    echo "<option value='".$value['Tipo']."'>".$value['Tipo']."</option>";
-                }
-                ?>
-            </select>
-        </td>
-        <td>
-            <select name="categoria" id="categoria" onchange="getSegmento(this.value)">
-                <option value="0">Selecione uma categoria</option>
-            </select>
-        </td>
-        <td>
-            <select name="segmento" id="segmento">
-                <option value="0">Selecione um segmento</option>
-            </select>
-        </td>
-    </tr>
-</table>
+<form method="post" name="form_categoria">
+    <table>
+        <tr>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Segmento</th>
+        </tr>
+        <tr>
+            <td>
+                <select name="tipo" id="tipo" onchange="teste()">
+                    <option value="0">Selecione um tipo</option>
+                    <?php    
+                    foreach($this->dadosPreferencias as $key=>$value){
+                        echo "<option value='".$value['Tipo']."'>".$value['Tipo']."</option>";
+                    }
+                    ?>
+                </select>
+            </td>
+            <td>
+                <select name="categoria" id="categoria" onchange="getSegmento(this.value)">
+                    <option value="0">Selecione uma categoria</option>
+                </select>
+            </td>
+            <td>
+                <select name="segmento" id="segmento">
+                    <option value="0">Selecione um segmento</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Ok">
+</form>
+<hr>
+<?php
+    if($_POST):?>
+        <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addproduto"),null,true);?>">
+            <input type="text" name="nome_produto" id="nome_produto">
+            <input type="hidden" name="produto_tipo" id="produto_tipo" value="<?php echo $_POST['tipo']?>">
+            <input type="hidden" name="produto_categoria" id="produto_categoria" value="<?php echo $_POST['categoria']?>">
+            <input type="hidden" name="produto_segmento" id="produto_segmento" value="<?php echo $_POST['segmento']?>">
+            <input type="submit" name="submit" value="Cadastrar Produto">
+        </form>
+    <?php endif;
+?>

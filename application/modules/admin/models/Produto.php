@@ -140,4 +140,23 @@ class Admin_Model_Produto
         $dbProduto->update($data, $where);
     }
     
+    public static function addProduto($idUsuario = null, $segmento, $nome_produto){
+        $dbProduto = new Admin_Model_DbTable_Produto();
+        if(!is_null($idUsuario)){
+            $status = 4;
+        }else{
+            $status = 1;
+        }
+        $data = array(
+            'status' => "$status"
+        );
+        $data['descricao'] = $nome_produto;
+        $data['categoria'] = $segmento;
+        try{
+            $dbProduto->insert($data);
+        } catch (Exception $ex) {
+
+        }
+    }
+    
 }

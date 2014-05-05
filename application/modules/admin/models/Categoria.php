@@ -100,4 +100,16 @@ class Admin_Model_Categoria
         $where =  $dbCategoria->getAdapter()->quoteInto('id = ?', $id);
         $dbCategoria->update($data, $where);
     }
+    
+    public static function getId($tipo,$nome){
+        $dbCategoria = new Admin_Model_DbTable_Categoria();
+        $select = $dbCategoria->select()
+                ->from('categoria', array('id'=>'id'))
+                ->where('status = 1')
+                ->where("descricao = '{$nome}'")
+                ->where("tipo = '{$tipo}'");
+        $stmt = $select->query();
+        $dados = $stmt->fetchAll();
+        return intval($dados[0]['id']);
+    }
 }

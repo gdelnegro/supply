@@ -90,5 +90,17 @@ class Admin_Model_Segmento
         $where =  $dbSegmento->getAdapter()->quoteInto('id = ?', $id);
         $dbSegmento->update($data, $where);
     }
+    
+    public static function getId($categoria,$nome){
+        $dbCategoria = new Admin_Model_DbTable_SubCategoria();
+        $select = $dbCategoria->select()
+                ->from('subCategoria', array('id'=>'id'))
+                ->where('status = 1')
+                ->where("descricao = '{$nome}'")
+                ->where("categoria = '{$categoria}'");
+        $stmt = $select->query();
+        $dados = $stmt->fetchAll();
+        return intval($dados[0]['id']);
+    }
 }
 
