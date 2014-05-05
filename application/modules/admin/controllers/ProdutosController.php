@@ -64,6 +64,8 @@ class Admin_ProdutosController extends Zend_Controller_Action
             $idTipo = Admin_Model_Tipo::getId($this->_getParam('produto_tipo'));
             $idcategoria = Admin_Model_Categoria::getId($idTipo,$this->_getParam('produto_categoria'));
             $idSegmento = Admin_Model_Segmento::getId($idcategoria,$this->_getParam('produto_segmento'));
+            $teste=[$idTipo,$idcategoria,$idSegmento];
+            die(var_dump($teste));
             try{
                 $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
                 try{
