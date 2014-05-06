@@ -28,7 +28,7 @@
                     result = data;
                 }
         });
-        alert(result.toSource());
+        //alert(result.toSource());
         if(result.length >0){
             for(var i=0;i<result.length;i++){
                 var dados = new Array();
@@ -40,7 +40,7 @@
                 //alert(categorias[i].toSource());
                 var option = document.createElement("option");
                 option.text = categorias[i]['descricao'];
-                option.value = categorias[i]['key'];
+                option.value = categorias[i]['chave'];
                 //option.value = "myvalue";
                 var select = document.getElementById("tipo");
                 select.appendChild(option);
@@ -54,17 +54,7 @@
         }
     });
     
-    function teste(){
-        var valor = $('#tipo').find(":selected").text();        
-        if(valor != 'Selecione um tipo'){
-            Tipo = valor;
-            getCategoria();
-        }if(valor == 'Selecione um tipo'){
-            $('#teste').val('');
-        }
-    }
-    
-    function getCategoria(){
+    function getCategoria(Tipo){
         categorias = [];  
         $("#categoria").empty();
         var option = document.createElement("option");
@@ -72,40 +62,53 @@
         option.value = 0;
         var select = document.getElementById("categoria");
         select.appendChild(option);
-        //var url = "/admin/categoria/pesquisarcategoria/id/"+idTipo;
-        var url = "/admin/preferencias/listacategorias/filtro/venda/tipo/"+Tipo;
+        var url = "/admin/categoria/pesquisarcategoria/tipo/"+Tipo;
         var result = null;
-        $.ajax({
-        url: url,
-        type: 'get',
-        dataType: 'json',
-        async: false,
-            success: function(data) {
-                result = data;
-            }
-        });
-        if(result.length >0){
-            for(var i=0;i<result.length;i++){
-                var dados = new Array();
-                dados["descricao"] = [result[i]['Categoria']];
-                categorias.push(dados);
-            }
-            for(var i = 0; i<categorias.length;i++){
-                //alert(categorias[i].toSource());
-                var option = document.createElement("option");
-                option.text = categorias[i]['descricao'];
-                option.value = categorias[i]['descricao'];
-                //option.value = "myvalue";
-                var select = document.getElementById("categoria");
-                select.appendChild(option);
-            }
-
-        }else{
+        
+        if(Tipo == 0){
+            categorias = [];  
+            $("#categoria").empty();
             var option = document.createElement("option");
-            option.text = "Tipo sem categorias cadastradas";
+            option.text = "Selecione um tipo";
             option.value = 0;
             var select = document.getElementById("categoria");
             select.appendChild(option);
+            return;
+        }else{
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                async: false,
+                    success: function(data) {
+                        result = data;
+                    }
+            });
+
+            if(result.length >0){
+                for(var i=0;i<result.length;i++){
+                    var dados = new Array();
+                    dados["id"] = [result[i]['id']];
+                    dados["descricao"] = [result[i]['descricao']];
+                    categorias.push(dados);
+                }
+                for(var i = 0; i<categorias.length;i++){
+                    //alert(categorias[i].toSource());
+                    var option = document.createElement("option");
+                    option.text = categorias[i]['descricao'];
+                    option.value = categorias[i]['id'];
+                    //option.value = "myvalue";
+                    var select = document.getElementById("categoria");
+                    select.appendChild(option);
+                }
+
+            }else{
+                var option = document.createElement("option");
+                option.text = "Tipo sem categorias cadastradas";
+                option.value = 0;
+                var select = document.getElementById("categoria");
+                select.appendChild(option);
+            }
         }
     }
     
@@ -117,39 +120,51 @@
         option.value = 0;
         var select = document.getElementById("segmento");
         segmentos = [];  
-        //var url = "/admin/segmento/listasegmentos/id/"+idCategoria;
-        var url = "/admin/preferencias/listasegmentos/filtro/venda/tipo/"+Tipo+"/categoria/"+categoria;
-        var result = null;
-        $.ajax({
-        url: url,
-        type: 'get',
-        dataType: 'json',
-        async: false,
-            success: function(data) {
-                result = data;
-            }
-        });
-        if(result.length >0){
-            for(var i=0;i<result.length;i++){
-                var dados = new Array();
-                dados["descricao"] = [result[i]['SubCategoria']];
-                segmentos.push(dados);
-            }
-            for(var i = 0; i<segmentos.length;i++){
-                var option = document.createElement("option");
-                option.text = segmentos[i]['descricao'];
-                option.value = segmentos[i]['descricao'];
-                var select = document.getElementById("segmento");
-                select.appendChild(option);
-            }
-        }else{
+        var url = "/admin/segmento/listasegmentos/id/"+Categoria;
+        //var url = "/admin/preferencias/listasegmentos/filtro/venda/tipo/"+Tipo+"/categoria/"+categoria;
+        if(Categoria == 0){
             $("#segmento").empty();
             var option = document.createElement("option");
-            option.text = "Categoria sem segmentos cadastrados";
+            option.text = "Selecione uma categoria";
             option.value = 0;
             var select = document.getElementById("segmento");
             select.appendChild(option);
+            return;
+        }else{
+            var result = null;
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                async: false,
+                    success: function(data) {
+                        result = data;
+                    }
+            });
+            if(result.length >0){
+                for(var i=0;i<result.length;i++){
+                    var dados = new Array();
+                    dados["id"] = [result[i]['key']];
+                    dados["descricao"] = [result[i]['value']];
+                    segmentos.push(dados);
+                }
+                for(var i = 0; i<segmentos.length;i++){
+                    var option = document.createElement("option");
+                    option.text = segmentos[i]['descricao'];
+                    option.value = segmentos[i]['descricao'];
+                    var select = document.getElementById("segmento");
+                    select.appendChild(option);
+                }
+            }else{
+                $("#segmento").empty();
+                var option = document.createElement("option");
+                option.text = "Categoria sem segmentos cadastrados";
+                option.value = 0;
+                var select = document.getElementById("segmento");
+                select.appendChild(option);
+            }
         }
+        
     }
     
 </script>
@@ -163,8 +178,7 @@
         </tr>
         <tr>
             <td>
-                <select name="tipo" id="tipo" onchange="teste()">
-                    <option value="0">Selecione um tipo</option>
+                <select name="tipo" id="tipo" onchange="getCategoria(this.value)">
                 </select>
             </td>
             <td>

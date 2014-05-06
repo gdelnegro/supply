@@ -70,7 +70,7 @@ class Admin_CategoriaController extends Zend_Controller_Action
     public function pesquisarcategoriaAction(){
         $this->_helper->layout()->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
-        echo json_encode(Admin_Model_Categoria::pesquisaCategoria(null, $this->_getParam('id')));
+        echo json_encode(Admin_Model_Categoria::pesquisaCategoria($this->_getParam('categoria'), $this->_getParam('tipo')));
     }
 
 
