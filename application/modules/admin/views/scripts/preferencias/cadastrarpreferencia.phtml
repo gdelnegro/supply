@@ -15,6 +15,7 @@
         var option = document.createElement("option");
         option.text = "Selecione um tipo";
         option.value = 0;
+        
         var select = document.getElementById("tipo");
         select.appendChild(option);
         var url = "/admin/tipo/listatipos";
@@ -54,14 +55,29 @@
         }
     });
     
-    function getCategoria(Tipo){
-        categorias = [];  
+    
+    function resetSelect(){
         $("#categoria").empty();
         var option = document.createElement("option");
         option.text = "Selecione uma categoria";
         option.value = 0;
         var select = document.getElementById("categoria");
         select.appendChild(option);
+        
+        $("#segmento").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione um segmento";
+        option.value = 0;
+        var select = document.getElementById("segmento");
+        select.appendChild(option);
+        
+        var element = document.getElementById('enviar');
+        element.style.display = "none";
+    }
+    
+    function getCategoria(Tipo){
+        categorias = [];  
+        resetSelect();
         var url = "/admin/categoria/pesquisarcategoria/tipo/"+Tipo;
         var result = null;
         
@@ -129,6 +145,8 @@
             option.value = 0;
             var select = document.getElementById("segmento");
             select.appendChild(option);
+            var element = document.getElementById('enviar');
+                element.style.display = "none";
             return;
         }else{
             var result = null;

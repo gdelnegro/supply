@@ -153,10 +153,11 @@ class Admin_PreferenciasController extends Zend_Controller_Action
         }
     }
     
-    public function testeAction(){
-    }
+//    public function testeAction(){
+//    }
     
     public function cadastrarpreferenciaAction(){
+        //$this->_helper->layout()->disableLayout();
         $preferencia = $this->_getParam('pref');
         $this->view->preferencia = $preferencia;
     }

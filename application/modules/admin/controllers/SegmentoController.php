@@ -73,15 +73,4 @@ class Admin_SegmentoController extends Zend_Controller_Action
         }
         $this->view->formSegmento = $formSegmento;
     }
-    
-    public function testeAction(){
-        $this->_helper->layout()->disableLayout();
-    	$this->_helper->viewRenderer->setNoRender(true);
-        
-        var_dump(Admin_Model_Categoria::listaSegmentoCategoria());
-    }
-        
-
-
 }
-
