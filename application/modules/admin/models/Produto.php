@@ -119,7 +119,19 @@ class Admin_Model_Produto
      * @author Gustavo Del Negro <gustavo@opisystem.com.br>
      * @since v0.1
      */
-    public static function removerProduto($id){
+    public static function removerProduto($id,$tipo = null,$usr = null){
+        if($tipo != null){
+            if(strtoupper($tipo) == 'COMPRA'){
+                $db = new Admin_Model_DbTable_CompradorProduto();
+            }elseif(strtoupper($tipo) == 'VENDA'){
+                $db = new Admin_Model_DbTable_FornecedorProduto();
+            }
+            $where = array(
+                'produto = ?' => $id,
+                'fornecedor = ?' => $usr
+            );
+            $db->delete($where);
+        }
         $dbProduto = new Admin_Model_DbTable_Produto(); 
         $where =  $dbProduto->getAdapter()->quoteInto('id = ?', $id);
         $dbProduto->delete($where);

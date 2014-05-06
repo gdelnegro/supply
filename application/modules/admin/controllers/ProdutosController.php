@@ -24,6 +24,7 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $paginator->setPageRange(10);
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
+        $this->view->grupoUsuario = $this->_usuario->grupo;
     }
     
     public function compraAction(){
@@ -35,6 +36,7 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
         $this->view->id = $this->_getParam('orcamento');
+        $this->view->grupoUsuario = $this->_usuario->grupo;
     }
     
     public function prefvendaAction(){
@@ -64,8 +66,6 @@ class Admin_ProdutosController extends Zend_Controller_Action
             $idTipo = Admin_Model_Tipo::getId($this->_getParam('produto_tipo'));
             $idcategoria = Admin_Model_Categoria::getId($idTipo,$this->_getParam('produto_categoria'));
             $idSegmento = Admin_Model_Segmento::getId($idcategoria,$this->_getParam('produto_segmento'));
-            $teste=[$idTipo,$idcategoria,$idSegmento];
-            die(var_dump($teste));
             try{
                 $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
                 try{
@@ -116,6 +116,14 @@ class Admin_ProdutosController extends Zend_Controller_Action
     public function showAction(){
         $dados  = Admin_Model_Produto::pesquisaProduto($this->_getParam('id'),null);
         $this->view->dados = $dados;
+    }
+    
+    public function deleteAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        if($this->_usuario->grupo == 1){
+            Admin_Model_Produto::removerProduto($this->_getParam('id'),'venda', $this->_usuario->id);
+        }
     }
 
 }

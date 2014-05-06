@@ -100,7 +100,6 @@ class Admin_Model_Segmento
                 ->where("categoria = '{$categoria}'");
         $stmt = $select->query();
         $dados = $stmt->fetchAll();
-        die(var_dump($dados));
         return intval($dados[0]['id']);
     }
     
