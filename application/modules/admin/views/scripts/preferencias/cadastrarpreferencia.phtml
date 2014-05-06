@@ -185,7 +185,7 @@
         var data = getFormData(form);
          $.ajax({
             type: 'post',
-            url: '/admin/preferencias/cadastrarcompra/',
+            url: '/admin/preferencias/inserir/',
             data: data,
             dataType: 'json',
         });
@@ -202,6 +202,7 @@
         </tr>
         <tr>
             <td>
+                <input type="hidden" name="pref" value="<?php echo $this->preferencia ?>">
                 <select name="tipo" id="tipo" onchange="getCategoria(this.value)">
                 </select>
             </td>

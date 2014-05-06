@@ -26,6 +26,20 @@ class Admin_Model_Categoria
         return $stmt->fetchAll();
     }
     
+    public static function listaSegmentoCategoria(){
+        $dbCategoria = new Admin_Model_DbTable_Categoria();
+        $select = $dbCategoria->select()
+                ->from(array('c' => 'categoria'),
+                        array('key'=>'id','value'=>"CONCAT(t.descricao,'-',c.descricao)")
+                        )
+                ->join(array('t' => 'tipos'),
+                        'c.tipo = t.id',
+                        array() );
+        $stmt = $select->query();
+        return $stmt->fetchAll();
+        
+    }
+    
     public static function insereCategoria($dados){
         $bdCategoria = new Admin_Model_DbTable_Categoria();
         $bdCategoriaTipo = new Admin_Model_DbTable_CategoriaTipo();                

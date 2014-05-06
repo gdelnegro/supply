@@ -38,18 +38,18 @@ class Admin_CategoriaController extends Zend_Controller_Action
                 }else{
                     $status = 1;
                 }
+                $dados = array(
+                        "descricao"     =>  "{$data['descricao']}",
+                        "status"        =>  "{$status}",
+                        "usrCriou"      =>  "{$this->_usuario->id}",
+                        "tipo"          =>  "",
+                        "dtCriacao"     =>  "{$dtCriacao}"
+                    );
                 $dtCriacao = date("Y-m-d H:i:s");
                 $usrCriou = $this->_usuario->id;
                 #die(var_dump($data));
                 foreach($data['Tipo'] as $tipo){
-                    
-                    $dados = array(
-                        "descricao"     =>  "{$data['descricao']}",
-                        "status"        =>  "{$status}",
-                        "usrCriou"      =>  "{$this->_usuario->id}",
-                        "tipo"          =>  "{$tipo}",
-                        "dtCriacao"     =>  "{$dtCriacao}"
-                    );
+                    $dados["tipo"] = $tipo;
                     Admin_Model_Categoria::insereCategoria($dados);    
                 }
                 $this->redirect("/admin/categoria/index/");

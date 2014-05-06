@@ -39,7 +39,7 @@ class Admin_Form_Segmento extends Twitter_Form
         $categoria->setLabel('Categoria do segmento')
                 ->removeDecorator('HtmlTag')
                 ->setAttrib('disabled', $this->_exibir)
-                ->setMultiOptions(Admin_Model_Categoria::listaCategoria());
+                ->setMultiOptions(Admin_Model_Categoria::listaSegmentoCategoria());
         
         $this->addElements(array(
             $id,

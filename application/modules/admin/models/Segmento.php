@@ -103,5 +103,14 @@ class Admin_Model_Segmento
         die(var_dump($dados));
         return intval($dados[0]['id']);
     }
+    
+    public static function insert($dados){
+        $dbSegmento = new Admin_Model_DbTable_SubCategoria();
+        try{
+            $dbSegmento->insert($dados);
+        } catch (Exception $ex) {
+            die(var_dump($ex->getMessage()));
+        }
+    }
 }
 

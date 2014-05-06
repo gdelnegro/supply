@@ -1,0 +1,12 @@
+INSERT INTO `osuply_app`.`grupo` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Administrador sistema', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`status` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Ativo', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`status` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Inativo', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`status` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Cancelado', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`status` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (4, 'Aguardando liberação do administrador', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Administrador', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Física', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoPessoa` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Jurídica', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoEndereco` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Residencial', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoEndereco` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (2, 'Comercial', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`tipoEndereco` (`id`, `descricao`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (3, 'Cobrança', NULL, NULL, NULL, NULL);
+INSERT INTO `osuply_app`.`pessoa` (`id`, `nome`, `emailContato`, `telefonePrincipal`, `senha`, `grupo`, `tipoPessoa`, `status`, `dtAlteracao`, `dtCriacao`, `usrCriou`, `usrAlterou`) VALUES (1, 'Gustavo', 'gustavo@gustavo.com.br', '(11)98286-3430', '4c96f8324e3ba54a99e78249b95daa30', 1, 1, NULL, NULL, NULL, NULL, NULL);
