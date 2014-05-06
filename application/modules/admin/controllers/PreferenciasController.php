@@ -158,4 +158,7 @@ class Admin_PreferenciasController extends Zend_Controller_Action
         }
     }
     
+    public function testeAction(){
+    }
+    
 }

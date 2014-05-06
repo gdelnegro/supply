@@ -54,6 +54,12 @@ class Admin_TipoController extends Zend_Controller_Action
         }
         $this->view->formTipo = $formTipo;
     }
+    
+    public function listatiposAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        echo json_encode(Admin_Model_Tipo::listaTipo($this->_getParam('id')));
+    }
 
 
 }
