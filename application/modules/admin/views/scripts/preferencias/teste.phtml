@@ -151,7 +151,7 @@
                 for(var i = 0; i<segmentos.length;i++){
                     var option = document.createElement("option");
                     option.text = segmentos[i]['descricao'];
-                    option.value = segmentos[i]['descricao'];
+                    option.value = segmentos[i]['id'];
                     var select = document.getElementById("segmento");
                     select.appendChild(option);
                 }
@@ -166,10 +166,30 @@
         }
         
     }
+    function getFormData($form){
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+        return indexed_array;
+    }
+    
+    function salvarPreferencias(){
+        var form = $("#form_preferencias");
+        var data = getFormData(form);
+         $.ajax({
+            type: 'post',
+            url: '/admin/preferencias/cadastrarcompra/',
+            data: data,
+            dataType: 'json',
+        });
+    }
     
 </script>
 
-<form method="post" name="form_categoria">
+<form method="post" name="form_preferencias" id="form_preferencias">
     <table>
         <tr>
             <th>Tipo</th>
@@ -193,20 +213,6 @@
             </td>
         </tr>
     </table>
-    <input type="submit" value="Ok">
+    <input type="submit" value="Ok" onclick="salvarPreferencias()">
 </form>
 <hr>
-<?php
-    if($_POST):?>
-        <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addprodutovenda"),null,true);?>">
-            <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto">
-            <input type="text" name="quantidade_produto" id="quantidade_produto" placeholder="Quantidade Disponível">
-            <input type="text" name="preco_produto" id="preco_produto" placeholder="Preço do Produto">
-            <input type="text" name="codigo_produto" id="codigo_produto" placeholder="Referência do produto">
-            <input type="hidden" name="produto_tipo" id="produto_tipo" value="<?php echo $_POST['tipo']?>">
-            <input type="hidden" name="produto_categoria" id="produto_categoria" value="<?php echo $_POST['categoria']?>">
-            <input type="hidden" name="produto_segmento" id="produto_segmento" value="<?php echo $_POST['segmento']?>">
-            <input type="submit" name="submit" value="Cadastrar Produto">
-        </form>
-    <?php endif;
-?>

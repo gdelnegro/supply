@@ -206,4 +206,19 @@ class Admin_Model_Preferencias
         $stmt = $select->query();
         return $stmt->fetchAll();
     }
+    
+    public static function insertPref($tipoPref, $dados){
+        if(strtoupper($tipoPref) == 'COMPRA'){
+            $bd = new Admin_Model_DbTable_PreferenciasCompra();
+            $tabela = "preferenciasCompra";
+        }elseif(strtoupper($tipoPref) == 'VENDA'){
+            $bd = new Admin_Model_DbTable_PreferenciasVenda();
+            $tabela = "preferenciasVenda";
+        }
+        try{
+            $bd->insert($dados);
+        } catch (Exception $ex) {
+            die(var_dump($ex->getMessage()));
+        }
+    }
 }
