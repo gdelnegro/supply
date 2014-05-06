@@ -13,9 +13,9 @@ class Admin_CategoriaController extends Zend_Controller_Action
         
         if ( !Zend_Auth::getInstance()->hasIdentity()) {
             return $this->_helper->redirector->goToRoute( array('module'=>'admin','controller' => 'login'), null, true);
-        }elseif($this->_usuario->grupo != 1){
-            return $this->_helper->redirector->goToRoute( array('module'=>'admin','controller' => 'index'), null, true);
-        }
+        }#elseif($this->_usuario->grupo != 1){
+         #   return $this->_helper->redirector->goToRoute( array('module'=>'admin','controller' => 'index'), null, true);
+        #}
     }
 
     public function indexAction()

@@ -200,5 +200,4 @@ class Admin_Model_Produto
             die($ex->getMessage());
         }
     }
-    
 }
