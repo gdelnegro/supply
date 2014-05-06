@@ -28,28 +28,12 @@ class Admin_Model_Categoria
     
     public static function insereCategoria($dados){
         $bdCategoria = new Admin_Model_DbTable_Categoria();
-        $bdCategoriaTipo = new Admin_Model_DbTable_CategoriaTipo();        
-        unset($dados['Enviar']);
-        $dados['status'] = 4;
-        $bdCategoria->insert($dados);
-        #$idCategoria = $bdCategoria->getAdapter()->lastInsertId();
-        
-//        if(is_array($tipo)){
-//            foreach($tipo as $key => $value){
-//                $data = array(
-//                    'categoria'  =>  $idCategoria,
-//                    'tipo'       =>  $value
-//                );
-//                $bdCategoriaTipo->insert($data);
-//            }
-//        }else{
-//            $data = array(
-//                'categoria'  =>  $idCategoria,
-//                'tipo'       =>  $tipo
-//            );
-//            
-//            $bdCategoriaTipo->insert($data);
-//        }
+        $bdCategoriaTipo = new Admin_Model_DbTable_CategoriaTipo();                
+        try{
+            return $bdCategoria->insert($dados);
+        } catch (Exception $ex) {
+            die($ex->getMessage());
+        }
     }
     
     /**

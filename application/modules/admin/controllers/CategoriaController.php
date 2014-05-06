@@ -30,6 +30,35 @@ class Admin_CategoriaController extends Zend_Controller_Action
     
     public function cadastrarAction(){
         $formCategoria = new Admin_Form_Categoria('new', $this->_usuario->grupo);
+        if( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost();
+            if ( $formCategoria->isValid($data) ){
+                if($this->_usuario->grupo!=1){
+                    $status = 4;
+                }else{
+                    $status = 1;
+                }
+                $dtCriacao = date("Y-m-d H:i:s");
+                $usrCriou = $this->_usuario->id;
+                #die(var_dump($data));
+                foreach($data['Tipo'] as $tipo){
+                    
+                    $dados = array(
+                        "descricao"     =>  "{$data['descricao']}",
+                        "status"        =>  "{$status}",
+                        "usrCriou"      =>  "{$this->_usuario->id}",
+                        "tipo"          =>  "{$tipo}",
+                        "dtCriacao"     =>  "{$dtCriacao}"
+                    );
+                    Admin_Model_Categoria::insereCategoria($dados);    
+                }
+                $this->redirect("/admin/categoria/index/");
+            }else{                
+                $this->view->erro='Dados Invalidos';
+                $this->view->formCategoria = $formCategoria->populate($data);
+            }
+            $this->view->formCategoria = $formCategoria;
+        }
         $this->view->formCategoria = $formCategoria;
     }
     

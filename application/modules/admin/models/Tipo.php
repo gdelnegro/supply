@@ -22,5 +22,14 @@ class Admin_Model_Tipo
         $dados = $stmt->fetchAll();
         return intval($dados[0]['id']);
     }
+    
+    public static function addTipo($data){
+        $dbCategoria = new Admin_Model_DbTable_Tipos();
+        try{
+            $dbCategoria->insert($data);
+        } catch (Exception $ex) {
+            die(var_dump( $ex->getMessage() ));
+        }
+    }
 }
 

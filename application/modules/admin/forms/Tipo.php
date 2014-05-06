@@ -30,7 +30,7 @@ class Admin_Form_Tipo extends Twitter_Form
         $id = new Zend_Form_Element_Hidden('id');
         
         $descricao = new Zend_Form_Element_Text('descricao');
-        $descricao->setLabel('Descricao do orçamento')                
+        $descricao->setLabel('Nome do tipo')                
                 ->setAttrib('placeholder','Descricao')
                 ->removeDecorator('HtmlTag')
                 ->setAttrib('disabled', $this->_exibir);
