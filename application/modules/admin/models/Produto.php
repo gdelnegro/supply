@@ -29,8 +29,9 @@ class Admin_Model_Produto
                 $selectProduto->where('id = ?', $idProduto);
             }
             if($subcategoria !=null){
-                $selectProduto->where('subcategoria = ?', $subcategoria);
+                $selectProduto->where('categoria = ?', $subcategoria);
             }
+            $selectProduto->where('status = ?', 1);
             $stmtProduto = $selectProduto->query();
             $dadosProduto = $stmtProduto->fetchAll();
             if($idProduto != null){

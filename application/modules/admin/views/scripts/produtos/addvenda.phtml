@@ -2,6 +2,7 @@
     var matriz=<?php echo json_encode($this->dadosPreferencias); ?>;
     var categorias = [];
     var segmentos = [];
+    var produtos = [];
     var idTipo = 0;
     var idCategoria = 0;
     var Tipo = null;
@@ -42,13 +43,14 @@
             for(var i=0;i<result.length;i++){
                 var dados = new Array();
                 dados["descricao"] = [result[i]['Categoria']];
+                dados["id"] = [result[i]['idCategoria']];
                 categorias.push(dados);
             }
             for(var i = 0; i<categorias.length;i++){
                 //alert(categorias[i].toSource());
                 var option = document.createElement("option");
                 option.text = categorias[i]['descricao'];
-                option.value = categorias[i]['descricao'];
+                option.value = categorias[i]['id'];
                 //option.value = "myvalue";
                 var select = document.getElementById("categoria");
                 select.appendChild(option);
@@ -64,35 +66,39 @@
     }
     
     function getSegmento(categoria){
-        Categoria = categoria;
+        var valor = $(categoria).find(":selected").text(); 
+        Categoria = valor;
         $("#segmento").empty();
         var option = document.createElement("option");
         option.text = "Selecione um segmento";
         option.value = 0;
         var select = document.getElementById("segmento");
+        select.appendChild(option);
+
         segmentos = [];  
         //var url = "/admin/segmento/listasegmentos/id/"+idCategoria;
-        var url = "/admin/preferencias/listasegmentos/filtro/venda/tipo/"+Tipo+"/categoria/"+categoria;
+        var url = "/admin/preferencias/listasegmentos/filtro/venda/tipo/"+Tipo+"/categoria/"+Categoria;
         var result = null;
         $.ajax({
-        url: url,
-        type: 'get',
-        dataType: 'json',
-        async: false,
-            success: function(data) {
-                result = data;
-            }
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            async: false,
+                success: function(data) {
+                    result = data;
+                }
         });
         if(result.length >0){
             for(var i=0;i<result.length;i++){
                 var dados = new Array();
                 dados["descricao"] = [result[i]['SubCategoria']];
+                dados["id"] = [result[i]['idSubCategoria']];
                 segmentos.push(dados);
             }
             for(var i = 0; i<segmentos.length;i++){
                 var option = document.createElement("option");
                 option.text = segmentos[i]['descricao'];
-                option.value = segmentos[i]['descricao'];
+                option.value = segmentos[i]['id'];
                 var select = document.getElementById("segmento");
                 select.appendChild(option);
             }
@@ -103,6 +109,58 @@
             option.value = 0;
             var select = document.getElementById("segmento");
             select.appendChild(option);
+        }
+    }
+    
+    function listarProdutos(segmento){
+        var container = document.getElementById("produtos");
+        var url = "/admin/produtos/listaprodutos/categoria/"+segmento;
+        document.getElementById("produtos").innerHTML = "";
+        var result = null;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            async: false,
+                success: function(data) {
+                    result = data;
+                }
+        });
+        
+        if(result.length >0){
+            for(var i=0;i<result.length;i++){
+                var dados = new Array();
+                dados["descricao"] = [result[i]['descricao']];
+                dados["id"] = [result[i]['id']];
+                produtos.push(dados);
+            }
+            for(var i = 0; i<produtos.length;i++){
+                var option = document.createElement("option");
+                option.text = produtos[i]['descricao'];
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "produtos[]";
+                checkbox.value = produtos[i]['id'];
+                checkbox.id = produtos[i]['id'];
+                var label = document.createElement('label')
+                label.htmlFor = "id";
+                label.appendChild(document.createTextNode(produtos[i]['descricao']));
+                container.appendChild(checkbox);
+                container.appendChild(label);
+            }
+            var enviar = document.createElement("input");
+            enviar.type= "submit";
+            enviar.value = "Adicionar produto";
+            enviar.id = "add";
+            enviar.name = "add";
+            container.appendChild(enviar);
+        }else{
+            var enviar = document.createElement("input");
+            enviar.type= "submit";
+            enviar.value = "Cadastrar produto";
+            enviar.id = "enviar";
+            enviar.name = "enviar";
+            container.appendChild(enviar);
         }
     }
     
@@ -126,22 +184,48 @@
                 </select>
             </td>
             <td>
-                <select name="categoria" id="categoria" onchange="getSegmento(this.value)">
+                <select name="categoria" id="categoria" onchange="getSegmento(this)">
                     <option value="0">Selecione uma categoria</option>
                 </select>
             </td>
             <td>
-                <select name="segmento" id="segmento">
+                <select name="segmento" id="segmento" onchange="listarProdutos(this.value)">
                     <option value="0">Selecione um segmento</option>
                 </select>
             </td>
         </tr>
     </table>
-    <input type="submit" value="Ok">
+    <br>
+    <h3>Produtos cadastrados nesse segmento</h3>
+    <br>
+    <div id="produtos">
+        
+    </div>   
 </form>
 <hr>
 <?php
-    if($_POST):?>
+    if($_POST):
+        if(isset($_POST['add'])):?>
+            <script>
+                function getFormData($form){
+                    var unindexed_array = $form.serializeArray();
+                    var indexed_array = {};
+                    $.map(unindexed_array, function(n, i){
+                        indexed_array[n['name']] = n['value'];
+                    });
+                    return indexed_array;
+                }
+                var form = $("#form_categoria");
+                var data = getFormData(form);
+                 $.ajax({
+                    type: 'post',
+                    url: '/admin/produtos/addprodutovenda/',
+                    data: data,
+                    dataType: 'json',
+                });
+            </script>
+        <?php endif;
+        ?>
         <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addprodutovenda"),null,true);?>">
             <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto">
             <input type="text" name="quantidade_produto" id="quantidade_produto" placeholder="Quantidade Disponível">

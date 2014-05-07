@@ -125,6 +125,12 @@ class Admin_ProdutosController extends Zend_Controller_Action
             Admin_Model_Produto::removerProduto($this->_getParam('id'),'venda', $this->_usuario->id);
         }
     }
+    
+    public function listaprodutosAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        echo json_encode(Admin_Model_Produto::pesquisaProduto($this->_getParam('produto'), $this->_getParam('categoria')));
+    }
 
 }
 

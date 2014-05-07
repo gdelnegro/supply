@@ -180,7 +180,7 @@ class Admin_Model_Preferencias
     public function getSegmentoVenda($idUsuario,$tipo, $categoria, $segmento = null){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeVenda();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeVenda', array('SubCategoria'))
+                ->from('preferenciasDeVenda', array('SubCategoria','idSubcategoria'))
                 ->distinct('categoria')
                 ->where('pessoa = ?', $idUsuario)
                 ->where('tipo = ?', $tipo)
@@ -189,13 +189,14 @@ class Admin_Model_Preferencias
             $select->where('SubCategoria = ?', $segmento);
         }
         $stmt = $select->query();
-        return $stmt->fetchAll();
+        $dados = $stmt->fetchAll();
+        return $dados;
     }
     
     public function getSegmentoCompra($idUsuario,$tipo, $categoria, $segmento = null){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeCompra', array('SubCategoria'))
+                ->from('preferenciasDeCompra', array('SubCategoria','idSubcategoria'))
                 ->distinct('categoria')
                 ->where('pessoa = ?', $idUsuario)
                 ->where('tipo = ?', $tipo)
