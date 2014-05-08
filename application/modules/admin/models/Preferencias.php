@@ -74,15 +74,25 @@ class Admin_Model_Preferencias
                 $dadosTipo[$valor['Tipo']][$categoria[$i]['Categoria']]='';
             }
         }     
+        
         foreach($dadosTipo as $tipo => $dadosCategoria){
             foreach($dadosCategoria as $titulo=>$espaco){
                 echo "Tipo =>".$tipo."  Categoria=>".$titulo."<br>";
+                $select = $dbPreferenciaVenda->select()
+                    ->from('preferenciasDeVenda', array('subCategoria'))
+                    ->distinct('subCategoria')
+                    ->where('pessoa = ?', $id)
+                    ->where('Tipo = ?', $tipo)
+                    ->where('Categoria = ?', $titulo);
+                $stmt = $select->query();
+                $subcategoria = $stmt->fetchAll();
+                for($i=0;$i< count($subcategoria);$i++){
+                    $subcategorias = $subcategoria[$i]['SubCategoria'];
+                }
+                $dadosTipo[$tipo][$titulo]=$subcategorias;
             }
         }
-        die();
-        #die(var_dump($dadosCategoria));
-        die(var_dump($dadosTipo));
-        return $dados;
+        return $dadosTipo;
     }
     
     public static function salvarPreferencias($tipoPref,$dados, $usr){
