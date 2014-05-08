@@ -1,14 +1,10 @@
 <script language="JavaScript">
 function abrir(URL) {
- 
   var width = 400;
   var height = 400;
- 
   var left = 99;
   var top = 99;
- 
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
- 
 }
 </script>
 
@@ -19,6 +15,15 @@ function abrir(URL) {
         <h3>Fornece</h3>
         <a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"venda"),null,true)?>')" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
+        
+        <?php
+            #var_dump($this->dadosVendas);
+            foreach($this->dadosVendas as $tipo=>$dadosCategorias){
+                echo"<ul>";
+                echo"<li>".$tipo."</li>";
+                echo"</ul>";
+            }
+        ?>
         <?php 
         foreach($this->dadosVendas as $key=>$value):
             echo"<ul>";
