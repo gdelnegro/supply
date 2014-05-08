@@ -25,6 +25,7 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
         $this->view->grupoUsuario = $this->_usuario->grupo;
+        $this->view->dados = $dadosProduto;
     }
     
     public function compraAction(){
@@ -62,21 +63,29 @@ class Admin_ProdutosController extends Zend_Controller_Action
             $idUsuario = null;
         }
         if($this->getRequest()){
-            $nome_produto = $this->_getParam('nome_produto');
-            $idTipo = Admin_Model_Tipo::getId($this->_getParam('produto_tipo'));
-            $idcategoria = Admin_Model_Categoria::getId($idTipo,$this->_getParam('produto_categoria'));
-            $idSegmento = Admin_Model_Segmento::getId($idcategoria,$this->_getParam('produto_segmento'));
-            try{
-                $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
-                try{
-                    Admin_Model_Produto::addProdutoFornece($this->_usuario->id, $idProduto, $this->_getParam('preco_produto'), $this->_getParam('quantidade_produto'), $this->_getParam('codigo_produto'));
-                    $this->_redirect('admin/produtos/venda');
-                } catch (Exception $ex) {
-                    Admin_Model_Produto::removerProduto($idProduto);
+            if( is_array($this->_getParam('produtos')) && count( $this->_getParam('produtos') )>0){
+                foreach($this->_getParam('produtos') as $indice => $produto){
+                    Admin_Model_Produto::addProdutoFornece($this->_usuario->id, $produto, '0', '0', '0');
                 }
-            } catch (Exception $ex) {
-                #die($ex->getMessage());
+                $this->_redirect('admin/produtos/venda');
+            }else{
+                $nome_produto = $this->_getParam('nome_produto');
+                $idTipo = $this->_getParam('produto_tipo');
+                $idcategoria = $this->_getParam('produto_categoria');
+                $idSegmento = $this->_getParam('produto_segmento');
+                try{
+                    $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
+                    try{
+                        Admin_Model_Produto::addProdutoFornece($this->_usuario->id, $idProduto, $this->_getParam('preco_produto'), $this->_getParam('quantidade_produto'), $this->_getParam('codigo_produto'));
+                        $this->_redirect('admin/produtos/venda');
+                    } catch (Exception $ex) {
+                        Admin_Model_Produto::removerProduto($idProduto);
+                    }
+                } catch (Exception $ex) {
+                    #die($ex->getMessage());
+                }
             }
+            
         }
     }
     
@@ -130,6 +139,18 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
         echo json_encode(Admin_Model_Produto::pesquisaProduto($this->_getParam('produto'), $this->_getParam('categoria')));
+    }
+    
+    public function deleteprefAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        Admin_Model_Produto::deleteProd($this->_getParam('pref'), $this->_getParam('id'));
+        if(strtoupper($this->_getParam('pref')) == 'VENDA'){
+            $this->_redirect('admin/produtos/venda');
+        }else{
+            $this->_redirect('admin/produtos/compra');
+        }
+        
     }
 
 }

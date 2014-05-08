@@ -30,12 +30,12 @@ function custom_echo($x)
    <tr>
         <td><center><?php  echo $produto['descricao']?></center></td>
         <td><center><?php echo $produto['quantidade']?></center></td>
-        <td><center><?php echo $produto['precoItem']?></center></td>
-        <td><center><?php echo $produto['codigo']?></center></td>
+        <td><center><?php echo $produto['precoitem']?></center></td>
+        <td><center><?php echo $produto['Codigo']?></center></td>
         <td><center><?php echo $produto['dtCriacao']?></center></td>
       <td><center>
          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$produto['id']}"),null,true)?>" title="Editar"><span class="glyphicon glyphicon-pencil"></span> </a>
-         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"delete","id"=>"{$produto['id']}"),null,true)?>" onclick="javascript:return confirm('Você tem certeza que quer excluir este produto?')" title="Excluir"><span class="glyphicon glyphicon-remove"></span></a>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"deletepref","id"=>"{$produto['codigoRegistro']}","pref"=>"venda"),null,true)?>" onclick="javascript:return confirm('Você tem certeza que quer excluir este produto?')" title="Excluir"><span class="glyphicon glyphicon-remove"></span></a>
          </center>
       </td>
    </tr>

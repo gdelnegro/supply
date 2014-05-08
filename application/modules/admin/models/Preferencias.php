@@ -130,7 +130,7 @@ class Admin_Model_Preferencias
     public static function getTipoVenda($idUsuario){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeVenda();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeVenda', array('tipo'))
+                ->from('preferenciasDeVenda', array('tipo','idTipo'))
                 ->distinct('tipo')
                 ->where('pessoa = ?', $idUsuario);
         $stmt = $select->query();
@@ -141,7 +141,7 @@ class Admin_Model_Preferencias
     public static function getTipoCompra($idUsuario){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeCompra', array('tipo'))
+                ->from('preferenciasDeCompra', array('tipo','idTipo'))
                 ->distinct('tipo')
                 ->where('pessoa = ?', $idUsuario);
         $stmt = $select->query();
@@ -152,7 +152,7 @@ class Admin_Model_Preferencias
     public static function getCategoriaVenda($idUsuario, $tipo, $categoria = null){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeVenda();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeVenda', array('categoria'))
+                ->from('preferenciasDeVenda', array('categoria','idCategoria'))
                 ->distinct('categoria')
                 ->where('pessoa = ?', $idUsuario)
                 ->where('tipo = ?', $tipo);
@@ -166,7 +166,7 @@ class Admin_Model_Preferencias
     public static function getCategoriaCompra($idUsuario, $tipo, $categoria = null){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeCompra', array('categoria'))
+                ->from('preferenciasDeCompra', array('categoria','idCategoria'))
                 ->distinct('categoria')
                 ->where('pessoa = ?', $idUsuario)
                 ->where('tipo = ?', $tipo);
@@ -218,6 +218,22 @@ class Admin_Model_Preferencias
         }
         try{
             $bd->insert($dados);
+        } catch (Exception $ex) {
+            die(var_dump($ex->getMessage()));
+        }
+    }
+    
+    public static function deletePref($tipoPref, $id){
+        if(strtoupper($tipoPref) == 'COMPRA'){
+            $bd = new Admin_Model_DbTable_PreferenciasCompra();
+            $tabela = "preferenciasCompra";
+        }elseif(strtoupper($tipoPref) == 'VENDA'){
+            $bd = new Admin_Model_DbTable_PreferenciasVenda();
+            $tabela = "preferenciasVenda";
+        }
+        try{
+            $where = $bd->getAdapter()->quoteInto("id = ?", $id);
+            $bd->delete($where);
         } catch (Exception $ex) {
             die(var_dump($ex->getMessage()));
         }

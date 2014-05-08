@@ -10,6 +10,11 @@
     var Segmento = null;
     
     function teste(){
+        var div = document.getElementById("formulario_produto");
+        if(div){
+            div.innerHTML = "";
+        }
+        
         var valor = $('#tipo').find(":selected").text();        
         if(valor != 'Selecione um tipo'){
             Tipo = valor;
@@ -154,6 +159,12 @@
             enviar.id = "add";
             enviar.name = "add";
             container.appendChild(enviar);
+            var enviar = document.createElement("input");
+            enviar.type= "submit";
+            enviar.value = "Cadastrar novo produto";
+            enviar.id = "enviar";
+            enviar.name = "enviar";
+            container.appendChild(enviar);
         }else{
             var enviar = document.createElement("input");
             enviar.type= "submit";
@@ -165,7 +176,7 @@
     }
     
 </script>
-<form method="post" name="form_categoria">
+<form method="post" name="form_categoria" id="form_categoria">
     <table>
         <tr>
             <th>Tipo</th>
@@ -178,7 +189,7 @@
                     <option value="0">Selecione um tipo</option>
                     <?php    
                     foreach($this->dadosPreferencias as $key=>$value){
-                        echo "<option value='".$value['Tipo']."'>".$value['Tipo']."</option>";
+                        echo "<option value='".$value['idTipo']."'>".$value['Tipo']."</option>";
                     }
                     ?>
                 </select>
@@ -199,13 +210,18 @@
     <h3>Produtos cadastrados nesse segmento</h3>
     <br>
     <div id="produtos">
-        
     </div>   
 </form>
 <hr>
+
+
 <?php
     if($_POST):
-        if(isset($_POST['add'])):?>
+        #die(var_dump($_POST));
+        if(isset($_POST['add']) && isset($_POST['produtos'])):
+            //die(var_dump($_POST));
+        ?>
+        <!-- count($_POST["produtos"])>0 -->
             <script>
                 function getFormData($form){
                     var unindexed_array = $form.serializeArray();
@@ -215,8 +231,7 @@
                     });
                     return indexed_array;
                 }
-                var form = $("#form_categoria");
-                var data = getFormData(form);
+                var data = <?php echo json_encode($_POST)?>;
                  $.ajax({
                     type: 'post',
                     url: '/admin/produtos/addprodutovenda/',
@@ -225,16 +240,22 @@
                 });
             </script>
         <?php endif;
+        if(isset($_POST['enviar'])):?>
+            <div name="formulario_produto" id = "formulario_produto" class="col-md-offset-3 col-md-4">
+                <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addprodutovenda"),null,true);?>">
+                    <input type="text" name="nome_produto" id="nome_produto" class="form-control" placeholder="Nome do produto">
+                    <input type="text" name="quantidade_produto" id="quantidade_produto" class="form-control" placeholder="Quantidade Disponível">
+                    <input type="text" name="preco_produto" id="preco_produto" class="form-control" placeholder="Preço do Produto">
+                    <input type="text" name="codigo_produto" id="codigo_produto" class="form-control" placeholder="Referência do produto">
+                    <input type="hidden" name="produto_tipo" id="produto_tipo" class="form-control" value="<?php echo $_POST['tipo']?>">
+                    <input type="hidden" name="produto_categoria" id="produto_categoria" class="form-control" value="<?php echo $_POST['categoria']?>">
+                    <input type="hidden" name="produto_segmento" id="produto_segmento" class="form-control" value="<?php echo $_POST['segmento']?>">
+                    <hr>
+                    <input type="submit" name="submit" class="btn btn btn-lg btn-primary btn-block" value="Cadastrar Produto">
+                </form>
+            </div>
+        <?php
+            endif;
         ?>
-        <form name="form_produto" method="get" action="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addprodutovenda"),null,true);?>">
-            <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto">
-            <input type="text" name="quantidade_produto" id="quantidade_produto" placeholder="Quantidade Disponível">
-            <input type="text" name="preco_produto" id="preco_produto" placeholder="Preço do Produto">
-            <input type="text" name="codigo_produto" id="codigo_produto" placeholder="Referência do produto">
-            <input type="hidden" name="produto_tipo" id="produto_tipo" value="<?php echo $_POST['tipo']?>">
-            <input type="hidden" name="produto_categoria" id="produto_categoria" value="<?php echo $_POST['categoria']?>">
-            <input type="hidden" name="produto_segmento" id="produto_segmento" value="<?php echo $_POST['segmento']?>">
-            <input type="submit" name="submit" value="Cadastrar Produto">
-        </form>
     <?php endif;
 ?>

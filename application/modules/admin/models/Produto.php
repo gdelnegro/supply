@@ -71,26 +71,35 @@ class Admin_Model_Produto
      * @author Gustavo Del Negro <gustavo@opisystem.com.br>
      * @since v0.1
      */
-    public function pesquisaProdutoFornece($idUsuario,$subCategoria = null){
-        $dbProduto = new Admin_Model_DbTable_FornecedorProduto();
-        $selectProduto = $dbProduto->select();
-        $selectProduto->setIntegrityCheck(false);
-        $selectProduto->from('fornecedorProduto')
-                ->joinInner('produto', 'fornecedorProduto.produto = produto.id')
-                ->where('fornecedor = ?',$idUsuario);
-        if($subCategoria != null){
-            $selectProduto->where('categoria = ?', $subCategoria);
-        }
-                
-        $selectProduto->order('fornecedorProduto.dtCriacao DESC');
-//        $selectProduto = $dbProduto->select()
-//                    ->from('fornecedorProduto')
-//                    ->where('fornecedor = ?',$id)
-//                    ->order('dtCriacao DESC');
-        #die($selectProduto->__toString());
-        $stmtProduto = $selectProduto->query();
-        $dadosProduto = $stmtProduto->fetchAll();
-        return $dadosProduto;
+//    public function pesquisaProdutoFornece($idUsuario,$subCategoria = null){
+//        $dbProduto = new Admin_Model_DbTable_FornecedorProduto();
+//        $selectProduto = $dbProduto->select();
+//        $selectProduto->setIntegrityCheck(false);
+//        $selectProduto->from('fornecedorProduto')
+//                ->joinInner('produto', 'fornecedorProduto.produto = produto.id')
+//                ->where('fornecedor = ?',$idUsuario);
+//        if($subCategoria != null){
+//            $selectProduto->where('categoria = ?', $subCategoria);
+//        }
+//                
+//        $selectProduto->order('fornecedorProduto.dtCriacao DESC');
+////        $selectProduto = $dbProduto->select()
+////                    ->from('fornecedorProduto')
+////                    ->where('fornecedor = ?',$id)
+////                    ->order('dtCriacao DESC');
+//        #die($selectProduto->__toString());
+//        $stmtProduto = $selectProduto->query();
+//        $dadosProduto = $stmtProduto->fetchAll();
+//        return $dadosProduto;
+//    }
+    
+    public function pesquisaProdutoFornece($idUsuario){
+        $dbItensFornece = new Admin_Model_DbTable_ItensVende();
+        $select = $dbItensFornece->select()
+                ->from('itensVende')
+                ->where('Fornecedor = ?', $idUsuario);
+        $stmt = $select->query();
+        return $stmt->fetchAll();
     }
     
     /**
@@ -199,6 +208,20 @@ class Admin_Model_Produto
             return $dbProdutoCompra->insert($data);
         } catch (Exception $ex) {
             die($ex->getMessage());
+        }
+    }
+    
+    public static function deleteProd($tipo, $id){
+        if(strtoupper($tipo) == 'COMPRA'){
+            $bd = new Admin_Model_DbTable_CompradorProduto();
+        }elseif(strtoupper($tipo) == 'VENDA'){
+            $bd = new Admin_Model_DbTable_FornecedorProduto();
+        }
+        try{
+            $where = $bd->getAdapter()->quoteInto("id = ?", $id);
+            $bd->delete($where);
+        } catch (Exception $ex) {
+            die(var_dump($ex->getMessage()));
         }
     }
 }
