@@ -77,7 +77,6 @@ class Admin_Model_Preferencias
         
         foreach($dadosTipo as $tipo => $dadosCategoria){
             foreach($dadosCategoria as $titulo=>$espaco){
-                echo "Tipo =>".$tipo."  Categoria=>".$titulo."<br>";
                 $select = $dbPreferenciaVenda->select()
                     ->from('preferenciasDeVenda', array('subCategoria'))
                     ->distinct('subCategoria')

@@ -17,31 +17,30 @@ function abrir(URL) {
         <hr>
         
         <?php
-            #var_dump($this->dadosVendas);
             foreach($this->dadosVendas as $tipo=>$dadosCategorias){
                 echo"<ul>";
                 echo"<li>".$tipo."</li>";
+                if(is_array($dadosCategorias)){
+                    foreach($dadosCategorias as $categoria => $dadosSegmentos){
+                        echo"<ul>";
+                        echo"<li>".$categoria."</li>";
+                        if(is_array($dadosSegmentos)){
+                            foreach($dadosSegmentos as $segmento){
+                                echo"<ul>";
+                                echo"<li>".$segmento."</li>";
+                            }
+                            echo"</ul>";
+                        }else{
+                            echo"<ul>";
+                            echo"<li>".$dadosSegmentos."</li>";
+                            echo"</ul>";
+                        }
+                        echo"</ul>";
+                    }
+                }
                 echo"</ul>";
             }
         ?>
-        <?php 
-        foreach($this->dadosVendas as $key=>$value):
-            echo"<ul>";
-            echo"<li>".$value['tipo']."</li>";
-            foreach($value['categorias'] as $indice => $categoria){
-                echo "<ul>";
-                echo "<li>".$indice."</li>";
-                    echo "<ul>";
-                foreach($categoria as $subcategorias){
-                    echo "<li>".$subcategorias."</li>";
-                }
-                    echo "</ul>";
-                echo "</ul>";
-            }
-            echo "</ul>";
-        endforeach;
-        ?>
-        
     </div>
     
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
