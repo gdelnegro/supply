@@ -31,6 +31,7 @@ class Admin_CategoriaController extends Zend_Controller_Action
     public function cadastrarAction(){
         $formCategoria = new Admin_Form_Categoria('new', $this->_usuario->grupo);
         if( $this->getRequest()->isPost() ) {
+            $dtCriacao = date("y-m-d h:i:s");
             $data = $this->getRequest()->getPost();
             if ( $formCategoria->isValid($data) ){
                 if($this->_usuario->grupo!=1){
@@ -52,7 +53,7 @@ class Admin_CategoriaController extends Zend_Controller_Action
                     $dados["tipo"] = $tipo;
                     Admin_Model_Categoria::insereCategoria($dados);    
                 }
-                $this->redirect("/admin/categoria/index/");
+                $this->redirect("/admin/categoria/cadastrar/");
             }else{                
                 $this->view->erro='Dados Invalidos';
                 $this->view->formCategoria = $formCategoria->populate($data);

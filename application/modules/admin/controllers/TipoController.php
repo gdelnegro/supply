@@ -45,7 +45,7 @@ class Admin_TipoController extends Zend_Controller_Action
                     "dtCriacao"     =>  "$dtCriacao"
                 );
                 Admin_Model_Tipo::addTipo($dados);
-                $this->redirect("/admin/tipo/index/");
+                $this->redirect("/admin/tipo/cadastrar/");
             }else{                
                 $this->view->erro='Dados Invalidos';
                 $this->view->formTipo = $formTipo->populate($data);

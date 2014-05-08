@@ -21,7 +21,7 @@ class Admin_Model_Preferencias
                     ->from('preferenciasDeCompra', array('categoria'))
                     ->distinct('categoria')
                     ->where('pessoa = ?', $id)
-                    ->where('tipo = ?', $tipo);
+                    ->where('Tipo = ?', $tipo);
             $stmt = $select->query();
             $categorias =  $stmt->fetchAll();
             
@@ -52,46 +52,36 @@ class Admin_Model_Preferencias
     public static function venda($id){
         $dados = array();
         $dadosTipo = array();
-        
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeVenda();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeVenda', array('tipo'))
-                ->distinct('tipo')
+                ->from('preferenciasDeVenda', array('Tipo'))
+                ->distinct('Tipo')
                 ->where('pessoa = ?', $id);
         $stmt = $select->query();
         $tipos =  $stmt->fetchAll();
-        
+        //die(var_dump($tipos));
         foreach($tipos as $key => $valor){
-            $tipo = $valor['Tipo'];
+            //$dadosTipo[$valor['Tipo']]='';
             $select = $dbPreferenciaVenda->select()
                     ->from('preferenciasDeVenda', array('categoria'))
-                    ->distinct('categoria')
+                    ->distinct('Categoria')
                     ->where('pessoa = ?', $id)
-                    ->where('tipo = ?', $tipo);
+                    ->where('Tipo = ?', $valor['Tipo']);
             $stmt = $select->query();
-            $categorias =  $stmt->fetchAll();
-            
-            $dadosTipo['tipo'] = $tipo;
-            
-            foreach ($categorias as $key => $value) {
-                $dadosSubcategorias = array();
-                $categoria = $value['Categoria'];
-                $select = $dbPreferenciaVenda->select()
-                    ->from('preferenciasDeVenda', array('subcategoria'))
-                    ->where('pessoa = ?', $id)
-                    ->where('tipo = ?', $valor)
-                    ->where('categoria = ?', $categoria);
-                $stmt = $select->query();
-                $Subcategorias =  $stmt->fetchAll();
-                
-                foreach($Subcategorias as $indice => $subcategoria){
-                    $dadosSubcategorias[]=$subcategoria['SubCategoria'];
-                }
-                $dadosCategorias[$categoria] = $dadosSubcategorias;
+            $categoria=  $stmt->fetchAll();
+            for($i=0;$i< count($categoria);$i++){
+                $categorias[]=$categoria[$i]['Categoria'];
+                $dadosTipo[$valor['Tipo']][$categoria[$i]['Categoria']]='';
             }
-            $dadosTipo['categorias'] = $dadosCategorias;            
-            $dados[]=$dadosTipo;
+        }     
+        foreach($dadosTipo as $tipo => $dadosCategoria){
+            foreach($dadosCategoria as $titulo=>$espaco){
+                echo "Tipo =>".$tipo."  Categoria=>".$titulo."<br>";
+            }
         }
+        die();
+        #die(var_dump($dadosCategoria));
+        die(var_dump($dadosTipo));
         return $dados;
     }
     
