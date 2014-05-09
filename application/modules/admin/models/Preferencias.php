@@ -6,47 +6,47 @@ class Admin_Model_Preferencias
     public static function compra($id){
         $dados = array();
         $dadosTipo = array();
-        
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaVenda->select()
-                ->from('preferenciasDeCompra', array('tipo'))
-                ->distinct('tipo')
+                ->from('preferenciasDeCompra', array('Tipo'))
+                ->distinct('Tipo')
                 ->where('pessoa = ?', $id);
         $stmt = $select->query();
         $tipos =  $stmt->fetchAll();
-
+        //die(var_dump($tipos));
         foreach($tipos as $key => $valor){
-            $tipo = $valor['Tipo'];
+            //$dadosTipo[$valor['Tipo']]='';
             $select = $dbPreferenciaVenda->select()
                     ->from('preferenciasDeCompra', array('categoria'))
-                    ->distinct('categoria')
+                    ->distinct('Categoria')
                     ->where('pessoa = ?', $id)
-                    ->where('Tipo = ?', $tipo);
+                    ->where('Tipo = ?', $valor['Tipo']);
             $stmt = $select->query();
-            $categorias =  $stmt->fetchAll();
-            
-            $dadosTipo['tipo'] = $tipo;
-            
-            foreach ($categorias as $key => $value) {
-                $dadosSubcategorias = array();
-                $categoria = $value['Categoria'];
-                $select = $dbPreferenciaVenda->select()
-                    ->from('preferenciasDeCompra', array('subcategoria'))
-                    ->where('pessoa = ?', $id)
-                    ->where('tipo = ?', $valor)
-                    ->where('categoria = ?', $categoria);
-                $stmt = $select->query();
-                $Subcategorias =  $stmt->fetchAll();
-                
-                foreach($Subcategorias as $indice => $subcategoria){
-                    $dadosSubcategorias[]=$subcategoria['SubCategoria'];
-                }
-                $dadosCategorias[$categoria] = $dadosSubcategorias;
+            $categoria=  $stmt->fetchAll();
+            for($i=0;$i< count($categoria);$i++){
+                $categorias[]=$categoria[$i]['Categoria'];
+                $dadosTipo[$valor['Tipo']][$categoria[$i]['Categoria']]='';
             }
-            $dadosTipo['categorias'] = $dadosCategorias;            
-            $dados[]=$dadosTipo;
+        }     
+        
+        foreach($dadosTipo as $tipo => $dadosCategoria){
+            foreach($dadosCategoria as $titulo=>$espaco){
+                $select = $dbPreferenciaVenda->select()
+                    ->from('preferenciasDeCompra', array('subCategoria'))
+                    ->distinct('subCategoria')
+                    ->where('pessoa = ?', $id)
+                    ->where('Tipo = ?', $tipo)
+                    ->where('Categoria = ?', $titulo);
+                $stmt = $select->query();
+                $subcategoria = $stmt->fetchAll();
+                for($i=0;$i< count($subcategoria);$i++){
+                    $subcategorias[] = $subcategoria[$i]['SubCategoria'];
+                }                
+                $dadosTipo[$tipo][$titulo]=$subcategorias;
+                $subcategorias=array();
+            }
         }
-        return $dados;
+        return $dadosTipo;
     }
     
     public static function venda($id){
@@ -86,9 +86,10 @@ class Admin_Model_Preferencias
                 $stmt = $select->query();
                 $subcategoria = $stmt->fetchAll();
                 for($i=0;$i< count($subcategoria);$i++){
-                    $subcategorias = $subcategoria[$i]['SubCategoria'];
-                }
+                    $subcategorias[] = $subcategoria[$i]['SubCategoria'];
+                }                
                 $dadosTipo[$tipo][$titulo]=$subcategorias;
+                $subcategorias=array();
             }
         }
         return $dadosTipo;

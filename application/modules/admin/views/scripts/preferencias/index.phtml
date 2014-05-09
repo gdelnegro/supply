@@ -15,7 +15,6 @@ function abrir(URL) {
         <h3>Fornece</h3>
         <a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"venda"),null,true)?>')" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
-        
         <?php
             foreach($this->dadosVendas as $tipo=>$dadosCategorias){
                 echo"<ul>";
@@ -25,8 +24,8 @@ function abrir(URL) {
                         echo"<ul>";
                         echo"<li>".$categoria."</li>";
                         if(is_array($dadosSegmentos)){
+                            echo"<ul>";
                             foreach($dadosSegmentos as $segmento){
-                                echo"<ul>";
                                 echo"<li>".$segmento."</li>";
                             }
                             echo"</ul>";
@@ -47,22 +46,30 @@ function abrir(URL) {
         <h3>Compra</h3><a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"compra"),null,true)?>')" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
         <hr>
         
-        <?php 
-        foreach($this->dadosCompras as $key=>$value):
-            echo"<ul>";
-            echo"<li>".$value['tipo']."</li>";
-            foreach($value['categorias'] as $indice => $categoria){
-                echo "<ul>";
-                echo "<li>".$indice."</li>";
-                    echo "<ul>";
-                foreach($categoria as $subcategorias){
-                    echo "<li>".$subcategorias."</li>";
+        <?php
+            foreach($this->dadosCompras as $tipo=>$dadosCategorias){
+                echo"<ul>";
+                echo"<li>".$tipo."</li>";
+                if(is_array($dadosCategorias)){
+                    foreach($dadosCategorias as $categoria => $dadosSegmentos){
+                        echo"<ul>";
+                        echo"<li>".$categoria."</li>";
+                        if(is_array($dadosSegmentos)){
+                            echo"<ul>";
+                            foreach($dadosSegmentos as $segmento){
+                                echo"<li>".$segmento."</li>";
+                            }
+                            echo"</ul>";
+                        }else{
+                            echo"<ul>";
+                            echo"<li>".$dadosSegmentos."</li>";
+                            echo"</ul>";
+                        }
+                        echo"</ul>";
+                    }
                 }
-                    echo "</ul>";
-                echo "</ul>";
+                echo"</ul>";
             }
-            echo "</ul>";
-        endforeach;
         ?>
     </div>
 </div>
