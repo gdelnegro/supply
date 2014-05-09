@@ -58,7 +58,7 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
         if($this->_usuario->grupo != 1){
-            $idUsuario = $this->_usuario->id;
+            $idUsuario = $this->_usuario->id;            
         }else{
             $idUsuario = null;
         }

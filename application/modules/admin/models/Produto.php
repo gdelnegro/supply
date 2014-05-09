@@ -99,6 +99,7 @@ class Admin_Model_Produto
                 ->from('itensVende')
                 ->where('Fornecedor = ?', $idUsuario);
         $stmt = $select->query();
+        //die(var_dump($stmt));
         return $stmt->fetchAll();
     }
     
@@ -163,7 +164,7 @@ class Admin_Model_Produto
     }
     
     public static function addProduto($idUsuario = null, $segmento, $nome_produto){
-        $dbProduto = new Admin_Model_DbTable_Produto();
+        $dbProduto = new Admin_Model_DbTable_Produto();        
         if(!is_null($idUsuario)){
             $status = 4;
         }else{

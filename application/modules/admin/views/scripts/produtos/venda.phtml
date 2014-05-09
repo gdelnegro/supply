@@ -26,7 +26,8 @@ function custom_echo($x)
         <th><center>Data de Cadastro</center></th>
         <th><center>Ações</center></th>
    </tr>
-   <?php foreach($this->paginator AS $key => $produto):?>
+   <?php foreach($this->paginator AS $key => $produto):
+       //die(var_dump($produto));?>
    <tr>
         <td><center><?php  echo $produto['descricao']?></center></td>
         <td><center><?php echo $produto['quantidade']?></center></td>
