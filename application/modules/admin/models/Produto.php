@@ -93,14 +93,23 @@ class Admin_Model_Produto
 //        return $dadosProduto;
 //    }
     
-    public function pesquisaProdutoFornece($idUsuario){
-        $dbItensFornece = new Admin_Model_DbTable_ItensVende();
-        $select = $dbItensFornece->select()
-                ->from('itensVende')
-                ->where('Fornecedor = ?', $idUsuario);
-        $stmt = $select->query();
-        //die(var_dump($stmt));
-        return $stmt->fetchAll();
+    public static function pesquisaProdutoFornece($idUsuario,$idRegistro = null){
+        if(!is_null($idRegistro)){
+            $dbItensFornece = new Admin_Model_DbTable_FornecedorProduto();
+            $select = $dbItensFornece->select()
+                    ->from('fornecedorProduto')
+                    ->where('id = ?', $idRegistro);
+            $stmt = $select->query();
+            $dados = $stmt->fetchAll();
+            return $dados[0];
+        }else{
+            $dbItensFornece = new Admin_Model_DbTable_ItensVende();
+            $select = $dbItensFornece->select()
+                    ->from('itensVende')
+                    ->where('Fornecedor = ?', $idUsuario);
+            $stmt = $select->query();
+            return $stmt->fetchAll();
+        }
     }
     
     /**
@@ -224,5 +233,15 @@ class Admin_Model_Produto
         } catch (Exception $ex) {
             die(var_dump($ex->getMessage()));
         }
+    }
+    
+    public static function editProd($idUsuario,$idRegistro,$tipo, $dados){
+        if(strtoupper($tipo) == 'COMPRA'){
+            $bd = new Admin_Model_DbTable_CompradorProduto();
+        }elseif(strtoupper($tipo) == 'VENDA'){
+            $bd = new Admin_Model_DbTable_FornecedorProduto();
+        }
+        $where = $bd->getAdapter()->quoteInto('id = ?', $idRegistro);
+        $bd->update($dados, $where);
     }
 }

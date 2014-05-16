@@ -99,28 +99,63 @@ class Admin_ProdutosController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
         if($this->_usuario->grupo != 1){
-            $idUsuario = $this->_usuario->id;
+            $idUsuario = $this->_usuario->id;            
         }else{
             $idUsuario = null;
         }
         if($this->getRequest()){
-            $nome_produto = $this->_getParam('nome_produto');
-            $idTipo = Admin_Model_Tipo::getId($this->_getParam('produto_tipo'));
-            $idcategoria = Admin_Model_Categoria::getId($idTipo,$this->_getParam('produto_categoria'));
-            $idSegmento = Admin_Model_Segmento::getId($idcategoria,$this->_getParam('produto_segmento'));
-            try{
-                $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
-                try{
-                    Admin_Model_Produto::addProdutoCompra($this->_usuario->id, $idProduto, $this->_getParam('quantidade_produto'));
-                    $this->_redirect('admin/produtos/compra');
-                } catch (Exception $ex) {
-                    Admin_Model_Produto::removerProduto($idProduto);
+            if( is_array($this->_getParam('produtos')) && count( $this->_getParam('produtos') )>0){
+                foreach($this->_getParam('produtos') as $indice => $produto){
+                    Admin_Model_Produto::addProdutoCompra($this->_usuario->id, $produto, '0');
                 }
-            } catch (Exception $ex) {
-                #die($ex->getMessage());
+                $this->_redirect('admin/produtos/compra');
+            }else{
+                $nome_produto = $this->_getParam('nome_produto');
+                $idTipo = $this->_getParam('produto_tipo');
+                $idcategoria = $this->_getParam('produto_categoria');
+                $idSegmento = $this->_getParam('produto_segmento');
+                try{
+                    $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
+                    try{
+                        Admin_Model_Produto::addProdutoCompra($this->_usuario->id, $idProduto, $this->_getParam('quantidade_produto'));
+                        $this->_redirect('admin/produtos/compra');
+                    } catch (Exception $ex) {
+                        Admin_Model_Produto::removerProduto($idProduto);
+                    }
+                } catch (Exception $ex) {
+                    die($ex->getMessage());
+                }
             }
         }
     }
+    
+    
+//    public function addprodutocompraAction(){
+//        $this->_helper->layout()->disableLayout();
+//    	$this->_helper->viewRenderer->setNoRender(true);
+//        if($this->_usuario->grupo != 1){
+//            $idUsuario = $this->_usuario->id;
+//        }else{
+//            $idUsuario = null;
+//        }
+//        if($this->getRequest()){
+//            $nome_produto = $this->_getParam('nome_produto');
+//            $idTipo = Admin_Model_Tipo::getId($this->_getParam('produto_tipo'));
+//            $idcategoria = Admin_Model_Categoria::getId($idTipo,$this->_getParam('produto_categoria'));
+//            $idSegmento = Admin_Model_Segmento::getId($idcategoria,$this->_getParam('produto_segmento'));
+//            try{
+//                $idProduto = Admin_Model_Produto::addProduto($idUsuario,$idSegmento,$nome_produto);
+//                try{
+//                    Admin_Model_Produto::addProdutoCompra($this->_usuario->id, $idProduto, $this->_getParam('quantidade_produto'));
+//                    $this->_redirect('admin/produtos/compra');
+//                } catch (Exception $ex) {
+//                    Admin_Model_Produto::removerProduto($idProduto);
+//                }
+//            } catch (Exception $ex) {
+//                #die($ex->getMessage());
+//            }
+//        }
+//    }
 
     public function showAction(){
         $dados  = Admin_Model_Produto::pesquisaProduto($this->_getParam('id'),null);
@@ -150,6 +185,33 @@ class Admin_ProdutosController extends Zend_Controller_Action
         }else{
             $this->_redirect('admin/produtos/compra');
         }
+    }
+    
+    public function editvendaAction(){
+        $form = new Admin_Form_Produtovenda('edit',$this->_usuario->grupo);
+        $form->populate( Admin_Model_Produto::pesquisaProdutoFornece( $this->_usuario->id, $this->_getParam('id') ) );
+        $this->view->form = $form;
+        if( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost();
+            if ( $form->isValid($data) ){
+                try {
+                    $dados['quantidade'] = $data['quantidade'];
+                    $dados['precoItem'] = $data['precoItem'];
+                    $dados['codigo'] = $data['codigo'];
+                    
+                    Admin_Model_Produto::editProd($this->_usuario->id, $this->_getParam('id'), 'VENDA', $dados);
+                } catch (Exception $exc) {
+                    die($exc->getTraceAsString());
+                }
+           }    
+           $this->redirect("/admin/produtos/venda/");
+        }else{                
+            $this->view->erro='Dados Invalidos';
+            $this->view->$form = $form->populate($data);
+        }
+    }
+    
+    public function editcompraAction(){
         
     }
 
