@@ -2512,6 +2512,7 @@ input[type="button"].btn-block {
 }
 .glyphicon-upload:before {
   content: "\e027";
+  color: #407941;
 }
 .glyphicon-inbox:before {
   content: "\e028";

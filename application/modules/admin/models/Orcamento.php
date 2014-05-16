@@ -141,4 +141,23 @@ class Admin_Model_Orcamento
         return $dadosProdutos;
     }
     
+    /**
+     * Adiciona um arquivo de especificacao ao produto
+     * @author Gustavo Del Negro <gustavodelnegro@gmail.com>
+     * @since V0.1
+     * @param int $idOrcamento
+     * @param int $idProduto
+     * @return boolean
+     */
+    public static function addEspecificacao($idOrcamento, $idProduto,$localArquivo){
+        $dbOrcamentoProduto = new Admin_Model_DbTable_OrcamentoProduto();
+        $where = array(
+            'orcamento = ?' => $idOrcamento,
+            'produto = ?' => $idProduto
+        );
+        $data['especificacao']=$localArquivo;
+        
+        $dbOrcamentoProduto->update($data, $where);
+    }
+    
 }

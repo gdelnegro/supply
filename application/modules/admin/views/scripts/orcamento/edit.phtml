@@ -14,6 +14,7 @@
                      <th><center>Id</center></th>
                      <th><center>Descrição</center></th>                     
                      <th><center>Quantidade</center></th>
+                     <th><center>Especificação</center></th>
                      <th><center>Ações</center></th>
                 </tr>
                 <?php foreach($this->paginator AS $key => $item):?>
@@ -21,8 +22,11 @@
                     <td><center><?php  echo $item['produto']?></center></td>
                     <td><center><?php  echo $item['descricao']?></center></td>
                     <td><center><?php  echo $item['quantidade']?></center></td>
+                    <td><center><a href="<?php  echo $item['especificacao']?>"><span class="glyphicon glyphicon-download"></a></span>
+                    </center></td>
                     <td><center>
-                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"delitem","id"=>"{$item['produto']}","orcamento"=>"{$this->id}"),null,true)?>" title="Remover Item do Orçamento"><span class="glyphicon glyphicon-remove"></span></a>
+                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"delitem","id"=>"{$item['produto']}","orcamento"=>"{$this->id}"),null,true)?>" title="Remover Item do Orçamento"><span class="glyphicon glyphicon-remove"></span></a>  
+                      <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"upload","id"=>"{$item['produto']}","orcamento"=>"{$this->id}"),null,true)?>" title="Adicionar especificação"><span class="glyphicon glyphicon-upload"></span></a>
                       </center>
                     </td>
                 </tr>

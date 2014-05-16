@@ -140,5 +140,36 @@ class Admin_OrcamentoController extends Zend_Controller_Action
                 
     }
     
+    public function uploadAction(){
+        $idProduto = $this->_getParam('id');
+        $form = new Admin_Form_Upload('new', $this->_usuario->id);
+        if( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost();
+            if ( $form->isValid($data) ){
+                $orcamento = $this->_getParam('orcamento');
+                /*Faz upload do arquivo*/
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                foreach ($upload->getFileInfo() as $file => $info) {                                     
+                    $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
+                    $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension,'overwrite' => true,));
+                }
+            try {
+                $upload->receive();
+                } catch (Zend_File_Transfer_Exception $e) {
+                    die($e->getMessage());
+                }
+                /*Adicionar dados no banco de dados*/
+                /*Atualiza orçamentoProduto
+                 * Adiciona especificacao
+                 */
+                $localArquivo = APPLICATION_PATH.'/../public/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension;
+                Admin_Model_Orcamento::addEspecificacao($orcamento, $idProduto, $localArquivo);
+            }else{
+                $this->view->erro='Dados Invalidos';
+                $this->view->formMateria = $form->populate($data);
+            }
+        }
+        $this->view->form = $form;
+    }
 
 }
