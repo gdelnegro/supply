@@ -162,7 +162,7 @@ class Admin_OrcamentoController extends Zend_Controller_Action
                 /*Atualiza orçamentoProduto
                  * Adiciona especificacao
                  */
-                $localArquivo = APPLICATION_PATH.'/../public/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension;
+                $localArquivo = '/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension;
                 Admin_Model_Orcamento::addEspecificacao($orcamento, $idProduto, $localArquivo);
             }else{
                 $this->view->erro='Dados Invalidos';
