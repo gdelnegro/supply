@@ -1,0 +1,74 @@
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}?>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <table>
+                    <tr>
+                        <th>Meus Fornecedores</th>
+                    </tr>
+                    <tr>
+                        <td>Pedidos de orçamento</td>
+                        <td>1</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="span1"></div>
+            
+            <div class="span3">
+                <table>
+                    <tr>
+                        <th>Meus Clientes</th>
+                    </tr>
+                    <tr>
+                        <td>Pedidos de orçamento</td>
+                        <td>1</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+            <div class="span4">
+                <table >
+                    <tr>
+                        <th>Buscar</th>
+                    </tr>
+                    <tr>
+                    <form class="form-search" action="" method="POST">
+                            <td>
+                                <input type="text" name="nome" id="nome" class="input-medium search-query">
+                            </td>
+                            <td>
+                                <button type="submit" class="btn">Buscar</button>
+                            </td>
+                                
+                            </form>
+                        </td>
+                    </tr>
+                    <?php 
+                    if(isset($this->dados)){
+                        foreach($this->dados as $dados):
+                            echo "<tr>";
+                                echo "<td> {$dados['nome']} </td>";
+                            echo "</tr>";
+                        endforeach;
+                    }
+                    ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
