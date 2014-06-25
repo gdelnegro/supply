@@ -1,0 +1,160 @@
+<?php
+/**
+ * @author Gustavo Del Negro <gustavodelnegro@gmail.com>
+ * @version v0.1
+ * @since v0.1
+ */
+?>
+<head>
+<!--    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
+    <title>O'Supply</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/ico">
+    <meta charset="utf-8">
+    <link href="/dist/css/bootstrap.css" rel="stylesheet">
+    <style>
+        /*
+        * Base structure
+        */
+
+        /* Move down content because we have a fixed navbar that is 50px tall */
+        body {
+            padding-top: 50px;
+        }
+    /*
+     * Global add-ons
+     */
+        .sub-header {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }   
+        /* make sidebar nav vertical */ 
+        @media (min-width: 768px) {
+          .sidebar-nav .navbar .navbar-collapse {
+            padding: 0;
+            max-height: none;
+          }
+          .sidebar-nav .navbar ul {
+            float: none;
+            display: block;
+          }
+          .sidebar-nav .navbar li {
+            float: none;
+            display: block;
+          }
+        }        
+
+        /*
+        * Form Sigin
+        */
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+         }
+        .form-signin .form-signin-heading,
+        .form-signin .form-control {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }       
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .form-signin input[type="submit"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            max-width: 100%;
+        }
+   </style>
+</head>
+<body>
+
+    <div class="navbar navbar-fixed-top"  style="background-color: #494748;border-bottom: 2px solid #E47136" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand">O Supply</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right" >
+              <li style="border: 1px solid #E47136;border-bottom: 0px;border-radius: 6px">
+                  <img src="/images/1.jpg" width="200px" height="64px">
+              </li>
+              <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"index","id"=>$this->layout()->usuario->id),null,true);?>" style='color:#E47136'>Editar Cadastro</a></li>
+            <li>
+                <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"index","action"=>"logout"),null,true);?>" style="color:#E47136">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+          <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <span class="visible-sm visible-xs navbar-brand">Sidebar menu</span>
+              </div>
+              <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                <ul class="nav navbar-nav">
+                  <?php if($this->layout()->usuario->grupo == 1){?>
+                    <li><h4>Revisão de Cadastros</h4></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" >Revisar cadastros pendentes</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"tipo","action"=>"cadastrar"),null,true);?>" >Cadastros de Tipos</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"categoria","action"=>"index"),null,true);?>" >Cadastros de Categorias</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"segmento","action"=>"cadastrar"),null,true);?>" >Cadastros de Segmentos</a></li>
+                    <?php }?>
+                    <li><h4>Preferências</h4></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"index"),null,true);?>" >Ver preferências</a></li>
+                    <li><h4>Itens</h4></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"venda"),null,true);?>" >Itens a venda</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"compra"),null,true);?>" >Itens para comprar</a></li>
+                    <li><h4>Orçamento</h4></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>" >Ver todos os orçamentos</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true);?>" >Solicitar Orçamento</a></li>
+                        <li><a href="<?php echo $this->url(array("module"=>"admin","controller"=>"proposta","action"=>"new"),null,true);?>" >Enviar Proposta</a></li>
+                        <li><a href="#" >Orçamentos Recebidos</a></li>
+                        <li><a href="#" >Orçamentos Aprovados</a></li>
+                    <li><h4>Compras</h4></li>
+                        <li><a href="#">Compras Realizadas</a></li>
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-10 col-md-10 main">
+            <br>
+            <br>
+              <?php echo $this->layout()->content; ?>
+        </div>
+    </div> 
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  </body>

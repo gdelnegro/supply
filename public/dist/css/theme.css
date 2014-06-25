@@ -1,0 +1,314 @@
+/* html body tag style */
+html {
+	height: 100%;
+}
+
+body {
+	margin:0 auto;
+	padding:0 inherit;
+	height:100%;
+	background-color:#FAFAFA;
+	font:80% Trebuchet MS, Arial, Helvetica, Sans-Serif;
+	color:#333;
+	line-height:180%;
+}
+
+/* h1 tag style */
+h1 {
+    margin: 0px;
+    padding: 0px;
+    font-family: arial;
+    font-size: 140%;
+    color: #ffffff;
+}
+
+/* CSS Style Rule for Div having id="outer-container" */
+/* outer-container will hold the whole assembly of 
+   nested div overlays. */
+/* It will also center align the design */
+#outer-container {
+    width: 90%;
+    margin: 0 auto;
+	padding-left:10%;
+}
+
+/* header CSS Style Rule */
+#header-css {
+    width: 90%;
+    height: 35px;
+    background-color: #E46C0A;
+	border-radius: 5px;
+	margin-top: 5px;
+}
+
+
+/* Top navigation CSS Style Rule */
+#header-oSupply {
+    width: 90%;
+	height: 120px;
+    background-color: #FFFFFF;
+    margin: 2px 0px 2px 0px;
+}
+
+/* footer CSS Style Rule */
+#footer {
+    width: 90%;
+    background-color: #E46C0A;
+	margin-top: 5px;
+}
+
+/* footer CSS Style Rule */
+#footer-noticias {
+    width: 90%;
+	margin-top: 5px;
+}
+
+
+/* Top navigation CSS Style Rule */
+#footer-oSupply {
+    width: 90%;
+	height: 250px;
+    background-color: #FFFFFF;
+    margin: 2px 0px 2px 0px;
+}
+
+/* Top navigation CSS Style Rule */
+#oSupply {
+    width: 90%;
+	height: 50px;
+    background-color: #66FFFF;
+    margin: 2px 0px 2px 0px;
+}
+
+
+#logotipo-header-oSupply {
+	height: 100px;
+	width: 300px;
+	padding: 10px;
+	float: left;
+}
+
+#frase-header-oSupply {
+	height: 100px;
+	width: 350px;
+	padding: 10px;
+	vertical-align:middle;
+	text-align:center;
+	float: left;
+}
+
+#frase-header-oSupply h1 {
+	color:#000;
+	font-size: large;
+	vertical-align:middle;
+	text-align:center;
+}
+
+
+/* header CSS Style Rule */
+#frase-header {
+    width: 190px;
+    height: 23px;
+    background-color: #FFFFFF;
+	float: right;
+	margin-right: 15px;
+	margin-top: 6px;
+	text-align:center;
+	text-shadow: #E46C0A;
+	font-weight:bold;
+	border-radius: 5px;
+	border-width:medium;
+	color:#000000;
+}
+
+/* Top navigation CSS Style Rule */
+#menu-Nav {
+    width: 90%;
+    background-color: #000066;
+    margin: 2px 0px 2px 0px;
+}
+/* content-container CSS Style Rule */
+/* It will hold the main content of the page. */
+#content-container {
+    width: 90%;
+    height: 500px;
+    margin: 2px 0px 2px 0px;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+#cssmenu {
+  background: #E46C0A;
+  width: auto;
+}
+
+#cssmenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  display: block;
+  zoom: 1;
+}
+#cssmenu ul:after {
+  content: ' ';
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+#cssmenu ul li {
+  float: left;
+  display: block;
+  padding: 0;
+}
+#cssmenu ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  padding: 15px 25px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  position: relative;
+  -webkit-transition: color .25s;
+  -moz-transition: color .25s;
+  -ms-transition: color .25s;
+  -o-transition: color .25s;
+  transition: color .25s;
+}
+#cssmenu ul li a:hover {
+  color: #333333;
+}
+#cssmenu ul li a:hover:before {
+  width: 100%;
+}
+#cssmenu ul li a:after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: -3px;
+  top: 19px;
+  height: 6px;
+  width: 6px;
+  background: #ffffff;
+  opacity: .5;
+}
+#cssmenu ul li a:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: #333333;
+  -webkit-transition: width .25s;
+  -moz-transition: width .25s;
+  -ms-transition: width .25s;
+  -o-transition: width .25s;
+  transition: width .25s;
+}
+#cssmenu ul li.last > a:after,
+#cssmenu ul li:last-child > a:after {
+  display: none;
+}
+#cssmenu ul li.active a {
+  color: #333333;
+}
+#cssmenu ul li.active a:before {
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  #cssmenu ul li {
+    float: none;
+  }
+  #cssmenu ul li a {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  #cssmenu ul li a:after {
+    display: none;
+  }
+  #cssmenu ul li a:before {
+    height: 1px;
+    background: #ffffff;
+    width: 100%;
+    opacity: .2;
+  }
+  #cssmenu ul li.last > a:before,
+  #cssmenu ul li:last-child > a:before {
+    display: none;
+  }
+}
+
+#sidebarDestaque {
+	width: 200px;
+	height: 500px;
+	float: left;
+	margin-right: 5px;
+}
+
+#tableDetaque{
+	border: 5px solid #CCCCCC;
+	text-align:center;
+	color: #E46C0A;
+	padding: 0px;
+	border-spacing: 0px;
+}
+
+#sidebarSlider {
+	width: 580px;
+	height: 300px;
+	float: left;
+	margin-right: 5px;	
+}
+
+#sidebarAnunciantes {
+	width: 580px;
+	height: 195px;
+	float: left;
+	margin-right: 5px;
+	margin-top: 5px;
+	
+}
+
+#sidebarVideo {
+	width: 300px;
+	height: 500px;
+	float: right;
+	background-color:#CCCCCC;
+}
+
+#tableVideo{
+	border: 5px solid #CCCCCC;
+	text-align:center;
+	color: #E46C0A;
+	padding: 0px;
+	border-spacing: 0px;
+	background-color:#FFFFFF;
+}
+
+#sidebarManutencao {
+	width: 200px;
+	height: 200px;
+	float: left;
+	margin-right: 5px;
+}
+
+
+#sidebarEventos {
+	width: 200px;
+	height: 200px;
+	float: left;
+	margin-right: 5px;
+}
+
+#ftHolder { width: 500px; float: left; text-align: center; height: 332px; padding-top: 90px; }
+#ft { border: 5px solid #BAD340; -moz-border-radius: 5px; }
+.ft-title { padding: 10px 10px; width: 480px; text-align: left; display:none }
+.ft-prev, .ft-next { display:none; }
+.ft-button-ft-active { color: black; }
