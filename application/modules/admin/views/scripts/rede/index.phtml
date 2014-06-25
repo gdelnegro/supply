@@ -63,6 +63,7 @@ function custom_echo($x)
                         foreach($this->dados as $dados):
                             echo "<tr>";
                                 echo "<td> {$dados['nome']} </td>";
+                                echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"adicionar","id"=>"{$dados['id']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer adicionar essa pessoa à sua rede?')\" title=\"Adicionar conexão\"><i class=\"icon-ok\"></i></a></td>";
                             echo "</tr>";
                         endforeach;
                     }

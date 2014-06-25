@@ -18,8 +18,13 @@ class Admin_RedeController extends Zend_Controller_Action
             if($resultadoBusca){
                 $this->view->dados = $resultadoBusca;
             }
-            
         }
+    }
+    
+    public function adicionarAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        $idUsuario = $this->_getParam('id');
     }
 
 
