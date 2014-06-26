@@ -20,8 +20,15 @@ function custom_echo($x)
                         <th>Meus Fornecedores</th>
                     </tr>
                     <tr>
-                        <td>Pedidos de orçamento</td>
-                        <td>1</td>
+                        <?php 
+                            if(!empty($this->relacionamentosFornecedores)){
+                                foreach($this->relacionamentosFornecedores as $indice => $dados){
+                                    echo "<td>".$dados['Solicitado']."</td>";
+                                }
+                            }else{
+                                echo "<td>Você não tem relacionamento com fornecedores, aproveita e faça agora mesmo</td>";
+                            }
+                        ?>
                     </tr>
                 </table>
             </div>
@@ -34,8 +41,14 @@ function custom_echo($x)
                         <th>Meus Clientes</th>
                     </tr>
                     <tr>
-                        <td>Pedidos de orçamento</td>
-                        <td>1</td>
+                        <?php if(!empty($this->relacionamentosClientes)){
+                            foreach($this->relacionamentosClientes as $indice => $dados){
+                                    echo "<td>".$dados['Solicitado']."</td>";
+                                }
+                        }else{
+                            echo "<td>Você não tem relacionamento com clientes, aproveita e faça agora mesmo</td>";
+                        }
+                        ?>
                     </tr>
                     
                 </table>
