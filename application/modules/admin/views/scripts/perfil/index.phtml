@@ -21,15 +21,15 @@ function custom_echo($x)
                     </tr>
                     <tr>
                         <td>Clientes</td>
-                        <td>1</td>
+                        <td><?php echo $this->contagem['cliente']?></td>
                     </tr>
                     <tr>
                         <td>Fornecedores</td>
-                        <td>2</td>
+                        <td><?php echo $this->contagem['fornecedor']?></td>
                     </tr>
                     <tr>
                         <td>Solicitações</td>
-                        <td>3</td>
+                        <td><?php echo $this->contagem['pendentes']?></td>
                     </tr>
                 </table>
             </div>

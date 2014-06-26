@@ -3,12 +3,13 @@
 class Admin_PerfilController extends Zend_Controller_Action
 {
 
+    private $_usuario ;
+    
     public function init()
-    {        
+    {
         /* Initialize action controller here */
         $usuario = Zend_Auth::getInstance()->getIdentity();
         $this->_usuario = $usuario;
-        $this->_orcamento = new Admin_Model_Orcamento();
         //$this->view->usuario = $usuario;
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         
@@ -19,7 +20,9 @@ class Admin_PerfilController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $relacionamento = new Admin_Model_Relacionamentos();
+        $contagem = $relacionamento->contagemRelacionamentos($this->_usuario->id);
+        $this->view->contagem = $contagem;
     }
 
 

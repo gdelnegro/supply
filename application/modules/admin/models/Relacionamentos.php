@@ -107,6 +107,42 @@ class Admin_Model_Relacionamentos
             );
         $this->dbRelacionamento->delete($where);
     }
+    
+    public function contagemRelacionamentos($idUsuario){
+        $selectRelacionamento = $this->viewRelacionamento->select()
+                ->from('viewRelacionamentos',array('count(*) as total'))
+                ->where('origem =?', $idUsuario)                
+                ->where('tipoRelacionamento =?', 'Fornecedor');
+        $stmt = $selectRelacionamento->query();
+        $dados = $stmt->fetchAll();
+        $contagemFornecedor = $dados[0]['total'];
+        
+        unset($dados);
+        
+        $selectRelacionamento = $this->viewRelacionamento->select()
+                ->from('viewRelacionamentos',array('count(*) as total'))
+                ->where('origem =?', $idUsuario)                
+                ->where('tipoRelacionamento =?', 'Cliente');
+        $stmt = $selectRelacionamento->query();
+        $dados = $stmt->fetchAll();
+        $contagemCliente = $dados[0]['total'];
+        
+        unset($dados);
+        
+        $selectRelacionamento = $this->viewRelacionamento->select()
+                ->from('viewRelacionamentos',array('count(*) as total'))
+                ->where('origem =?', $idUsuario)                
+                ->where('status <> ?', '2');
+        $stmt = $selectRelacionamento->query();
+        $dados = $stmt->fetchAll();
+        $contagemPendente = $dados[0]['total'];
+        
+        unset($dados);
+        $dados['cliente'] = $contagemCliente;
+        $dados['fornecedor'] = $contagemFornecedor;
+        $dados['pendentes'] = $contagemPendente;
+        return $dados;
+    }
 
 
 }
