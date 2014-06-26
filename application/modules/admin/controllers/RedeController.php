@@ -25,6 +25,9 @@ class Admin_RedeController extends Zend_Controller_Action
          * gerar array com dados dos contatos fornecedores
          * gerar array com dados dos contatos clientes
          */
+        $dadosTipoRelacionamento = $relacionamento->listaTipoRelacionamento();
+        $this->view->tipoRelacionamento = $dadosTipoRelacionamento;
+        
         $relacionamentosFornecedores = array();
         $relacionamentosClientes = array();
         $dadosRelacionamento = $relacionamento->buscaRelacionamento($this->_usuario->id);
@@ -55,14 +58,29 @@ class Admin_RedeController extends Zend_Controller_Action
     	$this->_helper->viewRenderer->setNoRender(true);
         $idUsuario = $this->_getParam('id');
         $idSolicitante = $this->_usuario->id;
+        $tipoRelacionamento = $this->_getParam('tipoRelacionamento');
         if($idSolicitante != $idUsuario){
             $relacionamento = new Admin_Model_Relacionamentos();
-            $mensagem = $relacionamento->adicionar($idSolicitante, $idUsuario,1);
+            $mensagem = $relacionamento->adicionar($idSolicitante, $idUsuario,$tipoRelacionamento);
             if(!is_null($mensagem)){
                 echo "<script>alert('$mensagem')</script>";
             }
             $this->redirect("/admin/rede");
         }
+    }
+    
+    public function removerAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        $idRelacionamento = $this->_getParam('id');
+        $relacionamento = new Admin_Model_Relacionamentos();
+        try{
+            $relacionamento->removeRelacionamento($this->_usuario->id, $idRelacionamento);
+        } catch (Exception $ex) {
+            
+        }
+        
+        $this->redirect("/admin/rede");
     }
 
 

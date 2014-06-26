@@ -9,11 +9,13 @@ class Admin_Model_Relacionamentos
     private $dbPessoa;
     private $dbRelacionamento;
     private $viewRelacionamento;
+    private $dbTipoRelacionamento;
     
     public function __construct() {
         $this->dbPessoa = new Admin_Model_DbTable_Pessoa(); 
         $this->dbRelacionamento = new Admin_Model_DbTable_Relacionamentos();
         $this->viewRelacionamento = new Admin_Model_DbTable_ViewRelacionamentos();
+        $this->dbTipoRelacionamento = new Admin_Model_DbTable_TipoRelacionamento();
     }
     
     /**
@@ -87,6 +89,23 @@ class Admin_Model_Relacionamentos
         $stmtRelacionamento = $selectRelacionamento->query();
         $dadosRelacionamento = $stmtRelacionamento->fetchAll();
         return $dadosRelacionamento;
+    }
+    
+    public function listaTipoRelacionamento(){
+        $selectTipoRelacionamento = $this->dbTipoRelacionamento->select()
+                ->from('tipoRelacionamento',
+                        array('key'=>'id','value'=>'descricao'));
+        $stmt = $selectTipoRelacionamento->query();
+        $dados = $stmt->fetchAll();
+        return $dados;
+    }
+    
+    public function removeRelacionamento($idUsuario, $idRelacionamento){
+        $where = array(
+                'origem = ?' => $idUsuario,
+                'idRelacionamento = ?' => $idRelacionamento
+            );
+        $this->dbRelacionamento->delete($where);
     }
 
 

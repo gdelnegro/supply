@@ -24,6 +24,7 @@ function custom_echo($x)
                             if(!empty($this->relacionamentosFornecedores)){
                                 foreach($this->relacionamentosFornecedores as $indice => $dados){
                                     echo "<td>".$dados['Solicitado']."</td>";
+                                    echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"remover","id"=>"{$dados['idRelacionamento']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer remover essa pessoa da sua rede?')\" title=\"Remover conexão\"><i class=\"icon-remove\"></i></a></td>";
                                 }
                             }else{
                                 echo "<td>Você não tem relacionamento com fornecedores, aproveita e faça agora mesmo</td>";
@@ -44,6 +45,7 @@ function custom_echo($x)
                         <?php if(!empty($this->relacionamentosClientes)){
                             foreach($this->relacionamentosClientes as $indice => $dados){
                                     echo "<td>".$dados['Solicitado']."</td>";
+                                    echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"remover","id"=>"{$dados['idRelacionamento']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer remover essa pessoa da sua rede?')\" title=\"Remover conexão\"><i class=\"icon-remove\"></i></a></td>";
                                 }
                         }else{
                             echo "<td>Você não tem relacionamento com clientes, aproveita e faça agora mesmo</td>";
@@ -75,8 +77,19 @@ function custom_echo($x)
                     if(isset($this->dados)){
                         foreach($this->dados as $dados):
                             echo "<tr>";
-                                echo "<td> {$dados['nome']} </td>";
-                                echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"adicionar","id"=>"{$dados['id']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer adicionar essa pessoa à sua rede?')\" title=\"Adicionar conexão\"><i class=\"icon-ok\"></i></a></td>";
+                                echo "<form action='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"adicionar"),null,true)."' method=\"POST\">";
+                                    echo "<input type=\"hidden\" name =\"id\" value=\"{$dados['id']}\">";
+                                    echo "<td> {$dados['nome']} </td>";                                
+                                    echo "<td>";
+                                    echo '<select name="tipoRelacionamento">';
+                                        foreach($this->tipoRelacionamento as $indice=>$dadosTipo){
+                                            echo "<option value=\"{$dadosTipo['key']}\">{$dadosTipo['value']}</option>";
+                                        }
+                                    echo '</select>';
+                                    echo '</td>';
+                            //echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"adicionar","id"=>"{$dados['id']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer adicionar essa pessoa à sua rede?')\" title=\"Adicionar conexão\"><i class=\"icon-ok\"></i></a></td>";
+                                    echo "<td><input type=\"submit\" value=\"Adicionar\"></td>";
+                                echo "</form>";
                             echo "</tr>";
                         endforeach;
                     }
