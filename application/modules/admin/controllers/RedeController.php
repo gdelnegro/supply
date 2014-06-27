@@ -27,17 +27,25 @@ class Admin_RedeController extends Zend_Controller_Action
          */
         $dadosTipoRelacionamento = $relacionamento->listaTipoRelacionamento();
         $this->view->tipoRelacionamento = $dadosTipoRelacionamento;
-        
+        $this->view->nomeUsuario = $this->_usuario->nome;
         $relacionamentosFornecedores = array();
         $relacionamentosClientes = array();
-        $dadosRelacionamento = $relacionamento->buscaRelacionamentoOrigem($this->_usuario->id,1);
+        $dadosRelacionamento = $relacionamento->buscaRelacionamento($this->_usuario->id,1);
         foreach($dadosRelacionamento as $indice=>$dados){
-            if($dados['tipoRelacionamento']=='Fornecedor'){
-                $relacionamentosFornecedores[]=$dados;
-            }elseif($dados['tipoRelacionamento']=='Cliente'){
-                $relacionamentosClientes[]=$dados;
+            if($dados['Solicitante'] == $this->_usuario->nome){
+                if($dados['TipoOrigem']=='Fornecedor'){
+                    $relacionamentosFornecedores[]=$dados;
+                }elseif($dados['TipoOrigem']=='Cliente'){
+                    $relacionamentosClientes[]=$dados;
+                }
+            }elseif($dados['Solicitado'] == $this->_usuario->nome){
+                if($dados['tipoDestino']=='Fornecedor'){
+                    $relacionamentosFornecedores[]=$dados;
+                }elseif($dados['tipoDestino']=='Cliente'){
+                    $relacionamentosClientes[]=$dados;
+                }
             }
-        }
+        }        
         $this->view->relacionamentosClientes = $relacionamentosClientes;
         $this->view->relacionamentosFornecedores = $relacionamentosFornecedores;
         if($this->getRequest()->getMethod() == 'POST'){

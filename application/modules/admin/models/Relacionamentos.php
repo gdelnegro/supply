@@ -75,16 +75,13 @@ class Admin_Model_Relacionamentos
      * @param int $status
      * @return type
      */
-    public function buscaRelacionamentoOrigem($idUsuario,$status,$destino = null,$tipoRelacionamento = null){
+    public function buscaRelacionamento($idUsuario,$status,$destino = null,$tipoRelacionamento = null){
         $selectRelacionamento = $this->viewRelacionamento->select()
                     ->from('viewRelacionamentos'
                             )
-                    ->where('status = ?', $status);
-        if($status == 2){
-            $selectRelacionamento->where('destino =?', $idUsuario);
-        }else{
-            $selectRelacionamento->where('origem =?', $idUsuario);
-        }
+                    ->where('status = ?', $status)
+                    ->where('origem =?', $idUsuario)
+                    ->orWhere('destino =?', $idUsuario);
         if(!is_null($destino)){
             $selectRelacionamento->where('destino = ?', $destino);
         }

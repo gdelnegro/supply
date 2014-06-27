@@ -23,7 +23,11 @@ function custom_echo($x)
                         <?php 
                             if(!empty($this->relacionamentosFornecedores)){
                                 foreach($this->relacionamentosFornecedores as $indice => $dados){
-                                    echo "<td>".$dados['Solicitado']."</td>";
+                                    if($dados['Solicitado']==$this->nomeUsuario){
+                                        echo "<td>".$dados['Solicitante']."</td>";
+                                    }else{
+                                        echo "<td>".$dados['Solicitado']."</td>";
+                                    }
                                     echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"remover","id"=>"{$dados['idRelacionamento']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer remover essa pessoa da sua rede?')\" title=\"Remover conexão\"><i class=\"icon-remove\"></i></a></td>";
                                 }
                             }else{
@@ -44,7 +48,11 @@ function custom_echo($x)
                     <tr>
                         <?php if(!empty($this->relacionamentosClientes)){
                             foreach($this->relacionamentosClientes as $indice => $dados){
-                                    echo "<td>".$dados['Solicitado']."</td>";
+                                    if($dados['Solicitado']==$this->nomeUsuario){
+                                        echo "<td>".$dados['Solicitante']."</td>";
+                                    }else{
+                                        echo "<td>".$dados['Solicitado']."</td>";
+                                    }
                                     echo "<td><a href='".$this->url(array("module"=>"admin","controller"=>"rede","action"=>"remover","id"=>"{$dados['idRelacionamento']}"),null,true)."' onclick=\"javascript:return confirm('Você tem certeza que quer remover essa pessoa da sua rede?')\" title=\"Remover conexão\"><i class=\"icon-remove\"></i></a></td>";
                                 }
                         }else{
