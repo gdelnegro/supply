@@ -45,13 +45,19 @@ class Admin_Model_Relacionamentos
          * o id do usuario que foi selecionado
          * e o tipo de relacionamento
          */
+        if($tipoRelacionamento == 1){
+            $tipoRelacionamentoDestino = 2;
+        }elseif($tipoRelacionamento == 2){
+            $tipoRelacionamentoDestino = 1;
+        }
         $date = date('Y-m-d h:i:s');
         $data = array(
             'origem' => $idSolicitante,
             'destino' => $idUsuario,
             'dtRelacionamento' => $date, 
             'status' => '2',
-            'tipoRelacionamento' => $tipoRelacionamento
+            'tipoRelacionamentoOrigem' => $tipoRelacionamento,
+            'tipoRelacionamentoDestino' => $tipoRelacionamentoDestino
         );
         try{
             $this->dbRelacionamento->insert($data);
@@ -105,7 +111,6 @@ class Admin_Model_Relacionamentos
     
     public function removeRelacionamento($idUsuario, $idRelacionamento){
         $where = array(
-                'origem = ?' => $idUsuario,
                 'idRelacionamento = ?' => $idRelacionamento
             );
         $this->dbRelacionamento->delete($where);

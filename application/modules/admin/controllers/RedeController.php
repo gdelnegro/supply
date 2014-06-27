@@ -85,7 +85,7 @@ class Admin_RedeController extends Zend_Controller_Action
         try{
             $relacionamento->removeRelacionamento($this->_usuario->id, $idRelacionamento);
         } catch (Exception $ex) {
-            
+            die();
         }
         
         $this->redirect("/admin/rede");
