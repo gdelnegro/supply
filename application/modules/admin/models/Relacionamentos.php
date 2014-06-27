@@ -121,7 +121,8 @@ class Admin_Model_Relacionamentos
                 ->from('viewRelacionamentos',array('count(*) as total'))
                 ->where('origem =?', $idUsuario)               
                 ->where('status = ?', '1')
-                ->where('tipoRelacionamento =?', 'Fornecedor');
+                ->where('tipoRelacionamentoOrigem =?', '1')
+                ->orWhere('tipoRelacionamentoDestino =?', '1');
         $stmt = $selectRelacionamento->query();
         $dados = $stmt->fetchAll();
         $contagemFornecedor = $dados[0]['total'];
@@ -132,7 +133,8 @@ class Admin_Model_Relacionamentos
                 ->from('viewRelacionamentos',array('count(*) as total'))
                 ->where('origem =?', $idUsuario)
                 ->where('status = ?', '1')
-                ->where('tipoRelacionamento =?', 'Cliente');
+                ->where('tipoRelacionamentoOrigem =?', '2')
+                ->orWhere('tipoRelacionamentoDestino =?', '2');
         $stmt = $selectRelacionamento->query();
         $dados = $stmt->fetchAll();
         $contagemCliente = $dados[0]['total'];
