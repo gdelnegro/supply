@@ -69,16 +69,22 @@ class Admin_Model_Relacionamentos
     
     /**
      * 
-     * @param type $idUsuario
-     * @param type $destino
+     * @param int $idUsuario
+     * @param int $destino
+     * @param int $tipoRelacionamento
+     * @param int $status
      * @return type
      */
-    public function buscaRelacionamento($idUsuario,$destino = null,$tipoRelacionamento = null){
+    public function buscaRelacionamentoOrigem($idUsuario,$status,$destino = null,$tipoRelacionamento = null){
         $selectRelacionamento = $this->viewRelacionamento->select()
                     ->from('viewRelacionamentos'
                             )
-                    ->where('status = ?', '2')
-                    ->where('origem =?', $idUsuario);
+                    ->where('status = ?', $status);
+        if($status == 2){
+            $selectRelacionamento->where('destino =?', $idUsuario);
+        }else{
+            $selectRelacionamento->where('origem =?', $idUsuario);
+        }
         if(!is_null($destino)){
             $selectRelacionamento->where('destino = ?', $destino);
         }
@@ -111,7 +117,8 @@ class Admin_Model_Relacionamentos
     public function contagemRelacionamentos($idUsuario){
         $selectRelacionamento = $this->viewRelacionamento->select()
                 ->from('viewRelacionamentos',array('count(*) as total'))
-                ->where('origem =?', $idUsuario)                
+                ->where('origem =?', $idUsuario)               
+                ->where('status = ?', '1')
                 ->where('tipoRelacionamento =?', 'Fornecedor');
         $stmt = $selectRelacionamento->query();
         $dados = $stmt->fetchAll();
@@ -121,7 +128,8 @@ class Admin_Model_Relacionamentos
         
         $selectRelacionamento = $this->viewRelacionamento->select()
                 ->from('viewRelacionamentos',array('count(*) as total'))
-                ->where('origem =?', $idUsuario)                
+                ->where('origem =?', $idUsuario)
+                ->where('status = ?', '1')
                 ->where('tipoRelacionamento =?', 'Cliente');
         $stmt = $selectRelacionamento->query();
         $dados = $stmt->fetchAll();
@@ -132,7 +140,7 @@ class Admin_Model_Relacionamentos
         $selectRelacionamento = $this->viewRelacionamento->select()
                 ->from('viewRelacionamentos',array('count(*) as total'))
                 ->where('origem =?', $idUsuario)                
-                ->where('status <> ?', '2');
+                ->where('status = ?', '2');
         $stmt = $selectRelacionamento->query();
         $dados = $stmt->fetchAll();
         $contagemPendente = $dados[0]['total'];

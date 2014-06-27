@@ -1,0 +1,38 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="span6 offset4">
+                <table>
+                    <tr>
+                        <th colspan="3">Solicitações Pendentes</th>
+                    </tr>
+                    <tr>
+                        <th>Nome solicitante</th>
+                        <th>Tipo Relacionamento</th>
+                        <th></th>
+                        <th>Ações</th>
+                    </tr>
+                    <?php
+                    foreach($this->dadosRelacionamentos as $indice => $dados):
+                        ?>
+                    <tr>
+                        <td><?php echo $dados['Solicitante']?></td>
+                        <td><?php echo $dados['tipoRelacionamento']?></td>
+                        <td></td>
+                        <td>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"rede","action"=>"aprovar","id"=>"{$dados['idRelacionamento']}"),null,true)?>" 
+                               onclick="javascript:return confirm('Você tem certeza que quer aprovar essa conexão?')" title="Aprovar conexão">
+                                <i class="icon-ok"></i>
+                            </a>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"rede","action"=>"rejeitar","id"=>"{$dados['idRelacionamento']}"),null,true)?>" 
+                               onclick="javascript:return confirm('Você tem certeza que quer rejeitar essa conexão?')" title="Rejeitar conexão">
+                                <i class="icon-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                        <?php
+                    endforeach;
+                    ?>
+                </table>
+            </div>
+</body>

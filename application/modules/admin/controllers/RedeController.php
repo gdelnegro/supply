@@ -30,7 +30,7 @@ class Admin_RedeController extends Zend_Controller_Action
         
         $relacionamentosFornecedores = array();
         $relacionamentosClientes = array();
-        $dadosRelacionamento = $relacionamento->buscaRelacionamento($this->_usuario->id);
+        $dadosRelacionamento = $relacionamento->buscaRelacionamentoOrigem($this->_usuario->id,1);
         foreach($dadosRelacionamento as $indice=>$dados){
             if($dados['tipoRelacionamento']=='Fornecedor'){
                 $relacionamentosFornecedores[]=$dados;
@@ -81,6 +81,57 @@ class Admin_RedeController extends Zend_Controller_Action
         }
         
         $this->redirect("/admin/rede");
+    }
+    
+    public function exibirAction(){
+        /**
+         * mostra todos os relacionamentos pendentes
+         */
+        $idUsuario = $this->_usuario->id;
+        $relacionamento = new Admin_Model_Relacionamentos();
+        $dadosRelacionamentos = $relacionamento->buscaRelacionamento($idUsuario, 2);
+        
+        $this->view->dadosRelacionamentos = $dadosRelacionamentos;
+        
+    }
+    
+    public function aprovarAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        
+        $idRelacionamento = $this->_getParam('id');
+        $db = new Admin_Model_DbTable_Relacionamentos();
+        $data = array(
+            'status' => 1
+        );
+        $where = array(
+                'idRelacionamento = ?' => $idRelacionamento
+        );
+        try{
+            $db->update($data, $where);
+        } catch (Exception $ex) {
+            die($ex->getMessage());
+        }
+        
+        
+        $this->redirect("/admin/rede/exibir");
+    }
+    
+    public function rejeitarAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        
+        $idRelacionamento = $this->_getParam('id');
+        $db = new Admin_Model_DbTable_Relacionamentos();
+        $data = array(
+            'status' => 3
+        );
+        $where = array(
+                'idRelacionamento = ?' => $idRelacionamento
+        );
+        $db->update($data, $where);
+        
+        $this->redirect("/admin/rede/exibir");
     }
 
 
