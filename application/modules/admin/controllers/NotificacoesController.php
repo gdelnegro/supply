@@ -20,7 +20,9 @@ class Admin_NotificacoesController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $modelo = new Admin_Model_Notificacoes();        
+        $notificacoes = $modelo->lista(2);
+        $this->view->notificacoes = $notificacoes;
     }
 
 

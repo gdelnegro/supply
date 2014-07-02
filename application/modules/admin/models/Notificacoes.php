@@ -16,8 +16,28 @@ class Admin_Model_Notificacoes
         $this->viewNotificacoes = new Admin_Model_DbTable_Viewnotificacoes();
     }
     
-    public function add($idUsuario, $idNotificacao){
+    /**
+     * 
+     * @param type $idUsuario
+     * @param type $texto
+     * @return boolean
+     */
+    public static function add($idUsuario, $texto){
+        $date = date('Y-m-d h:i:s');
+        $dbNotificacoes = new Admin_Model_DbTable_Notificacoes();
         
+        $data=array(
+            'texto' => $texto,
+            'usuario' => $idUsuario,
+            'status'    => '2',
+            'dtNotificacao' =>  $date
+        );
+        try{
+            $dbNotificacoes->insert($data);
+            return true;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
     }
     
     public function del($idUsuario, $idNotificacao){
@@ -44,6 +64,9 @@ class Admin_Model_Notificacoes
         $select = $this->viewNotificacoes->select()
                 ->from('viewNotificacoes')
                 ->where('usuario = ?', $idUsuario);
+        $stmt = $select->query();
+        $dados = $stmt->fetchAll();
+        return $dados;
         
     }
 

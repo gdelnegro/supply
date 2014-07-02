@@ -2,3 +2,10 @@
 <div id="view-content">
 	<p>View script for controller <b>Notificacoes</b> and script/action name <b>index</b></p>
 </div>
+
+
+<?php
+
+foreach($this->notificacoes as $key=>$dados):
+    echo $dados['texto'];
+endforeach;

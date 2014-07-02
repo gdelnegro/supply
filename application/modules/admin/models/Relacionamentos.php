@@ -61,6 +61,7 @@ class Admin_Model_Relacionamentos
         );
         try{
             $this->dbRelacionamento->insert($data);
+            Admin_Model_Notificacoes::add($idUsuario, 'Há uma nova solicitação de relacionamento para você..veja <a href="/admin/rede/exibir">aqui</a>');
         } catch (Exception $ex) {
             if($ex->getCode() == '23000'){
                 $mensagem = 'Relacionamento já feito';
