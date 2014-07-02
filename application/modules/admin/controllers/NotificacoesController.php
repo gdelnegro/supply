@@ -13,6 +13,10 @@ class Admin_NotificacoesController extends Zend_Controller_Action
         //$this->view->usuario = $usuario;
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         
+        $modelo = new Admin_Model_Notificacoes();        
+        $contagem = $modelo->count($this->_usuario->id);
+        Zend_Layout::getMvcInstance()->assign('contagem', $contagem[0]['total']);
+        
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
                 return $this->_helper->redirector->goToRoute( array('module'=>'admin','controller' => 'login'), null, true);
         }
@@ -21,7 +25,7 @@ class Admin_NotificacoesController extends Zend_Controller_Action
     public function indexAction()
     {
         $modelo = new Admin_Model_Notificacoes();        
-        $notificacoes = $modelo->lista(2);
+        $notificacoes = $modelo->lista($this->_usuario->id);
         $this->view->notificacoes = $notificacoes;
     }
 

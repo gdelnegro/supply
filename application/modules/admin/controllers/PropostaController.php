@@ -14,6 +14,9 @@ class Admin_PropostaController extends Zend_Controller_Action
         $this->_usuario = $usuario;
         $this->_orcamento = new Admin_Model_Orcamento();
         //$this->view->usuario = $usuario;
+        $modelo = new Admin_Model_Notificacoes();        
+        $contagem = $modelo->count($this->_usuario->id);
+        Zend_Layout::getMvcInstance()->assign('contagem', $contagem[0]['total']);
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
