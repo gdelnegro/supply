@@ -8,9 +8,6 @@ class Admin_IndexController extends Zend_Controller_Action
         /* Initialize action controller here */
         $usuario = Zend_Auth::getInstance()->getIdentity();
         //$this->view->usuario = $usuario;
-        $modelo = new Admin_Model_Notificacoes();        
-        $contagem = $modelo->count($this->_usuario->id);
-        Zend_Layout::getMvcInstance()->assign('contagem', $contagem[0]['total']);
         Zend_Layout::getMvcInstance()->assign('usuario', $usuario);
         
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {

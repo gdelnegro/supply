@@ -25,6 +25,8 @@ class Admin_PerfilController extends Zend_Controller_Action
     {
         $relacionamento = new Admin_Model_Relacionamentos();
         $contagem = $relacionamento->contagemRelacionamentos($this->_usuario->id);
+        $this->view->dadosCompras = Admin_Model_Preferencias::compra($this->_usuario->id);
+        $this->view->dadosVendas = Admin_Model_Preferencias::venda($this->_usuario->id);
         $this->view->contagem = $contagem;
     }
 
