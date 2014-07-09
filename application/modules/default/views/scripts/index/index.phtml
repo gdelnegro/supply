@@ -1,3 +1,28 @@
+<script language="JavaScript">
+function abrir(URL) {
+  var width = 400;
+  var height = 400;
+  var left = 99;
+  var top = 99;
+  window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
+}
+
+function addAcesso(id){    
+    var url = "/admin/anuncio/acesso/id/"+id;
+    var result = null;
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+            success: function(data) {
+                result = data;
+            }
+    });
+}
+
+</script>
+
 <div id="content-container">
             <div id="sidebarDestaque">
             	<table width="100%" height="500px">
@@ -43,9 +68,30 @@
             <div id="sidebarAnunciantes">
             	<table width="580px" height="195px">
                   <tr>
-                    <td id="tableVideo" height="185" width="195">Anunciantes</td>
-                    <td id="tableVideo" height="185" width="195">Anunciantes</td>
-                    <td id="tableVideo" height="185" width="195">Anunciantes</td>
+                      <?php
+                        foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
+                            if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
+                                $link = $dadosAnuncio['link_imagem'];
+                            }else{
+                                $link = 'http://'.$dadosAnuncio['link_imagem'];
+                            }
+                            ?>
+                           <!--<td id="tableVideo" height="185" width="195">
+                              Anunciantes
+                            </td>-->
+                            <td id="tableVideo" height="185" width="195" >
+                                <div style="overflow: hidden; max-height: 185px; max-width: 185px">
+                                    <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
+                                        <img width="100%" height="100%" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
+                                    </a>
+                                </div>
+                            </td>
+                        <?php
+                        endforeach;
+                    ?>
+                    <!-- <td id="tableVideo" height="185" width="195">
+                        Anunciantes
+                    </td> -->                    
                   </tr>
                 </table>
             </div>

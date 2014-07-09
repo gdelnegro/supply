@@ -36,9 +36,9 @@ class Admin_PerfilController extends Zend_Controller_Action
             $tiposPreferencia[] = intval($value['idTipo']);
         }
         
-        $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia);
+        $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia,6);
         if(count($dadosAnuncios)<2){
-            $dadosAnuncios = $anuncios->getAnuncio(null);
+            $dadosAnuncios = $anuncios->getAnuncio(null,6);
         }
         $this->view->dadosAnuncios = $dadosAnuncios;
     }

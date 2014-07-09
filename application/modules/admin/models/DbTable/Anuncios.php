@@ -9,8 +9,10 @@ class Admin_Model_DbTable_Anuncios extends Zend_Db_Table_Abstract
     public function fetchAll($idAnuncio = null,$usuario = null){
         $select = $this->_db->select();
         $select->from('anuncios')
-                ->joinInner('pessoa', 'anuncios.pessoa = pessoa.id',
-                            array('nome'=>'nome'));
+                ->joinLeft('pessoa', 'anuncios.pessoa = pessoa.id',
+                            array('nome'=>'nome'))
+                ->joinInner('midias', 'anuncios.midia = midias.id',
+                            array('nome_imagem'=>'titulo','descricao_imagem'=>'descricao','link_imagem'=>'link','local'=>'local'));
             if(!is_null($idAnuncio)){
                 $select->where("anuncios.id = '{$idAnuncio}'");
             }if(!is_null($usuario)){
@@ -19,7 +21,7 @@ class Admin_Model_DbTable_Anuncios extends Zend_Db_Table_Abstract
             return $this->_db->fetchAll($select);
     }
     
-    public function anuncio($tiposPreferencia = null){
+    public function anuncio($tiposPreferencia = null, $limite){
         $select = $this->_db->select();
         $select->from('anuncios')
                 ->joinLeft('pessoa', 'anuncios.pessoa = pessoa.id',
@@ -31,14 +33,20 @@ class Admin_Model_DbTable_Anuncios extends Zend_Db_Table_Abstract
             $select->where('categoria IN (?)', $tiposPreferencia);
         }       
          $select->order('RAND()')
-                ->limit('6');
+                ->limit($limite);
         return $this->_db->fetchAll($select);
     }
     
-    public function visita($idAnuncio){
-        $this->update(array(
-            'acessos' => new Zend_Db_Expr('acessos + 1')
-            ), 'value < 10');
+    public function getDestaque(){
+        $select = $this->_db->select();
+        $select->from('anuncios')
+                ->joinLeft('pessoa', 'anuncios.pessoa = pessoa.id',
+                            array('nome'=>'nome'))
+                ->joinInner('midias', 'anuncios.midia = midias.id',
+                            array('nome_imagem'=>'titulo','descricao_imagem'=>'descricao','link_imagem'=>'link','local'=>'local'))
+                ->where('ativo = 1')
+                ->where('destaque = 1');
+            return $this->_db->fetchAll($select);
     }
 
 }
