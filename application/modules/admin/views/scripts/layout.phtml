@@ -51,6 +51,10 @@
                    <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>'><span>Catálogo</span></a></li>
                    <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>'><span>Orçamentos</span></a></li>
                    <li><a><span>Pedidos de Orçamento pendentes - 1</span></a></li>
+                   <?php if($this->layout()->usuario->grupo == 1):?>
+                       <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"administracao","action"=>"index"),null,true);?>'><span>Administração</span></a></li>
+                   <?php endif;?>
+                   
                 </ul>
             </div>
         </div>

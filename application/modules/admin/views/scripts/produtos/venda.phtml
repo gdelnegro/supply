@@ -36,7 +36,7 @@ function custom_echo($x)
         <td><center><?php echo $produto['dtCriacao']?></center></td>
       <td><center>
          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"editvenda","id"=>"{$produto['codigoRegistro']}"),null,true)?>" title="Editar"><span class="glyphicon glyphicon-pencil"></span> </a>
-         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"deletepref","id"=>"{$produto['codigoRegistro']}","pref"=>"venda"),null,true)?>" onclick="javascript:return confirm('Você tem certeza que quer excluir este produto?')" title="Excluir"><span class="glyphicon glyphicon-remove"></span></a>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"deletepref","id"=>"{$produto['codigoRegistro']}","pref"=>"venda"),null,true)?>" onclick="javascript:return confirm('Você tem certeza que quer excluir este produto?')" title="Excluir"><i class="icon icon-remove"></i></a>
          </center>
       </td>
    </tr>

@@ -21,7 +21,13 @@ class Admin_TipoController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $modelo = new Admin_Model_Tipo();
+        $dados = $modelo->fetchAll();
+        $paginator = Zend_Paginator::factory($dados);
+        $paginator->setItemCountPerPage(50);
+        $paginator->setPageRange(10);
+        $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
+        $this->view->paginator = $paginator;
     }
     
     public function listanomeAction(){
@@ -63,6 +69,22 @@ class Admin_TipoController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
         echo json_encode(Admin_Model_Tipo::listaTipo($this->_getParam('id')));
+    }
+    
+    public function deletarAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        
+        $db = new Admin_Model_DbTable_Tipos();
+        $data = array('status'=>'2');
+        $where = $db->getAdapter()->quoteInto("id = ?", intval($this->_getParam('id')));
+        try{
+            $db->update($data, $where);
+        } catch (Exception $ex) {
+            
+        }
+        
+        $this->redirect("/admin/tipo/");
     }
 
 

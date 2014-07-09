@@ -20,7 +20,12 @@ class Admin_SegmentoController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $dados = Admin_Model_Segmento::pesquisaSegmento();
+        $paginator = Zend_Paginator::factory($dados);
+        $paginator->setItemCountPerPage(50);
+        $paginator->setPageRange(10);
+        $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
+        $this->view->paginator = $paginator;
     }
     
     public function showAction(){
@@ -72,5 +77,21 @@ class Admin_SegmentoController extends Zend_Controller_Action
             $this->view->formSegmento = $formSegmento;
         }
         $this->view->formSegmento = $formSegmento;
+    }
+    
+    public function deletarAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        
+        $db = new Admin_Model_DbTable_SubCategoria();
+        $data = array('status'=>'2');
+        $where = $db->getAdapter()->quoteInto("id = ?", intval($this->_getParam('id')));
+        try{
+            $db->update($data, $where);
+        } catch (Exception $ex) {
+            
+        }
+        
+        $this->redirect("/admin/segmento/");
     }
 }

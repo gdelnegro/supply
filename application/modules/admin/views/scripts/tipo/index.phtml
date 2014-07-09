@@ -1,4 +1,41 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Tipo</b> and script/action name <b>index</b></p>
-</div>
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}?>
+<body>
+<center>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"tipo","action"=>"cadastrar"),null,true)?>">Adicionar Tipo</a></p>
+    <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
+   <tr>
+        <th><center>Id</center></th>
+        <th><center>Descrição</center></th>        
+        <th><center>Data de Criação</center></th>
+        <th><center>Ações</center></th>
+   </tr>
+   <?php foreach($this->paginator AS $key => $categoria):?>
+   <tr>
+        <td><center><?php  echo $categoria['id']?></center></td>
+        <td><center><?php  echo $categoria['descricao']?></center></td>
+        <td><center><?php echo $categoria['dtCriacao']?></center></td>
+      <td><center>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$categoria['id']}"),null,true)?>" title="Ver Propostas"><i class="icon icon-remove"></i></a>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$categoria['id']}"),null,true)?>" title="Editar Orçamento"><i class="icon icon-pencil"></i></a>
+         </center>
+      </td>
+   </tr>
+   <?php endforeach;?>
+</table>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    
+</center>
+</body>

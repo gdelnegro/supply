@@ -23,64 +23,85 @@ class Admin_AnuncioController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $bdArtigos = new Application_Model_DbTable_Artigo();
-        $artigos = $bdArtigos->pesquisarArtigo();
+        $anuncios = new Admin_Model_DbTable_Anuncios();
         
-        $paginator = Zend_Paginator::factory($artigos);
+        $dados = $anuncios->fetchAll();
+        $paginator = Zend_Paginator::factory($dados);
         $paginator->setItemCountPerPage(50);
         $paginator->setPageRange(10);
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
+        
     }
     
     public function newAction()
     {
-        $titulo = urldecode( $this->_getParam('titulo') );
-        $titulo = str_replace(' ', '_',$titulo);
-        
-        $bdImagem = new Application_Model_DbTable_Imagens();
-        $dbArtigos = new Application_Model_DbTable_Artigo();
-        
-        $formMateria = new Admin_Form_Materia();
+        $form = new Admin_Form_Anuncio('new',$this->_usuario->id);
         
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
+            //die(var_dump($data));
             
-            if ( $formMateria->isValid($data) ){                
-                $dbImagens = new Application_Model_DbTable_Imagens();
+            $anuncio = new Admin_Model_DbTable_Anuncios();
         
-                /*Faz upload do arquivo*/
-                $upload = new Zend_File_Transfer_Adapter_Http();
-                foreach ($upload->getFileInfo() as $file => $info) {                                     
-                    $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
-                    $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/images/materia-'.$titulo.'.'.$extension,'overwrite' => true,));
+            if( $this->getRequest()->isPost() ) {
+                $data = $this->getRequest()->getPost();
+                unset($data['idMateria']);
+                //die(var_dump($data));
+                if ( $form->isValid($data) ){          
+                    $titulo = urldecode( $this->_getParam('titulo') );
+                    $titulo = str_replace(' ', '_',$titulo);
+                    $link = urldecode( $this->_getParam('link') );
+                    $bdImagem = new Admin_Model_DbTable_Midias();
+
+                    /*Faz upload do arquivo*/
+                    $upload = new Zend_File_Transfer_Adapter_Http();
+                    foreach ($upload->getFileInfo() as $file => $info) {                                     
+                        $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
+                        $dir = APPLICATION_PATH.'/../public/images/anuncio/'.$titulo.'/';
+                        if (!is_dir($dir)) {
+                            mkdir($dir);         
+                        }
+                        $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/images/anuncio/'.$titulo.'/'.$titulo.'.'.$extension,'overwrite' => true,));
+                    }
+                    try {
+                        $upload->receive();
+                    } catch (Zend_File_Transfer_Exception $e) {
+                        echo $e->getMessage();
+                    }
+
+                    /*Adicionar dados no banco de dados*/
+
+                    $dados =array(
+                        'descricao'  =>   'Anuncio'.$this->_getParam('sponsor'),
+                        'titulo'      =>  $titulo.'.'.$extension,
+                        'local'     =>  '/images/anuncio/'.$titulo.'/',
+                        'link'      =>  $link,
+                        'tipo' =>  '1'
+                    );
+                    
+                    $idImagem = $bdImagem->insert($dados);
+                    
+                    unset($data['link']);
+                    unset($data['MAX_FILE_SIZE']);
+                    unset($data['Enviar']);
+                    $dataAssinatura = date('Y-m-d H:i:s');
+                    $data['midia'] = $idImagem;
+                    $data['dtAssinatura'] = $dataAssinatura;
+                    $anuncio->insert($data);
+                    #$this->view->dados = $data;
+
+                }else{
+                    $this->view->erro='Dados Invalidos';
+                    $this->view->form = $form->populate($data);
                 }
-            try {
-                $upload->receive();
-                } catch (Zend_File_Transfer_Exception $e) {
-                    echo $e->getMessage();
-                }
-        
-                /*Adicionar dados no banco de dados*/
-        
-                $dados =array(
-                    'descricao'  =>   'Logotipo'.$this->_getParam('sponsor'),
-                    'nome'      =>  'materia-'.$titulo.'.'.$extension,
-                    'local'     =>  '../public/images/',
-                );
-        
-                $idImagem = $bdImagem->incluirImagem($dados);        
-                       
-                $dbArtigos->incluirArtigo($data, $idImagem);
-                return $this->_helper->redirector->goToRoute( array('module'=>'admin','controller' => 'article'), null, true);
-                #$this->view->dados = $dadosMateria;
-                
-            }else{
-                $this->view->erro='Dados Invalidos';
-                $this->view->formMateria = $formMateria->populate($data);
             }
+            
         }
-        $this->view->formMateria = $formMateria;
+        
+        $this->view->form = $form;
+        
+        
     }
 
 

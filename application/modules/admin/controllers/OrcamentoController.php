@@ -156,8 +156,8 @@ class Admin_OrcamentoController extends Zend_Controller_Action
                     $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
                     $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension,'overwrite' => true,));
                 }
-            try {
-                $upload->receive();
+                try {
+                    $upload->receive();
                 } catch (Zend_File_Transfer_Exception $e) {
                     die($e->getMessage());
                 }

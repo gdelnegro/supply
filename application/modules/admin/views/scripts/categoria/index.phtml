@@ -28,8 +28,7 @@ function custom_echo($x)
         <td><center><?php  echo $categoria['descricao']?></center></td>
         <td><center><?php echo $categoria['dtCriacao']?></center></td>
       <td><center>
-         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$categoria['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-remove"></span></a>
-         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$categoria['id']}"),null,true)?>" title="Editar Orçamento"><span class="glyphicon glyphicon-pencil"></span></a>
+         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"categoria","action"=>"deletar","id"=>"{$categoria['id']}"),null,true)?>" title="Remover"><i class="icon icon-remove"></i></a>
          </center>
       </td>
    </tr>

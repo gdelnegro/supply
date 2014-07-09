@@ -211,4 +211,13 @@ class Admin_Model_Usuario
         $where =  $dbPessoa->getAdapter()->quoteInto('id = ?', $id);
         $dbPessoa->update($data, $where);
     }
+    
+    public function listUsuario(){
+        $dbPessoa = new Admin_Model_DbTable_Pessoa();
+        $select = $dbPessoa->select();
+        $select->from('pessoa', array('key'=>'id','value'=>'nome'))
+                ->where('status = 1');
+        $stmt = $select->query();
+        return $stmt->fetchAll();
+    }
 }

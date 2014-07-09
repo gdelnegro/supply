@@ -3,6 +3,10 @@
 class Admin_Model_Tipo
 {
 
+    public function fetchAll(){
+        $dbCategoria = new Admin_Model_DbTable_Tipos();
+        return $dbCategoria->fetchAll();
+    }
     public static function listaTipo(){
         $dbCategoria = new Admin_Model_DbTable_Tipos();
         $select = $dbCategoria->select()

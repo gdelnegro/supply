@@ -73,7 +73,7 @@ class Twitter_Form extends Zend_Form
 				&& !($element instanceof Zend_Form_Element_Reset)
 			 	&& !($element instanceof Zend_Form_Element_Button))
 			{
-				$class = "btn btn-lg btn-primary btn-block";
+				$class = "btn btn-lg btn-primary";
 			}
 
 			$element->setAttrib("class", trim("btn $class " . $element->getAttrib("class")));

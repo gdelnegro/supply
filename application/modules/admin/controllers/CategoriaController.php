@@ -76,6 +76,21 @@ class Admin_CategoriaController extends Zend_Controller_Action
     	$this->_helper->viewRenderer->setNoRender(true);
         echo json_encode(Admin_Model_Categoria::pesquisaCategoria($this->_getParam('categoria'), $this->_getParam('tipo')));
     }
+    
+    public function deletarAction(){
+        $this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+        $db = new Admin_Model_DbTable_Categoria();
+        $data = array('status'=>'2');
+        $where = $db->getAdapter()->quoteInto("id = ?", intval($this->_getParam('id')));
+        try{
+            $db->update($data, $where);
+        } catch (Exception $ex) {
+            die($ex->getMessage());
+        }
+        
+        $this->redirect("/admin/categoria/");
+    }
 
 
 }
