@@ -20,18 +20,18 @@ function custom_echo($x)
         <th><center>Id</center></th>
         <th><center>Descrição</center></th>        
         <th><center>Data de Criação</center></th>
-        <th><center>Ações</center></th>
+        <!-- <th><center>Ações</center></th> -->
    </tr>
    <?php foreach($this->paginator AS $key => $categoria):?>
    <tr>
         <td><center><?php  echo $categoria['id']?></center></td>
         <td><center><?php  echo $categoria['descricao']?></center></td>
         <td><center><?php echo $categoria['dtCriacao']?></center></td>
-      <td><center>
+      <!-- <td><center>
          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$categoria['id']}"),null,true)?>" title="Ver Propostas"><i class="icon icon-remove"></i></a>
          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$categoria['id']}"),null,true)?>" title="Editar Orçamento"><i class="icon icon-pencil"></i></a>
          </center>
-      </td>
+      </td> -->
    </tr>
    <?php endforeach;?>
 </table>

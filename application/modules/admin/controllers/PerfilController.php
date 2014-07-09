@@ -28,6 +28,19 @@ class Admin_PerfilController extends Zend_Controller_Action
         $this->view->dadosCompras = Admin_Model_Preferencias::compra($this->_usuario->id);
         $this->view->dadosVendas = Admin_Model_Preferencias::venda($this->_usuario->id);
         $this->view->contagem = $contagem;
+        
+        $anuncios = new Admin_Model_Anuncio();
+
+        $tipos = Admin_Model_Preferencias::getTipoCompra($this->_usuario->id);
+        foreach($tipos as $key => $value){            
+            $tiposPreferencia[] = intval($value['idTipo']);
+        }
+        
+        $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia);
+        if(count($dadosAnuncios)<2){
+            $dadosAnuncios = $anuncios->getAnuncio(null);
+        }
+        $this->view->dadosAnuncios = $dadosAnuncios;
     }
 
 

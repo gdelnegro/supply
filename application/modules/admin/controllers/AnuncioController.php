@@ -85,6 +85,9 @@ class Admin_AnuncioController extends Zend_Controller_Action
                     unset($data['link']);
                     unset($data['MAX_FILE_SIZE']);
                     unset($data['Enviar']);
+                    if($data['pessoa'] == 0){
+                        unset($data['pessoa']);
+                    }
                     $dataAssinatura = date('Y-m-d H:i:s');
                     $data['midia'] = $idImagem;
                     $data['dtAssinatura'] = $dataAssinatura;
@@ -102,6 +105,14 @@ class Admin_AnuncioController extends Zend_Controller_Action
         $this->view->form = $form;
         
         
+    }
+    
+    public function acessoAction(){
+        $this->_helper->viewRenderer->setNoRender(true);
+        $bd = new Admin_Model_DbTable_Anuncios();
+        $data      = array('acessos' => new Zend_Db_Expr('acessos + 1')); 
+        $where[] = $bd->getAdapter()->quoteInto('id = ?', $this->_getParam('id')); 
+        $bd->update($data, $where); 
     }
 
 

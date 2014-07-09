@@ -114,6 +114,13 @@ class Admin_Form_Anuncio extends Twitter_Form
                      ))
                ))
                 ->setAttrib('disabled', $this->exibir);
+         
+        $categoria = new Zend_Form_Element_Select('categoria');
+        $categoria->setLabel('Categoria')
+                ->addMultiOptions(
+                        array('0'=>'Selecione uma categoria'))
+                ->addMultiOptions(Admin_Model_Tipo::listaTipo())
+                ;
         #$tag;
         
         $this->addElements( array(
@@ -123,6 +130,7 @@ class Admin_Form_Anuncio extends Twitter_Form
             $descricao,
             $texto,
             $sponsor,
+            $categoria,
             $destaque,
             $dtValidade,
             $ativo,
