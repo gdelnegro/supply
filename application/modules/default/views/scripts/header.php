@@ -1,10 +1,14 @@
 ﻿<?php  
-	$pagina1 = strripos($_SERVER['PHP_SELF'], 'index');
-	$pagina2 = strripos($_SERVER['PHP_SELF'], 'comofunciona');
-	$pagina3 = strripos($_SERVER['PHP_SELF'], 'compradores');
-	$pagina4 = strripos($_SERVER['PHP_SELF'], 'fornecedores');
-	$pagina5 = strripos($_SERVER['PHP_SELF'], 'anuncie');
-	$pagina6 = strripos($_SERVER['PHP_SELF'], 'contato');
+	$pagina1 = strripos($_SERVER['REDIRECT_URL'], 'index');
+	$pagina2 = strripos($_SERVER['REDIRECT_URL'], 'funcionamento');
+	$pagina3 = strripos($_SERVER['REDIRECT_URL'], 'compradores');
+	$pagina4 = strripos($_SERVER['REDIRECT_URL'], 'fornecedores');
+	$pagina5 = strripos($_SERVER['REDIRECT_URL'], 'anuncie');
+	$pagina6 = strripos($_SERVER['REDIRECT_URL'], 'contato');
+        
+        if(!isset($_SERVER['REDIRECT_URL'])){
+            $pagina1 = 'index';
+        }
 ?>
 
 	<div id="header-css">
@@ -33,7 +37,7 @@
             <div id='cssmenu'>
                 <ul>
                    <li <?php if ($pagina1) echo 'class="active"'; ?>><a href='index'><span>Home</span></a></li>
-                   <li <?php if ($pagina2) echo 'class="active"'; ?>><a href='comofunciona'><span>Como Funciona</span></a></li>
+                   <li <?php if ($pagina2) echo 'class="active"'; ?>><a href='funcionamento'><span>Como Funciona</span></a></li>
                    <li <?php if ($pagina3) echo 'class="active"'; ?>><a href='compradores'><span>Compradores</span></a></li>
                    <li <?php if ($pagina4) echo 'class="active"'; ?>><a href='fornecedores'><span>Fornecedores</span></a></li>
                    <li <?php if ($pagina5) echo 'class="active"'; ?>><a href='anuncie'><span>Anuncie</span></a></li>
