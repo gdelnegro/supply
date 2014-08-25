@@ -1,0 +1,211 @@
+<script language="JavaScript">
+function abrir(URL) {
+  var width = 400;
+  var height = 400;
+  var left = 99;
+  var top = 99;
+  window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
+}
+
+function addAcesso(id){    
+    var url = "/admin/anuncio/acesso/id/"+id;
+    var result = null;
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+            success: function(data) {
+                result = data;
+            }
+    });
+}
+
+</script>
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}?>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <table>
+                    <tr>
+                        <th>Conexões</th>
+                    </tr>
+                    <tr>
+                        <td>Clientes</td>
+                        <td><?php echo $this->contagem['cliente']?></td>
+                    </tr>
+                    <tr>
+                        <td>Fornecedores</td>
+                        <td><?php echo $this->contagem['fornecedor']?></td>
+                    </tr>
+                    <tr>
+                        <td>Solicitações</td>
+                        <td><?php echo $this->contagem['pendentes']?></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="span1"></div>
+            
+            <div class="span3">
+                <table>
+                    <tr>
+                        <th>Solicitações dos clientes</th>
+                    </tr>
+                    <tr>
+                        <td>Pedidos de orçamento</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Propostas enviadas</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Propostas aprovadas</td>
+                        <td>3</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="span1"></div>
+            
+            <div class="span3">
+                <table >
+                    <tr>
+                        <th>Minhas Solicitações</th>
+                    </tr>
+                    <tr>
+                        <td>Orçamentos solicitados</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Propostas recebidas</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Propostas aprovadas</td>
+                        <td>3</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="row">
+            <div class="span8">
+                <center>
+                    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+                    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Solicitar Orçamento</a></p>
+                    <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
+                   <tr>
+                        <th><center>Id</center></th>
+                        <th><center>Descrição</center></th>        
+                        <th><center>Data de Criação</center></th>
+                        <th><center>Propostas Recebidas</center></th>
+                        <th><center>Ações</center></th>
+                   </tr>
+                   <?php foreach($this->paginator AS $key => $orcamento):?>
+                   <tr>
+                        <td><center><?php  echo $orcamento['id']?></center></td>
+                        <td><center><?php  echo $orcamento['descricao']?></center></td>
+                        <td><center><?php echo $orcamento['dtCriacao']?></center></td>
+                        <td><center><?php echo $orcamento['totalPropostas']?></center></td>
+                      <td><center>
+                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"show","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Orçamento"><span class="glyphicon glyphicon-search"></span></a>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$orcamento['id']}"),null,true)?>" title="Editar Orçamento"><i class="icon icon-pencil"></i></a>
+                         </center>
+                      </td>
+                   </tr>
+                   <?php endforeach;?>
+                </table>
+                    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+
+                </center>
+            </div>
+            <div class="span1"></div>
+            <div class="span2">
+                <h3>Compra</h3><a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"compra"),null,true)?>')" title="Cadastrar preferência de compra"><i class="icon-plus"></i></span></a>
+                        <hr>
+
+                        <?php
+                            foreach($this->dadosCompras as $tipo=>$dadosCategorias){
+                                echo"<ul>";
+                                echo"<li>".$tipo."</li>";
+                                if(is_array($dadosCategorias)){
+                                    foreach($dadosCategorias as $categoria => $dadosSegmentos){
+                                        echo"<ul>";
+                                        echo"<li>".$categoria."</li>";
+                                        if(is_array($dadosSegmentos)){
+                                            echo"<ul>";
+                                            foreach($dadosSegmentos as $segmento){
+                                                echo"<li>".$segmento."</li>";
+                                            }
+                                            echo"</ul>";
+                                        }else{
+                                            echo"<ul>";
+                                            echo"<li>".$dadosSegmentos."</li>";
+                                            echo"</ul>";
+                                        }
+                                        echo"</ul>";
+                                    }
+                                }
+                                echo"</ul>";
+                            }
+                        ?>
+            </div>
+        </div>
+        
+    </div>
+    <hr>
+    <div id="footer-noticias">
+            <div id="sidebarNoticias">    	
+            	<table width="100%" height="195px">
+                  <tr>
+                    <?php
+                        foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
+
+                            if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
+                                $link = $dadosAnuncio['link_imagem'];
+                            }else{
+                                $link = 'http://'.$dadosAnuncio['link_imagem'];
+                            }
+                            ?>
+                            <td id="tableVideo" height="185" width="185">
+                                <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
+                                    <img width="185" height="" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
+                                </a>
+                            </td>
+                            <td></td>
+                        <?php
+                        endforeach;
+                    ?>
+                    <!-- <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td> -->
+                  </tr>
+                </table>
+            </div>
+        </div>
+</body>

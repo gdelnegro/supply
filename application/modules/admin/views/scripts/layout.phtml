@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/assets/css/bootstrap-responsive.css" type="text/css">
 <script src="/dist/js/jquery.js" type="text/javascript"></script>
 <script src="/dist/js/easySlider1.7.js" type="text/javascript"></script>
+<script src="/dist/js/jquery-2.1.1.min.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="outer-container">
@@ -48,7 +49,7 @@
                 <ul>
                    <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"perfil","action"=>"index"),null,true);?>'><span>Meu Perfil</span></a></li>
                    <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"rede","action"=>"index"),null,true);?>'><span>Minha Rede</span></a></li>
-                   <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>'><span>Catálogo</span></a></li>
+                   <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"catalogo","action"=>"index"),null,true);?>'><span>Catálogo</span></a></li>
                    <li><a href='<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>'><span>Orçamentos</span></a></li>
                    <li><a><span>Pedidos de Orçamento pendentes - 1</span></a></li>
                    <?php if($this->layout()->usuario->grupo == 1):?>
