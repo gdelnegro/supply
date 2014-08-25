@@ -13,7 +13,7 @@ function abrir(URL) {
 <div class="row">
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
         <h3>Fornece</h3>
-        <a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"venda"),null,true)?>')" title="Cadastrar preferência de venda"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"venda"),null,true)?>')" title="Cadastrar preferência de venda"><span class="icon icon-plus"></span></a>
         <hr>
         <?php
             foreach($this->dadosVendas as $tipo=>$dadosCategorias){
@@ -43,7 +43,7 @@ function abrir(URL) {
     </div>
     
     <div class="col-md-5 col-sm-5 col-md-offset-1 col-sm-offset-1">
-        <h3>Compra</h3><a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"compra"),null,true)?>')" title="Cadastrar preferência de compra"><span class="glyphicon glyphicon-plus"></span></a>
+        <h3>Compra</h3><a href="javascript:abrir('<?php echo $this->url(array("module"=>"admin","controller"=>"preferencias","action"=>"cadastrarpreferencia","pref"=>"compra"),null,true)?>')" title="Cadastrar preferência de compra"><span class="icon icon-plus"></span></a>
         <hr>
         
         <?php

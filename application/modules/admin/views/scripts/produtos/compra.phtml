@@ -39,7 +39,7 @@ function custom_echo($x)
                <td><center><input type="text" name="quantidade[<?php echo $produto['descricao']?>]" value="<?php echo $produto['quantidade']?>"></center></td>
                  <td><center><?php echo $produto['dtCriacao']?></center></td>
                  <td><center>
-                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$produto['id']}"),null,true)?>" title="Ver Propostas"><span class="glyphicon glyphicon-envelope"></span></a>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$produto['id']}"),null,true)?>" title="Ver Propostas"><span class="icon icon-envelope"></span></a>
                      </center>
                  </td>
             </tr>

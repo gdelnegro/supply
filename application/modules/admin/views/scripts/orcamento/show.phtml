@@ -24,6 +24,6 @@
            <?php endforeach;?>
         </table>
         <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
-        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"proposta","action"=>"new","orcamento"=>"{$this->idOrcamento}"),null,true)?>" title="Enviar Propostas">Enviar propostas <span class="glyphicon glyphicon-envelope"></span></a></p>
+        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"proposta","action"=>"new","orcamento"=>"{$this->idOrcamento}"),null,true)?>" title="Enviar Propostas">Enviar propostas <span class="icon icon-envelope"></span></a></p>
     </div>
 </div>

@@ -28,7 +28,7 @@ class Admin_Form_Upload extends Twitter_Form
         $orcamento = new Zend_Form_Element_Hidden('orcamento');
         
         $arquivo = new Zend_Form_Element_File('arquivo');
-        $arquivo->setLabel('Logotipo')
+        $arquivo->setLabel('Arquivo')
                 ->setRequired('true')
                 ->addValidator('Count', false, 1)
                 ->addValidator('Size',false,5502400);

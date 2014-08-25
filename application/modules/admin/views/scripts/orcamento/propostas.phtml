@@ -31,12 +31,12 @@ function custom_echo($x)
                  <td><center><?php  echo $proposta['usrCriou']?></center></td>
                  <td><center><?php echo $proposta['dtCriacao']?></center></td>
                <td><center>
-                  <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$proposta['id']}"),null,true)?>" title="Aprovar"><span class="glyphicon glyphicon-check"></span></a>
+                  <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$proposta['id']}"),null,true)?>" title="Aprovar"><span class="icon icon-check"></span></a>
                   </center>
                </td>
             </tr>
            <?php endforeach;?>
         </table>
-        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>" title="Voltar"><span class="glyphicon glyphicon-arrow-left"> Voltar</span></a>
+        <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"index"),null,true);?>" title="Voltar"><span class="icon icon-arrow-left"> Voltar</span></a>
     </center>
 </body>

@@ -42,9 +42,9 @@ function custom_echo($x)
              ?></center></td>
              <td><center><?php echo $dados['dtCriacao']?></center></td>
            <td><center><?php
-              echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$dados['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"glyphicon glyphicon-search\"></span></a>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$dados['id']}","tipo"=>"{$this->tipo}"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"glyphicon glyphicon-check\"></span></a>";
-                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$dados['id']}","tipo"=>"{$this->tipo}"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"glyphicon glyphicon-remove\"></span></a>";
+              echo "<a href=".$this->url(array("module"=>"admin","controller"=>"cadastro","action"=>"show","id"=>"{$dados['id']}","ctrl"=>"revisao"),null,true)." title=\"Ver cadastro\"><span class=\"icon icon-search\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"aprovar","id"=>"{$dados['id']}","tipo"=>"{$this->tipo}"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer aprovar este cadastro?')\" title=\"Aprovar cadastro\"><span class=\"icon icon-check\"></span></a>";
+                        echo "<a href=".$this->url(array("module"=>"admin","controller"=>"revisao","action"=>"deletar","id"=>"{$dados['id']}","tipo"=>"{$this->tipo}"),null,true)." onclick=\"javascript:return confirm('Você tem certeza que quer excluir este cadastro?')\" title=\"Deletar cadastro\"><span class=\"icon icon-remove\"></span></a>";
                         ?>
               </center>
            </td>
@@ -52,5 +52,5 @@ function custom_echo($x)
         <?php endforeach;?>
     </table>    
 </center>
-<a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" title="Voltar"><span class="glyphicon glyphicon-arrow-left"></span></a>
+<a href="<?php echo $this->url(array("module"=>"admin","controller"=>"revisao","action"=>"index"),null,true);?>" title="Voltar"><span class="icon icon-arrow-left"></span></a>
 </body>

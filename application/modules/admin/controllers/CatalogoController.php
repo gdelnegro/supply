@@ -39,6 +39,9 @@ class Admin_CatalogoController extends Zend_Controller_Action
         foreach($tipos as $key => $value){            
             $tiposPreferencia[] = intval($value['idTipo']);
         }
+        $catalogos = new Admin_Model_DbTable_Catalogos();        
+        $dadosCatalogos = $catalogos->fetchAll();
+        $this->view->dadosCatalogos = $dadosCatalogos;
         
         $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia,6);
         if(count($dadosAnuncios)<2){
@@ -157,20 +160,35 @@ class Admin_CatalogoController extends Zend_Controller_Action
     }
     
     public function uploadAction(){
-        $idProduto = $this->_getParam('id');
         $form = new Admin_Form_Upload('new', $this->_usuario->id);
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
             if ( $form->isValid($data) ){
                 $orcamento = $this->_getParam('orcamento');
+                $titulo = $data['nome'];
+                $descricao = $data['descricao'];
                 /*Faz upload do arquivo*/
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 foreach ($upload->getFileInfo() as $file => $info) {                                     
                     $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
-                    $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension,'overwrite' => true,));
+                    $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension,'overwrite' => true,));
+                    $caminho = APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension;
                 }
                 try {
                     $upload->receive();
+                    $banco_catalogos = new Admin_Model_DbTable_Catalogos();
+                    $dados = array(
+                        'titulo'        =>  $titulo,
+                        'pessoa'        =>  $this->_usuario->id,
+                        'data_upload'   =>  date('Y-m-d'),
+                        'local'         =>  $caminho
+                    );
+                    try {
+                        $banco_catalogos->insert($dados);
+                    } catch (Exception $ex) {
+                        die($ex->getMessage());
+                    }
+                    
                 } catch (Zend_File_Transfer_Exception $e) {
                     die($e->getMessage());
                 }
