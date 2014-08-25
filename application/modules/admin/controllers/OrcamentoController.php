@@ -33,18 +33,31 @@ class Admin_OrcamentoController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
         
+        //DADOS ANUNCIOS
         $anuncios = new Admin_Model_Anuncio();
 
         $tipos = Admin_Model_Preferencias::getTipoCompra($this->_usuario->id);
         foreach($tipos as $key => $value){            
             $tiposPreferencia[] = intval($value['idTipo']);
+        }        
+        
+        $categorias = Admin_Model_Preferencias::getCategoriaCompra($this->_usuario->id);
+        foreach($categorias as $key => $value){            
+            $categoriasPreferencia[] = intval($value['idCategoria']);
         }
         
-        $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia,6);
+        $modeloSegmento = new Admin_Model_Preferencias();
+        $segmentos = $modeloSegmento->getSegmentoCompra($this->_usuario->id);
+        foreach($segmentos as $key => $value){            
+            $segmentosPreferencia[] = intval($value['idTipo']);
+        }
+        
+        $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia, $categoriasPreferencia, $segmentosPreferencia,6);
         if(count($dadosAnuncios)<2){
-            $dadosAnuncios = $anuncios->getAnuncio(null,6);
+            $dadosAnuncios = $anuncios->getAnuncio(null, null, null,6);
         }
         $this->view->dadosAnuncios = $dadosAnuncios;
+        //DADOS ANUNCIOS
     }
     
     public function newAction(){            

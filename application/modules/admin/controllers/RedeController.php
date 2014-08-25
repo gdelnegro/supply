@@ -61,6 +61,7 @@ class Admin_RedeController extends Zend_Controller_Action
                 }
         }
         
+        //DADOS ANUNCIOS
         $anuncios = new Admin_Model_Anuncio();
 
         $tipos = Admin_Model_Preferencias::getTipoCompra($this->_usuario->id);
@@ -84,6 +85,7 @@ class Admin_RedeController extends Zend_Controller_Action
             $dadosAnuncios = $anuncios->getAnuncio(null, null, null,6);
         }
         $this->view->dadosAnuncios = $dadosAnuncios;
+        //DADOS ANUNCIOS
         
     }
     
