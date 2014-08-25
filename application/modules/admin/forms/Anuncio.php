@@ -114,13 +114,23 @@ class Admin_Form_Anuncio extends Twitter_Form
                      ))
                ))
                 ->setAttrib('disabled', $this->exibir);
-         
+        $tipo = new Zend_Form_Element_Select('Tipo');
+        $tipo->setLabel('Tipo')
+                ->addMultiOptions(
+                        array('0'=>'Selecione um tipo'))
+                ->addMultiOptions(Admin_Model_Tipo::listaTipo());
+        
         $categoria = new Zend_Form_Element_Select('categoria');
         $categoria->setLabel('Categoria')
                 ->addMultiOptions(
                         array('0'=>'Selecione uma categoria'))
-                ->addMultiOptions(Admin_Model_Tipo::listaTipo())
-                ;
+                ->addMultiOptions(Admin_Model_Categoria::listaCategoria());
+         
+        $segmento = new Zend_Form_Element_Select('segmento');
+        $segmento->setLabel('Segmento')
+                ->addMultiOptions(
+                        array('0'=>'Selecione um segmento'))
+                ->addMultiOptions(Admin_Model_Segmento::listaSegmento());
         #$tag;
         
         $this->addElements( array(
@@ -130,7 +140,9 @@ class Admin_Form_Anuncio extends Twitter_Form
             $descricao,
             $texto,
             $sponsor,
+            $tipo,
             $categoria,
+            $segmento,
             $destaque,
             $dtValidade,
             $ativo,
