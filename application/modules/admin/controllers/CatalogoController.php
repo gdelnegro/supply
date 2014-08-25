@@ -172,11 +172,13 @@ class Admin_CatalogoController extends Zend_Controller_Action
                 foreach ($upload->getFileInfo() as $file => $info) {                                     
                     $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
                     $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension,'overwrite' => true,));
-                    $caminho = APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension;
+                    //$caminho = APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension;
+                    
                 }
                 try {
                     $upload->receive();
                     $banco_catalogos = new Admin_Model_DbTable_Catalogos();
+                    $caminho = '/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension;
                     $dados = array(
                         'titulo'        =>  $titulo,
                         'pessoa'        =>  $this->_usuario->id,
@@ -185,6 +187,7 @@ class Admin_CatalogoController extends Zend_Controller_Action
                     );
                     try {
                         $banco_catalogos->insert($dados);
+                        $this->redirect("/admin/catalogo/");
                     } catch (Exception $ex) {
                         die($ex->getMessage());
                     }
@@ -192,18 +195,23 @@ class Admin_CatalogoController extends Zend_Controller_Action
                 } catch (Zend_File_Transfer_Exception $e) {
                     die($e->getMessage());
                 }
-                /*Adicionar dados no banco de dados*/
-                /*Atualiza orçamentoProduto
-                 * Adiciona especificacao
-                 */
-                $localArquivo = '/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension;
-                Admin_Model_Orcamento::addEspecificacao($orcamento, $idProduto, $localArquivo);
             }else{
                 $this->view->erro='Dados Invalidos';
                 $this->view->formMateria = $form->populate($data);
             }
         }
         $this->view->form = $form;
+    }
+    
+    public function delarquivoAction(){
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $modelo = new Admin_Model_DbTable_Catalogos();
+        if($modelo->delete(array('id_catalogo' => $this->_getParam('id')))){
+            $this->redirect("/admin/catalogo/");
+        }else{
+            return false;
+        }
     }
 
 

@@ -1,4 +1,5 @@
-<h2>Edição de orçamento</h2>
+<div class='container'>
+    <h2>Edição de orçamento</h2>
 <div class="row">
     <div class="col-sm-4 col-sm-offset-2 col-md-4 col-md-offset-3">
         <?php echo $this->formOrcamento ?>
@@ -24,7 +25,7 @@
                     <td><center><?php  echo $item['quantidade']?></center></td>
                     <td>
                         <center>
-                            <a href="<?php echo $item['especificacao']?>" download="Especificacao_<?php echo $item['descricao']?>"<span class="icon icon-download"></a></span>
+                            <a href="<?php echo $item['especificacao']?>" download="Especificacao_<?php echo $item['especificacao']?>"><span class="icon icon-download"></a></span>
                         </center>
                     </td>
                     <td><center>
@@ -39,4 +40,32 @@
                 
         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"compra","orcamento"=>"{$this->id}"),null,true)?>" class="btn btn-primary">Adicionar Itens</a>
     </div>
+</div>
+<hr>
+    <div id="footer-noticias">
+            <div id="sidebarNoticias">    	
+            	<table width="100%" height="195px">
+                  <tr>
+                    <?php
+                        foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
+
+                            if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
+                                $link = $dadosAnuncio['link_imagem'];
+                            }else{
+                                $link = 'http://'.$dadosAnuncio['link_imagem'];
+                            }
+                            ?>
+                            <td id="tableVideo" height="185" width="185">
+                                <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
+                                    <img width="185" height="" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
+                                </a>
+                            </td>
+                            <td></td>
+                        <?php
+                        endforeach;
+                    ?>
+                  </tr>
+                </table>
+            </div>
+        </div>
 </div>

@@ -1,29 +1,68 @@
-<div class="row"> 
-    <div class="col-md-2 col-sm-2 col-md-offset-7 col-sm-offset-7">
-        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$this->idOrcamento}"),null,true)?>" title="Ver Propostas Recebidas">Propostas Recebidas <span class="badge"><?php echo $this->dadosOrcamento['totalPropostas']?></span></a></p>
+<div class='container'>
+    <div class="row"> 
+        <div class="col-md-2 col-sm-2 col-md-offset-7 col-sm-offset-7">
+            <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$this->idOrcamento}"),null,true)?>" title="Ver Propostas Recebidas">Propostas Recebidas <span class="badge"><?php echo $this->dadosOrcamento['totalPropostas']?></span></a></p>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-5 col-sm-5 col-md-offset-3 col-sm-offset-3">
-        <center>
-            <h2>Orçamento de produtos/serviços</h2>
-            <h3>Itens do orçamento</h3>
-        </center>
+    <div class="row">
+        <div class="col-md-5 col-sm-5 col-md-offset-3 col-sm-offset-3">
+            <center>
+                <h2>Orçamento de produtos/serviços</h2>
+                <h3>Itens do orçamento</h3>
+            </center>
+                <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
+                <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
+               <tr>
+                    <th><center>Descrição</center></th>        
+                    <th><center>Quantidade</center></th>
+               </tr>
+               <?php foreach($this->paginator AS $key => $item):?>
+               <tr>
+                    <td><center><?php  echo $item['descricao']?></center></td>
+                    <td><center><?php echo $item['quantidade']?></center></td>
+                    </td>
+               </tr>
+               <?php endforeach;?>
+            </table>
             <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
-            <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
-           <tr>
-                <th><center>Descrição</center></th>        
-                <th><center>Quantidade</center></th>
-           </tr>
-           <?php foreach($this->paginator AS $key => $item):?>
-           <tr>
-                <td><center><?php  echo $item['descricao']?></center></td>
-                <td><center><?php echo $item['quantidade']?></center></td>
-                </td>
-           </tr>
-           <?php endforeach;?>
-        </table>
-        <center><?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?></center>
-        <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"proposta","action"=>"new","orcamento"=>"{$this->idOrcamento}"),null,true)?>" title="Enviar Propostas">Enviar propostas <span class="icon icon-envelope"></span></a></p>
+            <p class="text-right"> <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"proposta","action"=>"new","orcamento"=>"{$this->idOrcamento}"),null,true)?>" title="Enviar Propostas">Enviar propostas <span class="icon icon-envelope"></span></a></p>
+        </div>
     </div>
 </div>
+<hr>
+    <div id="footer-noticias">
+            <div id="sidebarNoticias">    	
+            	<table width="100%" height="195px">
+                  <tr>
+                    <?php
+                        foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
+
+                            if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
+                                $link = $dadosAnuncio['link_imagem'];
+                            }else{
+                                $link = 'http://'.$dadosAnuncio['link_imagem'];
+                            }
+                            ?>
+                            <td id="tableVideo" height="185" width="185">
+                                <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
+                                    <img width="185" height="" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
+                                </a>
+                            </td>
+                            <td></td>
+                        <?php
+                        endforeach;
+                    ?>
+                    <!-- <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td>
+                    <td id="tableVideo" height="185" width="185">Anunciantes Categorias</td>
+                    <td></td> -->
+                  </tr>
+                </table>
+            </div>
+        </div>

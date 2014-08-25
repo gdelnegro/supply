@@ -45,7 +45,7 @@ function custom_echo($x)
             <div class="span8">
                 <center>
                     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
-                    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Solicitar Orçamento</a></p>
+                    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Adicionar Produtos ao catálogo</a></p>
                     <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
                    <tr>
                         <th><center>Id</center></th>
@@ -88,8 +88,9 @@ function custom_echo($x)
                         <td><?php echo $dadosCatalogo['titulo'] ?></td>
                         <td><?php echo $dadosCatalogo['data_upload'] ?></td>
                         <td>
+                            <a href="<?php echo $dadosCatalogo['local']?>" download="<?php echo $dadosCatalogo['local']?>"><span class="icon icon-download"></a></span>
                             <a href="#" title="Abrir catálogo"><span class="icon icon-eye-open"></span></a>
-                            <a href="#" title="Excluir"><span class="icon icon-remove"></span></a>
+                            <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"catalogo","action"=>"delarquivo","id"=>"{$dadosCatalogo['id_catalogo']}"),null,true)?>" title="Excluir catálogo"><span class="icon icon-remove"></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
