@@ -163,13 +163,16 @@ class Admin_Model_Preferencias
         return $stmt->fetchAll();
     }
     
-    public static function getCategoriaCompra($idUsuario, $tipo, $categoria = null){
+    public static function getCategoriaCompra($idUsuario, $tipo = null, $categoria = null){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaVenda->select()
                 ->from('preferenciasDeCompra', array('categoria','idCategoria'))
                 ->distinct('categoria')
-                ->where('pessoa = ?', $idUsuario)
-                ->where('tipo = ?', $tipo);
+                ->where('pessoa = ?', $idUsuario);
+                if(!is_null($tipo)){
+                    $select->where('tipo = ?', $tipo);
+                }
+                
         if(!is_null($categoria)){
             $select->where('categoria = ?', $categoria);
         }
@@ -193,14 +196,19 @@ class Admin_Model_Preferencias
         return $dados;
     }
     
-    public function getSegmentoCompra($idUsuario,$tipo, $categoria, $segmento = null){
+    public function getSegmentoCompra($idUsuario,$tipo = null, $categoria  = null, $segmento = null){
         $dbPreferenciaVenda = new Admin_Model_DbTable_PreferenciasDeCompra();
         $select = $dbPreferenciaVenda->select()
                 ->from('preferenciasDeCompra', array('SubCategoria','idSubcategoria'))
                 ->distinct('categoria')
-                ->where('pessoa = ?', $idUsuario)
-                ->where('tipo = ?', $tipo)
-                ->where('categoria = ?', $categoria);
+                ->where('pessoa = ?', $idUsuario);
+        if(!is_null($tipo)){
+            $select->where('tipo = ?', $tipo);
+
+        }
+        if(!is_null($categoria)){
+            $select->where('categoria = ?', $categoria);
+        }
         if(!is_null($segmento)){
             $select->where('SubCategoria = ?', $segmento);
         }

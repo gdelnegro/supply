@@ -9,8 +9,8 @@ class Admin_Model_Anuncio
         $this->dbAnuncio = new Admin_Model_DbTable_Anuncios();
     }
     
-    public function getAnuncio($tiposPreferencia, $limite){
-        return $this->dbAnuncio->anuncio($tiposPreferencia, $limite);
+    public function getAnuncio($tiposPreferencia, $categoriaPreferencia, $segmentosPreferencia,$limite){
+        return $this->dbAnuncio->anuncio($tiposPreferencia, $categoriaPreferencia, $segmentosPreferencia,$limite);
     }
     
     public static function visita($idAnuncio){

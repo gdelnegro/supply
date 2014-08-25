@@ -21,7 +21,7 @@ class Admin_Model_DbTable_Anuncios extends Zend_Db_Table_Abstract
             return $this->_db->fetchAll($select);
     }
     
-    public function anuncio($tiposPreferencia = null, $limite){
+    public function anuncio($tiposPreferencia = null, $categoriaPreferencia = null, $segmentosPreferencia = null, $limite){
         $select = $this->_db->select();
         $select->from('anuncios')
                 ->joinLeft('pessoa', 'anuncios.pessoa = pessoa.id',
@@ -30,8 +30,14 @@ class Admin_Model_DbTable_Anuncios extends Zend_Db_Table_Abstract
                             array('nome_imagem'=>'titulo','descricao_imagem'=>'descricao','link_imagem'=>'link','local'=>'local'))
                 ->where('ativo = 1');
         if(!is_null($tiposPreferencia)){
-            $select->where('categoria IN (?)', $tiposPreferencia);
+            $select->orWhere('anuncios.tipo IN (?)', $tiposPreferencia);
         }       
+        if(!is_null($categoriaPreferencia)){
+            $select->orWhere('categoria IN (?)', $categoriaPreferencia);
+        }
+        if(!is_null($segmentosPreferencia)){
+            $select->orWhere('segmento IN (?)', $segmentosPreferencia);
+        }
          $select->order('RAND()')
                 ->limit($limite);
         return $this->_db->fetchAll($select);
