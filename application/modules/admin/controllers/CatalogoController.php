@@ -32,6 +32,19 @@ class Admin_CatalogoController extends Zend_Controller_Action
         $paginator->setPageRange(10);
         $paginator->setCurrentPageNumber($this->_request->getParam('pagina'));
         $this->view->paginator = $paginator;
+        
+        $anuncios = new Admin_Model_Anuncio();
+
+        $tipos = Admin_Model_Preferencias::getTipoCompra($this->_usuario->id);
+        foreach($tipos as $key => $value){            
+            $tiposPreferencia[] = intval($value['idTipo']);
+        }
+        
+        $dadosAnuncios = $anuncios->getAnuncio($tiposPreferencia,6);
+        if(count($dadosAnuncios)<2){
+            $dadosAnuncios = $anuncios->getAnuncio(null,6);
+        }
+        $this->view->dadosAnuncios = $dadosAnuncios;
     }
     
     public function newAction(){            
