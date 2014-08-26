@@ -58,6 +58,8 @@ class Admin_CatalogoController extends Zend_Controller_Action
         }
         $this->view->dadosAnuncios = $dadosAnuncios;
         //DADOS ANUNCIOS
+        $catalogos = new Admin_Model_DbTable_Catalogos();
+        $this->view->dadosCatalogos = $catalogos->fetchAll(array('pessoa'=>$this->_usuario->id));
     }
     
     public function newAction(){            
@@ -173,17 +175,19 @@ class Admin_CatalogoController extends Zend_Controller_Action
         $form = new Admin_Form_Upload('new', $this->_usuario->id);
         if( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost();
-            if ( $form->isValid($data) ){
-                $orcamento = $this->_getParam('orcamento');
+            //die(var_dump($data));
+            //if ( $form->isValid($data) ){
                 $titulo = $data['nome'];
                 $descricao = $data['descricao'];
+                $segmento = $data['segmento'];
+                $tipo = $data['tipo'];
+                $categoria = $data['categoria'];
                 /*Faz upload do arquivo*/
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 foreach ($upload->getFileInfo() as $file => $info) {                                     
                     $extension = pathinfo($info['name'], PATHINFO_EXTENSION); 
                     $upload->addFilter('Rename', array( 'target' => APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension,'overwrite' => true,));
                     //$caminho = APPLICATION_PATH.'/../public/catalogos/'.$this->_usuario->id.'_'.$titulo.'.'.$extension;
-                    
                 }
                 try {
                     $upload->receive();
@@ -193,7 +197,10 @@ class Admin_CatalogoController extends Zend_Controller_Action
                         'titulo'        =>  $titulo,
                         'pessoa'        =>  $this->_usuario->id,
                         'data_upload'   =>  date('Y-m-d'),
-                        'local'         =>  $caminho
+                        'local'         =>  $caminho,
+                        'tipo'          =>  $tipo,
+                        'segmento'      =>  $segmento,
+                        'categoria'     =>  $categoria
                     );
                     try {
                         $banco_catalogos->insert($dados);
@@ -205,10 +212,10 @@ class Admin_CatalogoController extends Zend_Controller_Action
                 } catch (Zend_File_Transfer_Exception $e) {
                     die($e->getMessage());
                 }
-            }else{
+            /*}else{
                 $this->view->erro='Dados Invalidos';
                 $this->view->formMateria = $form->populate($data);
-            }
+            }*/
         }
         $this->view->form = $form;
     }

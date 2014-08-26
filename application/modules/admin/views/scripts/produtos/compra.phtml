@@ -12,6 +12,7 @@ function custom_echo($x)
   }
 }?>
 <body>
+    <div class="container">
 <center>
     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
     <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"produtos","action"=>"addcompra"),null,true)?>">Adicionar mais produtos de interesse</a></p>
@@ -54,4 +55,5 @@ function custom_echo($x)
         
     </form>
 </center>
+    </div>
 </body>

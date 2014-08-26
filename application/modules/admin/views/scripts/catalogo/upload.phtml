@@ -1,3 +1,244 @@
-<?php
+<script src="/dist/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script>
+    var matriz=<?php echo json_encode($this->dadosPreferencias); ?>;
+    var categorias = [];
+    var segmentos = [];
+    var tipos = [];
+    var idTipo = 0;
+    var idCategoria = 0;
+    var Tipo = null;
+    var Categoria = null;
+    var Segmento = null;
+    
+    $( document ).ready(function() {
+        tipos = [];  
+        $("#tipo").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione um tipo";
+        option.value = 0;
+        
+        var select = document.getElementById("tipo");
+        select.appendChild(option);
+        var url = "/admin/tipo/listatipos";
+        var result = null;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            async: false,
+                success: function(data) {
+                    result = data;
+                }
+        });
+        //alert(result.toSource());
+        if(result.length >0){
+            for(var i=0;i<result.length;i++){
+                var dados = new Array();
+                dados["chave"] = [result[i]['key']];
+                dados["descricao"] = [result[i]['value']];
+                categorias.push(dados);
+            }
+            for(var i = 0; i<categorias.length;i++){
+                //alert(categorias[i].toSource());
+                var option = document.createElement("option");
+                option.text = categorias[i]['descricao'];
+                option.value = categorias[i]['chave'];
+                //option.value = "myvalue";
+                var select = document.getElementById("tipo");
+                select.appendChild(option);
+            }
+        }else{
+            var option = document.createElement("option");
+            option.text = "Não há tipos cadastrados";
+            option.value = 0;
+            var select = document.getElementById("tipo");
+            select.appendChild(option);
+        }
+    });
+    
+    
+    function resetSelect(){
+        $("#categoria").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione uma categoria";
+        option.value = 0;
+        var select = document.getElementById("categoria");
+        select.appendChild(option);
+        
+        $("#segmento").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione um segmento";
+        option.value = 0;
+        var select = document.getElementById("segmento");
+        select.appendChild(option);
+        
+        var element = document.getElementById('enviar');
+        element.style.display = "none";
+    }
+    
+    function getCategoria(Tipo){
+        categorias = [];  
+        resetSelect();
+        var url = "/admin/categoria/pesquisarcategoria/tipo/"+Tipo;
+        var result = null;
+        
+        if(Tipo == 0){
+            categorias = [];  
+            $("#categoria").empty();
+            var option = document.createElement("option");
+            option.text = "Selecione um tipo";
+            option.value = 0;
+            var select = document.getElementById("categoria");
+            select.appendChild(option);
+            return;
+        }else{
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                async: false,
+                    success: function(data) {
+                        result = data;
+                    }
+            });
 
-echo $this->form;
+            if(result.length >0){
+                for(var i=0;i<result.length;i++){
+                    var dados = new Array();
+                    dados["id"] = [result[i]['id']];
+                    dados["descricao"] = [result[i]['descricao']];
+                    categorias.push(dados);
+                }
+                for(var i = 0; i<categorias.length;i++){
+                    //alert(categorias[i].toSource());
+                    var option = document.createElement("option");
+                    option.text = categorias[i]['descricao'];
+                    option.value = categorias[i]['id'];
+                    //option.value = "myvalue";
+                    var select = document.getElementById("categoria");
+                    select.appendChild(option);
+                }
+
+            }else{
+                var option = document.createElement("option");
+                option.text = "Tipo sem categorias cadastradas";
+                option.value = 0;
+                var select = document.getElementById("categoria");
+                select.appendChild(option);
+            }
+        }
+    }
+    
+    function getSegmento(categoria){
+        Categoria = categoria;
+        $("#segmento").empty();
+        var option = document.createElement("option");
+        option.text = "Selecione um segmento";
+        option.value = 0;
+        var select = document.getElementById("segmento");
+        segmentos = [];  
+        var url = "/admin/segmento/listasegmentos/categoria/"+Categoria;
+        if(Categoria == 0){
+            $("#segmento").empty();
+            var option = document.createElement("option");
+            option.text = "Selecione uma categoria";
+            option.value = 0;
+            var select = document.getElementById("segmento");
+            select.appendChild(option);
+            var element = document.getElementById('enviar');
+                element.style.display = "none";
+            return;
+        }else{
+            var result = null;
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                async: false,
+                    success: function(data) {
+                        result = data;
+                    }
+            });
+            if(result.length >0){
+                var element = document.getElementById('enviar');
+                element.style.display = "block";
+                var element2 = document.getElementById('form');
+                element2.style.display = "block";
+                
+                for(var i=0;i<result.length;i++){
+                    var dados = new Array();
+                    dados["id"] = [result[i]['key']];
+                    dados["descricao"] = [result[i]['value']];
+                    segmentos.push(dados);
+                }
+                for(var i = 0; i<segmentos.length;i++){
+                    var option = document.createElement("option");
+                    option.text = segmentos[i]['descricao'];
+                    option.value = segmentos[i]['id'];
+                    var select = document.getElementById("segmento");
+                    select.appendChild(option);
+                }
+                
+            }else{
+                $("#segmento").empty();
+                var option = document.createElement("option");
+                option.text = "Categoria sem segmentos cadastrados";
+                option.value = 0;
+                var select = document.getElementById("segmento");
+                select.appendChild(option);
+            }
+        }
+        
+    }
+    function getFormData($form){
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+        return indexed_array;
+    }
+    
+    function salvarPreferencias(){
+        var form = $("#form_preferencias");
+        var data = getFormData(form);
+         $.ajax({
+            type: 'post',
+            url: '/admin/catalogo/upload/',
+            data: data,
+            dataType: 'json',
+        });
+    }
+    
+</script>
+
+<form method="post" name="form_preferencias" id="form_preferencias" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Segmento</th>
+        </tr>
+        <tr>
+            <td>
+                <select name="tipo" id="tipo" onchange="getCategoria(this.value)">
+                </select>
+            </td>
+            <td>
+                <select name="categoria" id="categoria" onchange="getSegmento(this.value)">
+                    <option value="0">Selecione uma categoria</option>
+                </select>
+            </td>
+            <td>
+                <select name="segmento" id="segmento">
+                    <option value="0">Selecione um segmento</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <div id="form" style="display: none">
+        <?php echo $this->form ?>
+    </div>
+</form>
+<hr>
