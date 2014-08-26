@@ -210,7 +210,7 @@ class Admin_ProdutosController extends Zend_Controller_Action
            $this->redirect("/admin/produtos/venda/");
         }else{                
             $this->view->erro='Dados Invalidos';
-            $this->view->$form = $form->populate($data);
+            $this->view->$form = $form->populate(Admin_Model_Produto::pesquisaProdutoFornece( $this->_usuario->id, $this->_getParam('id') ));
         }
     }
     
