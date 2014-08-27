@@ -53,7 +53,7 @@ class Admin_Form_Noticia extends Twitter_Form
                 ->setAttrib('disabled', $this->exibir);
         
         $texto = new Zend_Form_Element_Textarea('texto');
-        $texto->setLabel('Texto do Anúncio')
+        $texto->setLabel('Texto da notícia')
                 ->setRequired(true)
                 ->setFilters(array('StringTrim'))
                 ->setValidators( array(

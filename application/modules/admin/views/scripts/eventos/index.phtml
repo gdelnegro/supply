@@ -1,0 +1,49 @@
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}?>
+<body>
+    <div class="container">
+<center>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"eventos","action"=>"new"),null,true)?>">Adicionar</a></p>
+    <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
+   <tr>
+        <th><center>Id</center></th>
+        <th><center>Título</center></th>    
+        <th><center>Descrição</center></th>        
+        <th><center>Ministrante</center></th>        
+        <th><center>Data Início</center></th>        
+        <th><center>Data Término</center></th>
+        <th><center>Prazo Inscrição</center></th>
+        <th><center>Valor Inscrição</center></th>
+        <th><center>Local </center></th>
+   </tr>
+   <?php foreach($this->paginator AS $key => $categoria): ?>
+   <tr>
+        <td><center><?php  echo $categoria['id_evento']?></center></td>
+        <td><center><?php  echo $categoria['titulo']?></center></td>
+        <td><center><?php  echo $categoria['descricao']?></center></td>
+        <td><center><?php  echo $categoria['ministrante']?></center></td>
+        <td><center><?php  echo $categoria['data_inicio']?></center></td>
+        <td><center><?php  echo $categoria['data_fim']?></center></td>
+        <td><center><?php  echo $categoria['prazo_inscricao']?></center></td>
+        <td><center> R$ <?php  echo number_format($categoria['inscricao'],2,'.',',')?></center></td>
+        <td><center><?php  echo $categoria['local']?></center></td>
+   </tr>
+   <?php endforeach;?>
+</table>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    
+</center>
+    </div>
+</body>
