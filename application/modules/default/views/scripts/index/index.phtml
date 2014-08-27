@@ -1,4 +1,4 @@
-<script language="JavaScript">
+e<script language="JavaScript">
 function abrir(URL) {
   var width = 400;
   var height = 400;
@@ -97,9 +97,8 @@ function addAcesso(id){
             </div>
         </div>
 
-        <div style="clear: both">
-        </div>
-    
+        <div style="clear: both"></div>
+        
         <div id="footer-noticias">
             <div id="sidebarManutencao">
             	<table width="100%" height="200px">
@@ -116,9 +115,15 @@ function addAcesso(id){
                   <tr>
                     <td id="tableDetaque" height="37" style="background-color:#E46C0A; color:#FFFFFF">EVENTOS</td>
                   </tr>
-                  <tr>
-                    <td id="tableDetaque">&nbsp;</td>
-                  </tr>
+                  <?php 
+                    foreach($this->dadosEventos as $indice => $dadosEvento){
+                        $prazo_inscricao = implode("/",array_reverse(explode("-",$dadosEvento['prazo_inscricao'])));
+                        echo "<tr>";
+                        echo "<td id='tableDetaque'>".$dadosEvento['titulo']."-".$prazo_inscricao."-".$dadosEvento['ministrante']."</td>";
+                        echo "</tr>";
+                    }
+                  ?>
+                  
                 </table>
             </div>
             
