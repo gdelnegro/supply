@@ -51,7 +51,8 @@ class Admin_Model_DbTable_Anuncios extends Zend_Db_Table_Abstract
                 ->joinInner('midias', 'anuncios.midia = midias.id',
                             array('nome_imagem'=>'titulo','descricao_imagem'=>'descricao','link_imagem'=>'link','local'=>'local'))
                 ->where('ativo = 1')
-                ->where('destaque = 1');
+                ->where('destaque = 1')
+                ->order('RAND()');
             return $this->_db->fetchAll($select);
     }
 

@@ -15,18 +15,21 @@ class Default_IndexController extends Zend_Controller_Action
         $modeloEventos = new Admin_Model_Eventos();
         $modeloNoticias = new Admin_Model_Noticias();
         $videos = new Admin_Model_Midias();
+        $banners = new Admin_Model_DbTable_Banners();
         
         $destaques = $anuncios->getDestaque();
         $dadosAnuncios = $modeloAnuncio->getAnuncio($tiposPreferencia, $categoriaPreferencia, $segmentosPreferencia,3);
         $dadosEventos = $modeloEventos->getEventos(null,6);
         $dadosNoticias = $modeloNoticias->getNoticia();
         $dadosVideos = $videos->pesquisaMidias(null, 2);
+        $dadosBanners = $banners->fetchAll(null, null, null, 5);
         
         $this->view->dadosAnuncios = $dadosAnuncios;
         $this->view->dadosEventos = $dadosEventos;
         $this->view->destaques = $destaques;
         $this->view->dadosNoticias = $dadosNoticias;
         $this->view->dadosVideos = $dadosVideos;
+        $this->view->dadosBanners = $dadosBanners;
     }
 
 
