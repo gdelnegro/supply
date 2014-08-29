@@ -36,12 +36,12 @@
         <div id="menu-Nav">
             <div id='cssmenu'>
                 <ul>
-                   <li <?php if ($pagina1) echo 'class="active"'; ?>><a href='index'><span>Home</span></a></li>
-                   <li <?php if ($pagina2) echo 'class="active"'; ?>><a href='funcionamento'><span>Como Funciona</span></a></li>
-                   <li <?php if ($pagina3) echo 'class="active"'; ?>><a href='compradores'><span>Compradores</span></a></li>
-                   <li <?php if ($pagina4) echo 'class="active"'; ?>><a href='fornecedores'><span>Fornecedores</span></a></li>
-                   <li <?php if ($pagina5) echo 'class="active"'; ?>><a href='anuncie'><span>Anuncie</span></a></li>
-                   <li class='last <?php if ($pagina5) echo 'active"'; ?>'><a href='contato'><span>Contato</span></a></li>
+                   <li <?php if ($pagina1) echo 'class="active"'; ?>><a href='/index'><span>Home</span></a></li>
+                   <li <?php if ($pagina2) echo 'class="active"'; ?>><a href='/funcionamento'><span>Como Funciona</span></a></li>
+                   <li <?php if ($pagina3) echo 'class="active"'; ?>><a href='/compradores'><span>Compradores</span></a></li>
+                   <li <?php if ($pagina4) echo 'class="active"'; ?>><a href='/fornecedores'><span>Fornecedores</span></a></li>
+                   <li <?php if ($pagina5) echo 'class="active"'; ?>><a href='/anuncie'><span>Anuncie</span></a></li>
+                   <li class='last <?php if ($pagina5) echo 'active"'; ?>'><a href='/contato'><span>Contato</span></a></li>
                 </ul>
             </div>
         </div>
