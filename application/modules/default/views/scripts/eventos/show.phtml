@@ -1,11 +1,47 @@
 <?php
 
-//var_dump($this->dadosEvento);
-
 foreach($this->dadosEvento as $indice => $evento){?>
 
 <div id="content">
-    <center><h1><?php echo $evento['titulo']?></h1></center>    
+    <center>
+        <h1><?php echo $evento['titulo']?></h1>
+    </center>    
+    <hr>
+    <center>
+        <?php echo $evento['descricao']?>
+    </center>
+    <br>
+    <hr>
+    <center>
+        <table>
+            <tr>
+                <th>Data início: </th>
+                <td><?php echo $evento['data_inicio']?></td>
+                <td></td>
+                <th>Data Término: </th>
+                <td><?php echo $evento['data_fim']?></td>
+            </tr>
+            <tr>
+                <th>Local: </th>
+                <td><?php echo $evento['local']?></td>
+            </tr>
+            <tr>
+                <th>Ministrante: </th>
+                <td><?php echo $evento['ministrante']?></td>
+            </tr>
+            <tr>
+                <th>Valor da inscrição: </th>
+                <td><?php echo $evento['inscricao']?></td>
+                <td></td>
+                <th>Prazo de inscrição:</th>
+                <td><?php echo $evento['prazo_inscricao']?></td>
+            </tr>
+            <tr>
+                <th>Site:</th>
+                <td><?php echo $evento['url']?></td>
+            </tr>
+        </table>
+    </center>
 </div>
 
 <?php

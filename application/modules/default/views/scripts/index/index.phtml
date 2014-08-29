@@ -65,18 +65,11 @@ function addAcesso(id){
                   <tr>
                     <td id="tableVideo" height="37">VIDEOS</td>
                   </tr>
-                  <tr>
-                    <td id="tableVideo" height="100">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td id="tableVideo" height="100">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td id="tableVideo" height="100">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td id="tableVideo" height="100">&nbsp;</td>
-                  </tr>
+                  <?php foreach($this->dadosVideos as $indice => $video){
+                      echo "<tr>";
+                        echo "<td id=\"tableVideo\" height=\"100\">&nbsp;</td>";
+                      echo "</tr>";
+                  }?>
                 </table>
             </div>
             <div id="sidebarAnunciantes">
