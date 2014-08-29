@@ -13,14 +13,17 @@ class Default_IndexController extends Zend_Controller_Action
         $anuncios = new Admin_Model_DbTable_Anuncios();
         $modeloAnuncio = new Admin_Model_Anuncio();
         $modeloEventos = new Admin_Model_Eventos();
+        $modeloNoticias = new Admin_Model_Noticias();
         
         $destaques = $anuncios->getDestaque();
-        $dadosAnuncios = $modeloAnuncio->getAnuncio(null,3);
-        $dadosEventos = $modeloEventos->getEventos(6);
+        $dadosAnuncios = $modeloAnuncio->getAnuncio($tiposPreferencia, $categoriaPreferencia, $segmentosPreferencia,3);
+        $dadosEventos = $modeloEventos->getEventos(null,6);
+        $dadosNoticias = $modeloNoticias->getNoticia();
         
         $this->view->dadosAnuncios = $dadosAnuncios;
         $this->view->dadosEventos = $dadosEventos;
         $this->view->destaques = $destaques;
+        $this->view->dadosNoticias = $dadosNoticias;
     }
 
 

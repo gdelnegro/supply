@@ -1,4 +1,18 @@
-e<script language="JavaScript">
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}?>
+
+<script language="JavaScript">
 function abrir(URL) {
   var width = 400;
   var height = 400;
@@ -119,7 +133,7 @@ function addAcesso(id){
                     foreach($this->dadosEventos as $indice => $dadosEvento){
                         $prazo_inscricao = implode("/",array_reverse(explode("-",$dadosEvento['prazo_inscricao'])));
                         echo "<tr>";
-                        echo "<td id='tableDetaque'>".$dadosEvento['titulo']."-".$prazo_inscricao."-".$dadosEvento['ministrante']."</td>";
+                        echo "<td id='tableDetaque'> <a href='/eventos/show/id/{$dadosEvento['id_evento']}'>".$dadosEvento['titulo']."-".$prazo_inscricao."-".$dadosEvento['ministrante']."</a></td>";
                         echo "</tr>";
                     }
                   ?>
@@ -130,10 +144,9 @@ function addAcesso(id){
             <div id="sidebarNoticias">    	
             	<table width="680px" height="195px">
                   <tr>
-                    <td id="tableVideo" height="185" width="185">Noticias</td>
-                    <td id="tableVideo" height="185" width="185">Noticias</td>
-                    <td id="tableVideo" height="185" width="185">Noticias</td>
-                    <td id="tableVideo" height="185" width="185">Noticias</td>
+                      <?php foreach($this->dadosNoticias as $indice=>$noticia){?>
+                  <td id="tableVideo" height="185" width="185"><a href="#"><?php custom_echo($noticia['texto'])?></a></td>
+                      <?php }?>
                   </tr>
                 </table>
             </div>

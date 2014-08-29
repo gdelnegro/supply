@@ -8,8 +8,8 @@ class Admin_Model_Noticias
         $this->dbNoticia = new Admin_Model_DbTable_Noticia();
     }
     
-    public function getNoticia($tiposPreferencia, $limite){
-        return $this->dbNoticia->noticia($tiposPreferencia, $limite);
+    public function getNoticia($idNoticia, $usuario){
+        return $this->dbNoticia->fetchAll($idNoticia, $usuario);
     }
     
 }

@@ -20,12 +20,12 @@
         </div>
     
         <div id="header-oSupply">
-            <div id="logotipo-header-oSupply"><img src="images/logotipo-osupply.png"/></div>
+            <div id="logotipo-header-oSupply"><a href="/"><img src="images/logotipo-osupply.png"/></a></div>
             <div id="frase-header-oSupply"><h4>Tudo em manutenção industrial em um único portal.</h4></div>
             <div id="frase-header-oSupply">
                 <p>
-                    <a href="cadastro/"><img src="images/botaoCadastre-se.png" /> </a>
-                    <a href="/admin"> <img style="padding-left:30px" src="images/botaoEntrar.png"/> </a>
+                    <a href="cadastro/"><img src="images/botaoCadastre-se_2.png" /> </a>
+                    <a href="/admin"> <img style="padding-left:30px" src="images/botaoEntrar_2.png"/> </a>
                 </p>
             </div>
         </div>

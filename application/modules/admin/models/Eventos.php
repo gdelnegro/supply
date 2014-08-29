@@ -9,8 +9,8 @@ class Admin_Model_Eventos
         $this->dbEventos = new Admin_Model_DbTable_Eventos();
     }
     
-    public function getEventos($limite){
-        return $this->dbEventos->getEventos($limite);
+    public function getEventos($id,$limite){
+        return $this->dbEventos->getEventos($id,$limite);
     }
 
 }
