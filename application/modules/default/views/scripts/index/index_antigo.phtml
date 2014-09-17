@@ -1,0 +1,156 @@
+<?php
+function custom_echo($x)
+{
+  if(strlen($x)<=50)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,50) . '...';
+    echo $y;
+  }
+}?>
+
+<script language="JavaScript">
+function abrir(URL) {
+  var width = 400;
+  var height = 400;
+  var left = 99;
+  var top = 99;
+  window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
+}
+
+function addAcesso(id){    
+    var url = "/admin/anuncio/acesso/id/"+id;
+    var result = null;
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+            success: function(data) {
+                result = data;
+            }
+    });
+}
+
+</script>
+<?php $destaques = $this->destaques;?>
+<div id="content-container">
+            <div id="sidebarDestaque">
+            	<table width="100%" height="500px">
+                  <tr>
+                    <td id="tableDetaque" height="37">DESTAQUE</td>
+                  </tr>
+                  <tr>
+                      <td id="tableDetaque">
+                          <a href="<?php echo $destaques[0]['link_imagem']?>"><img style='max-width: 185px; max-height: 155px' src="<?php echo $destaques[0]['local'].$destaques[0]['nome_imagem']?>"></a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td id="tableDetaque">
+                          <a href="<?php echo $destaques[1]['link_imagem']?>"><img style='max-width: 185px;max-height: 155px' src="<?php echo $destaques[1]['local'].$destaques[1]['nome_imagem']?>"></a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td id="tableDetaque">
+                          <a href="<?php echo $destaques[2]['link_imagem']?>"><img style='max-width: 185px;max-height: 155px' src="<?php echo $destaques[2]['local'].$destaques[2]['nome_imagem']?>"></a>
+                      </td>
+                  </tr>
+                </table>
+            </div>
+            <div id="sidebarSlider">
+            	<div id='slider'>
+                    <ul>				
+                    <?php foreach($this->dadosBanners as $indice=>$banner): ?>
+					<li><a href="#"><img src="<?php echo $banner['local'].$banner['nome_imagem']?>" alt="<?php echo $banner['titulo']?>" /></a></li>
+                    <?php endforeach;?>   
+                    </ul>
+                </div>            
+            </div>
+            
+            <div id="sidebarVideo">
+            	<table width="100%" height="500px">
+                  <tr>
+                    <td id="tableVideo" height="37">VIDEOS</td>
+                  </tr>
+                  <?php foreach($this->dadosVideos as $indice => $video){
+                      echo "<tr>";
+                        echo "<td id=\"tableVideo\" height=\"100\">&nbsp;</td>";
+                      echo "</tr>";
+                  }?>
+                </table>
+            </div>
+            <div id="sidebarAnunciantes">
+            	<table width="580px" height="195px">
+                  <tr>
+                      <?php
+                        foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
+                            if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
+                                $link = $dadosAnuncio['link_imagem'];
+                            }else{
+                                $link = 'http://'.$dadosAnuncio['link_imagem'];
+                            }
+                            ?>
+                           <!--<td id="tableVideo" height="185" width="195">
+                              Anunciantes
+                            </td>-->
+                            <td id="tableVideo" height="185" width="195" >
+                                <div style="overflow: hidden; max-height: 185px; max-width: 185px">
+                                    <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
+                                        <img width="100%" height="100%" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
+                                    </a>
+                                </div>
+                            </td>
+                        <?php
+                        endforeach;
+                    ?>
+                    <!-- <td id="tableVideo" height="185" width="195">
+                        Anunciantes
+                    </td> -->                    
+                  </tr>
+                </table>
+            </div>
+        </div>
+
+        <div style="clear: both"></div>
+        
+        <div id="footer-noticias">
+            <div id="sidebarManutencao">
+            	<table width="100%" height="200px">
+                  <tr>
+                    <td id="tableDetaque" height="37" style="background-color:#E46C0A; color:#FFFFFF">MANUTENÇÃO</td>
+                  </tr>
+                  <tr>
+                    <td id="tableDetaque">&nbsp;</td>
+                  </tr>
+                </table>
+            </div>
+            <div id="sidebarEventos">
+            	<table width="100%" height="200px">
+                  <tr>
+                    <td id="tableDetaque" height="37" style="background-color:#E46C0A; color:#FFFFFF">EVENTOS</td>
+                  </tr>
+                  <?php 
+                    foreach($this->dadosEventos as $indice => $dadosEvento){
+                        $prazo_inscricao = implode("/",array_reverse(explode("-",$dadosEvento['prazo_inscricao'])));
+                        echo "<tr>";
+                        echo "<td id='tableDetaque'> <a href='/eventos/show/id/{$dadosEvento['id_evento']}'>".$dadosEvento['titulo']."-".$prazo_inscricao."-".$dadosEvento['ministrante']."</a></td>";
+                        echo "</tr>";
+                    }
+                  ?>
+                  
+                </table>
+            </div>
+            
+            <div id="sidebarNoticias">    	
+            	<table width="680px" height="195px">
+                  <tr>
+                      <?php foreach($this->dadosNoticias as $indice=>$noticia){?>
+                  <td id="tableVideo" height="185" width="185"><a href="#"><?php custom_echo($noticia['texto'])?></a></td>
+                      <?php }?>
+                  </tr>
+                </table>
+            </div>
+        </div>

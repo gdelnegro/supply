@@ -18,7 +18,7 @@ class Default_IndexController extends Zend_Controller_Action
         $banners = new Admin_Model_DbTable_Banners();
         
         $destaques = $anuncios->getDestaque();
-        $dadosAnuncios = $modeloAnuncio->getAnuncio($tiposPreferencia, $categoriaPreferencia, $segmentosPreferencia,3);
+        $dadosAnuncios = $modeloAnuncio->getAnuncio($tiposPreferencia, $categoriaPreferencia, $segmentosPreferencia,4);
         $dadosEventos = $modeloEventos->getEventos(null,6);
         $dadosNoticias = $modeloNoticias->getNoticia();
         $dadosVideos = $videos->pesquisaMidias(null, 2);

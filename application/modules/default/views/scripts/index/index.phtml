@@ -36,121 +36,107 @@ function addAcesso(id){
 }
 
 </script>
-<?php $destaques = $this->destaques;?>
-<div id="content-container">
-            <div id="sidebarDestaque">
-            	<table width="100%" height="500px">
-                  <tr>
-                    <td id="tableDetaque" height="37">DESTAQUE</td>
-                  </tr>
-                  <tr>
-                      <td id="tableDetaque">
-                          <a href="<?php echo $destaques[0]['link_imagem']?>"><img style='max-width: 185px; max-height: 155px' src="<?php echo $destaques[0]['local'].$destaques[0]['nome_imagem']?>"></a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td id="tableDetaque">
-                          <a href="<?php echo $destaques[1]['link_imagem']?>"><img style='max-width: 185px;max-height: 155px' src="<?php echo $destaques[1]['local'].$destaques[1]['nome_imagem']?>"></a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td id="tableDetaque">
-                          <a href="<?php echo $destaques[2]['link_imagem']?>"><img style='max-width: 185px;max-height: 155px' src="<?php echo $destaques[2]['local'].$destaques[2]['nome_imagem']?>"></a>
-                      </td>
-                  </tr>
-                </table>
+<?php $destaques = $this->destaques;
+$videos = $this->dadosVideos;
+?>
+<div class="row"  style="display:flex">
+    <div class="col-md-3" id="destaque_lateral">        
+        <div class="row" >
+            <div class="col-md-10 header-destaque">
+                Destaques
             </div>
-            <div id="sidebarSlider">
-            	<div id='slider'>
-                <ul>				
-                    <?php foreach($this->dadosBanners as $indice=>$banner): ?>
-					<li><a href="#"><img src="<?php echo $banner['local'].$banner['nome_imagem']?>" alt="<?php echo $banner['titulo']?>" /></a></li>
-                    <?php endforeach;?>   
-				</ul>
-                </div>            
-            </div>
-            
-            <div id="sidebarVideo">
-            	<table width="100%" height="500px">
-                  <tr>
-                    <td id="tableVideo" height="37">VIDEOS</td>
-                  </tr>
-                  <?php foreach($this->dadosVideos as $indice => $video){
-                      echo "<tr>";
-                        echo "<td id=\"tableVideo\" height=\"100\">&nbsp;</td>";
-                      echo "</tr>";
-                  }?>
-                </table>
-            </div>
-            <div id="sidebarAnunciantes">
-            	<table width="580px" height="195px">
-                  <tr>
-                      <?php
-                        foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
-                            if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
-                                $link = $dadosAnuncio['link_imagem'];
-                            }else{
-                                $link = 'http://'.$dadosAnuncio['link_imagem'];
-                            }
-                            ?>
-                           <!--<td id="tableVideo" height="185" width="195">
-                              Anunciantes
-                            </td>-->
-                            <td id="tableVideo" height="185" width="195" >
-                                <div style="overflow: hidden; max-height: 185px; max-width: 185px">
-                                    <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
-                                        <img width="100%" height="100%" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
-                                    </a>
-                                </div>
-                            </td>
-                        <?php
-                        endforeach;
-                    ?>
-                    <!-- <td id="tableVideo" height="185" width="195">
-                        Anunciantes
-                    </td> -->                    
-                  </tr>
-                </table>
-            </div>
+            <?php
+            foreach($this->dadosAnuncios as $key=>$dadosAnuncio): 
+                if(substr($dadosAnuncio['link_imagem'], 0, 7) == 'http://'){
+                    $link = $dadosAnuncio['link_imagem'];
+                }else{
+                    $link = 'http://'.$dadosAnuncio['link_imagem'];
+                }
+                ?>
+               <!--<td id="tableVideo" height="185" width="195">
+                  Anunciantes
+                </td>-->
+                <div class="col-md-10 destaques">
+                    <a href="<?php echo $link ?>" target="_blank" onclick="addAcesso(<?php echo $dadosAnuncio['id']?>)">
+                        <img class="img-responsive" src="<?php echo $dadosAnuncio['local'].$dadosAnuncio['nome_imagem']?>" alt="<?php echo $dadosAnuncio['nome_imagem']?>" title="<?php echo $dadosAnuncio['titulo']?>"></img> 
+                    </a>
+                   <!--<img src="imgs/teste_imagem.jpg" class="img-responsive" alt="Logo">-->
+               </div>
+            <?php
+            endforeach;
+            ?>
         </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row" style="background-color:green">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <?php foreach($this->dadosBanners as $indice=>$banner): ?>
+                    <li data-target="#carousel-example-generic" data-slide-to="<?php echo $indice?>" class="<?php if($indice==0){echo 'active';}?>"></li>
+                <?php endforeach;?>
+            </ol>
 
-        <div style="clear: both"></div>
-        
-        <div id="footer-noticias">
-            <div id="sidebarManutencao">
-            	<table width="100%" height="200px">
-                  <tr>
-                    <td id="tableDetaque" height="37" style="background-color:#E46C0A; color:#FFFFFF">MANUTENÇÃO</td>
-                  </tr>
-                  <tr>
-                    <td id="tableDetaque">&nbsp;</td>
-                  </tr>
-                </table>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <?php foreach($this->dadosBanners as $indice=>$banner): ?>
+                    <div class="item <?php if($indice==0){echo 'active';}?>">
+                        <img src="<?php echo $banner['local'].$banner['nome_imagem']?>" alt="<?php echo $banner['titulo']?>" />
+                        <div class="carousel-caption">
+                            <?php echo $banner['titulo']?>
+                        </div>
+                    </div>
+                <?php endforeach;?>                
             </div>
-            <div id="sidebarEventos">
-            	<table width="100%" height="200px">
-                  <tr>
-                    <td id="tableDetaque" height="37" style="background-color:#E46C0A; color:#FFFFFF">EVENTOS</td>
-                  </tr>
-                  <?php 
-                    foreach($this->dadosEventos as $indice => $dadosEvento){
-                        $prazo_inscricao = implode("/",array_reverse(explode("-",$dadosEvento['prazo_inscricao'])));
-                        echo "<tr>";
-                        echo "<td id='tableDetaque'> <a href='/eventos/show/id/{$dadosEvento['id_evento']}'>".$dadosEvento['titulo']."-".$prazo_inscricao."-".$dadosEvento['ministrante']."</a></td>";
-                        echo "</tr>";
-                    }
-                  ?>
-                  
-                </table>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row" id="destaques">                            
+            <div class="col-md-4 center-block">
+                <a href="<?php echo $destaques[0]['link_imagem']?>"><img class="img-responsive" src="<?php echo $destaques[0]['local'].$destaques[0]['nome_imagem']?>"></a>
             </div>
-            
-            <div id="sidebarNoticias">    	
-            	<table width="680px" height="195px">
-                  <tr>
-                      <?php foreach($this->dadosNoticias as $indice=>$noticia){?>
-                  <td id="tableVideo" height="185" width="185"><a href="#"><?php custom_echo($noticia['texto'])?></a></td>
-                      <?php }?>
-                  </tr>
-                </table>
+            <div class="col-md-4 center-block">
+                <a href="<?php echo $destaques[1]['link_imagem']?>"><img class="img-responsive" src="<?php echo $destaques[1]['local'].$destaques[1]['nome_imagem']?>"></a>
+            </div>
+            <div class="col-md-4 center-block ">
+                <a href="<?php echo $destaques[2]['link_imagem']?>"><img class="img-responsive" src="<?php echo $destaques[2]['local'].$destaques[2]['nome_imagem']?>"></a>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-3 " id="videos">
+        <div class="row">
+            <div class="col-md-10 header-destaque pull-right">
+                Vídeos
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 destaques pull-right">
+                <img src="imgs/teste_imagem.jpg" class="img-responsive" alt="Logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 destaques pull-right">
+                <img src="imgs/teste_imagem.jpg" class="img-responsive" alt="Logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 destaques pull-right">
+                <img src="imgs/teste_imagem.jpg" class="img-responsive" alt="Logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 destaques pull-right">
+                <img src="imgs/teste_imagem.jpg" class="img-responsive" alt="Logo">
+            </div>
+        </div>
+    </div>
+</div>
