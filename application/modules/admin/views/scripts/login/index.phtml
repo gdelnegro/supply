@@ -1,135 +1,152 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>OSupply - Tudo em manutenção industrial em um único portal.</title>
-<link rel="stylesheet" type="text/css" href="/dist/css/screen.css"> 
-<link rel="stylesheet" type="text/css" href="/dist/css/theme.css">
-<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css">
-<link rel="stylesheet" href="/assets/css/bootstrap-responsive.css" type="text/css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-    <style>
-
-        .form-signin {
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <script src="/js/jquery-2.1.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <title>OSupply - Tudo em manutenção industrial em um único portal.</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .header-destaque{
+                background-color: #E46C0A;
+                text-align: center;
+                color: #FFF;
+                font-weight: bolder;
+                border: 3px solid #CCCCCC;
+                font-family: "Open Sans",sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 14px;
+            }
+            .destaques{
+                border: 3px solid #CCCCCC;
+                //border-bottom: 0px;
+                border-top: 0px;
+            }
+            .noticias{
+                border:3px solid #CCCCCC;      
+            }
+            
+            .navbar{
+                background-color: #E46C0A;
+                
+            }
+            .navbar-rounded{
+                height: 35px;
+                    min-height: 20px;
+                    max-height: 35px;
+                margin-top: 10px;
+                border-radius: 10px;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+            }
+            
+            .navbar-rounded .btn{
+                background-color: transparent;
+                color: #000;
+                border-radius: 5px;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    border-bottom-left-radius: 5px;
+            }
+            
+            .center-block {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                
+            }
+            
+            .navbar-default .navbar-nav > li > a {
+                color: #FFF;
+                font-family: "Open Sans",sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 14px;
+            }
+            
+            .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {    
+                color: #333;
+                background-color: transparent;
+            }   
+            
+            @media only screen 
+            and (min-width : 1224px) {
+                .row #destaques{
+                    margin-top: 15%;
+                }
+            }                
+            
+            #footer{
+                background-color: #E46C0A;
+            }
+            
+            .footer_meio{                
+                margin-top: 2%;
+            }
+            
+            .tabela_footer{
+                color:#FFFFFF; 
+                text-align:left; 
+                vertical-align:top;
+            }
+            .form-signin {
             max-width: 330px;
             padding: 15px;
             margin: 0 auto;
-         }
-        .form-signin .form-signin-heading,
-        .form-signin .checkbox {
-            margin-bottom: 10px;
-        }
-        .form-signin .checkbox {
-            font-weight: normal;
-        }
-        .form-signin .form-control {
-            position: relative;
-            font-size: 16px;
-            height: auto;
-            padding: 10px;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }       
-        .form-signin .form-control:focus {
-            z-index: 2;
-        }
-        .form-signin input[type="text"] {
-            margin-bottom: -1px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-        .form-signin input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-    </style>
-</head>
-<body>
-    <div id="outer-container">
+            }
+           .form-signin .form-signin-heading,
+           .form-signin .checkbox {
+               margin-bottom: 10px;
+           }
+           .form-signin .checkbox {
+               font-weight: normal;
+           }
+           .form-signin .form-control {
+               position: relative;
+               font-size: 16px;
+               height: auto;
+               padding: 10px;
+               -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+               box-sizing: border-box;
+           }       
+           .form-signin .form-control:focus {
+               z-index: 2;
+           }
+           .form-signin input[type="text"] {
+               margin-bottom: -1px;
+               border-bottom-left-radius: 0;
+               border-bottom-right-radius: 0;
+           }
+           .form-signin input[type="password"] {
+               margin-bottom: 10px;
+               border-top-left-radius: 0;
+               border-top-right-radius: 0;
+           }
+            
+        </style>
+    </head>
+    <body>        
+        <!-- HEADER -->
         <?php include_once('header.php'); ?>
-        <!-- FOOTER -->
-        <div style="clear: both">
-        </div>        
-        <div class='form-signin'>
-                <h2 class='form-signin-heading'>Por favor, <br> identifique-se</h2>
-                <?php echo $this->loginForm ?>
-        </div> 
-    	
-        <div style="clear: both">
-        </div>
+        <!-- HEADER -->
         
-        <div id="footer" style="margin-top:80px;">
-            <table width="900px" height="25px" style="color:#0000000">
-                  <tr>
-                    <td height="25" width="100"><img style="margin-left:-10px; margin-bottom:-8px; margin-top:-80px;" src="/images/logotipo-parcial.png"/></td>
-                    <td height="25" width="200">SOBRE</td>
-                    <td height="25" width="200">MENU</td>
-                    <td height="25" width="200">INFORMAÇÕES</td>
-                    <td height="25" width="200">ATENDIMENTO</td>
-                  </tr>
-            </table>
+        <div class="container">
+                <!-- CONTEUDO-->
+                <div class='form-signin'>
+                    <h2 class='form-signin-heading'>Por favor, <br> identifique-se</h2>
+                    <?php echo $this->loginForm ?>
+                </div>
+                <!-- CONTEUDO -->
+            <hr>
+            <!-- FOOTER -->
+            <?php include_once('footer.php'); ?>
+            <!-- FOOTER -->
         </div>
-        
-        <div style="clear: both">
-        </div>
-        
-        <div id="footer">
-            <table width="900px" height="25px" style="color:#FFFFFF; text-align:left; vertical-align:top">
-                  <tr>
-                    <td height="25" width="100">&nbsp;</td>
-                    <td height="25" width="200" style="text-align:left; vertical-align:top">
-                    	<ul>
-                        	<li>O Supply</li>
-                        </ul>
-                    </td>
-                    <td height="25" width="200" style="text-align:left; vertical-align:top">
-                    	<ul>
-                        	<li><a href="/" style="text-decoration:none; color:#FFFFFF;">Home</a></li>
-                        	<li><a href="/comofunciona" style="text-decoration:none; color:#FFFFFF;">Como Funciona</a></li>
-                        	<li><a href="/compradores" style="text-decoration:none; color:#FFFFFF;">Compradores</a></li>
-                        	<li><a href="/fornecedores" style="text-decoration:none; color:#FFFFFF;">Fornecedores</a></li>
-                        	<li><a href="/anuncie" style="text-decoration:none; color:#FFFFFF;">Anuncie</a></li>
-                        	<li><a href="/contato" style="text-decoration:none; color:#FFFFFF;">Contato</a></li>
-                        </ul></td>
-                    <td height="25" width="200" style="text-align:left; vertical-align:top">
-                    	<ul>
-                        	<li><a href="/perguntasfrequentes" style="text-decoration:none; color:#FFFFFF;">Perguntas Frequentes</a></li>
-                        	<li><a href="/termosecondicoes" style="text-decoration:none; color:#FFFFFF;">Termos e Condições</a></li>
-                        	<li><a href="/politicasdeconfidencialidade" style="text-decoration:none; color:#FFFFFF;">Politicas de Confidencialidade</a></li>
-                        	<li><a href="/planosdeadesao"  style="text-decoration:none; color:#FFFFFF;">Planos de Adesão</a></li>
-                        </ul></td>
-                    <td height="25" width="200" style="text-align:left; vertical-align:top">
-                    	<ul>
-                        	<li><a href="contato.php" style="text-decoration:none; color:#FFFFFF;">Fale Conosco</a></li>
-                        </ul>
-                    </td>
-                  </tr>
-            </table>
-        </div>
-        
-        <div id="footer">
-            <h4>Desenvolvido por Opi System @ 2014 | Todos os direitos reservados</h4>
-        </div>
-        
-        <!-- FOOTER -->
-    </div>
-</body>
+    </body>
 </html>
-
-<script>
-	$(document).ready(function(){	
-			$("#slider").easySlider({
-				auto: true, 
-				continuous: true,
-				numeric: true
-			});
-		});	
-</script>

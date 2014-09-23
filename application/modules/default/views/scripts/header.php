@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-4" >
                     <a class="pull-left" href="#">
-                        <img src="imgs/logotipo-osupply.png" class="img-responsive" alt="Logo">
+                        <img src="/imgs/logotipo-osupply.png" class="img-responsive" alt="Logo">
                     </a>
                 </div>
                 <div class="col-md-3 center-block">
@@ -37,8 +37,8 @@
                 <div class="col-md-4 pull-right">
                     <table class='table-responsive'>
                         <tr>
-                            <td><p><a href=""><img src="imgs/botaoCadastre-se.png" class="img-responsive" alt="Cadastre-se"></a></p></td>
-                            <td><p><a href=""><img src="imgs/botaoEntrar.png" class="img-responsive" alt="Entrar"></a></p></td>
+                            <td><p><a href=""><img src="/imgs/botaoCadastre-se.png" class="img-responsive" alt="Cadastre-se"></a></p></td>
+                            <td><p><a href="/admin"><img src="/imgs/botaoEntrar.png" class="img-responsive" alt="Entrar"></a></p></td>
                         </tr>
                     </table>
                 </div>
