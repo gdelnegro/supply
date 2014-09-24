@@ -45,6 +45,7 @@ function custom_echo($x)
                     <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
                    <tr>
                         <th><center>Id</center></th>
+                        <th><center>Status</center></th>
                         <th><center>Descrição</center></th>        
                         <th><center>Data de Criação</center></th>
                         <th><center>Propostas Recebidas</center></th>
@@ -53,13 +54,28 @@ function custom_echo($x)
                    <?php foreach($this->paginator AS $key => $orcamento):?>
                    <tr>
                         <td><center><?php  echo $orcamento['id']?></center></td>
+                    <td><center><?php switch ($orcamento['status']) {
+                                case 1:
+                                    echo "Ativo";
+                                    break;
+                                case 2:
+                                    echo "Fechado";
+                                default:
+                                    break;
+                            } $orcamento['id']
+                                
+                                ?></center></td>
                         <td><center><?php  echo $orcamento['descricao']?></center></td>
                         <td><center><?php echo $orcamento['dtCriacao']?></center></td>
                         <td><center><?php echo $orcamento['totalPropostas']?></center></td>
                       <td><center>
-                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"show","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Orçamento"><span class="icon icon-search"></span></a>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"show","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Orçamento"><span class="icon icon-search"></span></a>
                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"propostas","id"=>"{$orcamento['id']}"),null,true)?>" title="Ver Propostas"><span class="icon icon-envelope"></span></a>
+                         <?php if($orcamento['status']!=2){?>
                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$orcamento['id']}"),null,true)?>" title="Editar Orçamento"><i class="icon icon-pencil"></i></a>
+                         <?php }?>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"deletar","id"=>"{$orcamento['id']}"),null,true)?>" title="Excluir Orçamento"><span class="icon icon-remove"></span></a>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"fechar","id"=>"{$orcamento['id']}"),null,true)?>" title="Fechar Orçamento"><span class="icon icon-lock"></span></a>
                          </center>
                       </td>
                    </tr>

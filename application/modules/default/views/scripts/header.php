@@ -37,7 +37,7 @@
                 <div class="col-md-4 pull-right">
                     <table class='table-responsive'>
                         <tr>
-                            <td><p><a href=""><img src="/imgs/botaoCadastre-se.png" class="img-responsive" alt="Cadastre-se"></a></p></td>
+                            <td><p><a href="/cadastro"><img src="/imgs/botaoCadastre-se.png" class="img-responsive" alt="Cadastre-se"></a></p></td>
                             <td><p><a href="/admin"><img src="/imgs/botaoEntrar.png" class="img-responsive" alt="Entrar"></a></p></td>
                         </tr>
                     </table>

@@ -193,12 +193,25 @@ class Admin_OrcamentoController extends Zend_Controller_Action
                  */
                 $localArquivo = '/assets/anexos/'.$this->_usuario->id.'_'.$orcamento.'_'.$idProduto.'.'.$extension;
                 Admin_Model_Orcamento::addEspecificacao($orcamento, $idProduto, $localArquivo);
+                $this->redirect("/admin/orcamento/edit/id/{$orcamento}");
             }else{
                 $this->view->erro='Dados Invalidos';
                 $this->view->formMateria = $form->populate($data);
             }
         }
         $this->view->form = $form;
+    }
+    
+    public function deletarAction(){
+        $id = $this->_getParam('id');
+        Admin_Model_Orcamento::removerOrcamento($id);
+        $this->redirect("/admin/orcamento/");
+    }
+    
+    public function fecharAction(){
+        $id = $this->_getParam('id');
+        Admin_Model_Orcamento::fecharOrcamento($id);
+        $this->redirect("/admin/orcamento/");
     }
 
 }

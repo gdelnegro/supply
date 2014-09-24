@@ -15,12 +15,17 @@ class Admin_Model_Orcamento
      * @author Gustavo Del Negro <gustavo@opisystem.com.br>
      * @since v0.1
      */
-    public function pesquisaOrcamento($comprador, $idOrcamento = null){
+    public function pesquisaOrcamento($comprador, $status=null,$idOrcamento = null){
             $dbOrcamento = new Admin_Model_DbTable_Orcamento();
             $dbPropostas = new Admin_Model_DbTable_Propostas();
             $selectOrcamento = $dbOrcamento->select()
                     ->from('orcamento')
                     ->where('comprador = ?', $comprador);
+            if(!is_null($status)){
+                $selectOrcamento->where('status = ?', $status);
+            }if(is_null($status)){
+                $selectOrcamento->where('status != 0');
+            }
             if($idOrcamento!=null){
                 $selectOrcamento->where('id = ?', $idOrcamento);
             }
@@ -157,6 +162,20 @@ class Admin_Model_Orcamento
         );
         $data['especificacao']=$localArquivo;
         
+        $dbOrcamentoProduto->update($data, $where);
+    }
+    
+    public static function removerOrcamento($id){
+        $dbOrcamentoProduto = new Admin_Model_DbTable_Orcamento();
+        $where =  $dbOrcamentoProduto->getAdapter()->quoteInto('id = ?', $id);
+        $data['status']=0;
+        $dbOrcamentoProduto->update($data, $where);
+    }
+    
+    public static function fecharOrcamento($id){
+        $dbOrcamentoProduto = new Admin_Model_DbTable_Orcamento();
+        $where =  $dbOrcamentoProduto->getAdapter()->quoteInto('id = ?', $id);
+        $data['status']=2;
         $dbOrcamentoProduto->update($data, $where);
     }
     
