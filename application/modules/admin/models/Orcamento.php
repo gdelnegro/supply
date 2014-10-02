@@ -15,7 +15,7 @@ class Admin_Model_Orcamento
      * @author Gustavo Del Negro <gustavo@opisystem.com.br>
      * @since v0.1
      */
-    public function pesquisaOrcamento($comprador, $status=null,$idOrcamento = null){
+    public function pesquisaOrcamento($comprador, $status = null,$idOrcamento = null,$dataInicial = null, $dataFinal = null){
             $dbOrcamento = new Admin_Model_DbTable_Orcamento();
             $dbPropostas = new Admin_Model_DbTable_Propostas();
             $selectOrcamento = $dbOrcamento->select()
@@ -25,6 +25,11 @@ class Admin_Model_Orcamento
                 $selectOrcamento->where('status = ?', $status);
             }if(is_null($status)){
                 $selectOrcamento->where('status != 0');
+            }if(!is_null($dataInicial)){
+                $selectOrcamento->where('dtCriacao >= ?', $dataInicial);
+            }
+            if(!is_null($dataFinal)){
+                $selectOrcamento->where('dtCriacao <= ?', $dataInicial);
             }
             if($idOrcamento!=null){
                 $selectOrcamento->where('id = ?', $idOrcamento);

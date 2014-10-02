@@ -48,6 +48,7 @@ class Admin_Form_Endereco extends Twitter_Form
                 ->setRequired(true)
                 ->setLabel('CEP')
                 ->setAttrib('placeholder', 'CEP')
+                ->setAttrib('onChange',"getEndereco()")
                 ->setValidators(array(
                             array('Digits', false, array(
                                 'messages' => array(

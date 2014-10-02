@@ -21,6 +21,42 @@ function addAcesso(id){
     });
 }
 
+$(function() {
+    $( "#data_inicial" ).datepicker({
+        showOn: "button",
+        buttonImage: "images/calendario.gif",
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+
+
+    });
+});    
+
+$(function() {
+    $( "#data_final" ).datepicker({
+        showOn: "button",
+        buttonImage: "images/calendario.gif",
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+
+
+    });
+});
+
 </script>
 <?php
 function custom_echo($x)
@@ -40,6 +76,11 @@ function custom_echo($x)
         <div class="row">
             <div class="span11">
                 <center>
+                    <form class="form-inline">
+                        <input type="text" class="input-small" placeholder="Data Inicial" name="data_inicial" id="data_inicial">
+                        <input type="text" class="input-small" placeholder="Data final" name="data_final" id="data_final">
+                        <button type="submit" class="btn">Pesquisar</button>
+                    </form>
                     <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
                     <p class="text-right"> <a class="btn btn-primary" href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"new"),null,true)?>">Solicitar Orçamento</a></p>
                     <table class="table table-striped table-hover table-bordered table-condensed" width="100%" cellpadding="3" cellspacing="0" border="1">
@@ -75,7 +116,12 @@ function custom_echo($x)
                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"edit","id"=>"{$orcamento['id']}"),null,true)?>" title="Editar Orçamento"><i class="icon icon-pencil"></i></a>
                          <?php }?>
                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"deletar","id"=>"{$orcamento['id']}"),null,true)?>" title="Excluir Orçamento"><span class="icon icon-remove"></span></a>
+                         <?php if($orcamento['status']!=2){?>
                          <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"fechar","id"=>"{$orcamento['id']}"),null,true)?>" title="Fechar Orçamento"><span class="icon icon-lock"></span></a>
+                         <?php }?>
+                         <?php if($orcamento['status']==2){?>
+                         <a href="<?php echo $this->url(array("module"=>"admin","controller"=>"orcamento","action"=>"fechar","id"=>"{$orcamento['id']}"),null,true)?>" title="Enviar Orçamento"><span class="icon icon-share"></span></a>
+                         <?php }?>
                          </center>
                       </td>
                    </tr>

@@ -11,6 +11,43 @@
 <script src="/dist/js/easySlider1.7.js" type="text/javascript"></script>
 <script src="/dist/js/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<!-- DatePicker-->
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<!-- CEP-->
+<script>
+function getEndereco() {
+// Se o campo CEP não estiver vazio    
+//alert($("#CEP").val());
+    if($.trim($("#CEP").val()) != ""){
+    /*
+    Para conectar no serviço e executar o json, precisamos usar a função
+    getScript do jQuery, o getScript e o dataType:"jsonp" conseguem fazer o cross-domain, os outros
+    dataTypes não possibilitam esta interação entre domínios diferentes
+    Estou chamando a url do serviço passando o parâmetro "formato=javascript" e o CEP digitado no formulário
+    http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#cep").val()
+    */
+    $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#CEP").val(), function(){
+    // o getScript dá um eval no script, então é só ler!
+    //Se o resultado for igual a 1
+
+    if (resultadoCEP["tipo_logradouro"] != '') {
+            if (resultadoCEP["resultado"]) {
+            // troca o valor dos elementos
+                    $("#logradouro").val(unescape(resultadoCEP["tipo_logradouro"]) + " " + unescape(resultadoCEP["logradouro"]));
+                    $("#bairro").val(unescape(resultadoCEP["bairro"]));
+                    $("#cidade").val(unescape(resultadoCEP["cidade"]));
+                    $("#estado").val(unescape(resultadoCEP["uf"]));
+                    $("#numero").focus();
+                    }
+            }		
+        });
+    }
+}
+
+</script>
+
 </head>
 <body>
     <div id="outer-container">
@@ -29,7 +66,7 @@
     
         <div id="header-oSupply">
             <div id="logotipo-header-oSupply">
-                <img style="max-width: 40%"src="/images/1.jpg">
+                <a href="/admin/cadastro/"><img style="max-width: 40%"src="/images/1.jpg"></a>
                     <p><?php if(isset($this->layout()->usuario->site )){
                         echo "<a href='http://".$this->layout()->usuario->site."'>".$this->layout()->usuario->site."</a>";
                     } ?></p>

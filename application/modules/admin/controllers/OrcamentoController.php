@@ -26,7 +26,11 @@ class Admin_OrcamentoController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $dados = $this->_orcamento->pesquisaOrcamento($this->_usuario->id);
+        if($this->_getParam('data_inicial') == NULL){
+            $dados = $this->_orcamento->pesquisaOrcamento($this->_usuario->id);
+        }else{
+            $dados = $this->_orcamento->pesquisaOrcamento($this->_usuario->id, $status, $idOrcamento, $this->_getParam('data_inicial'), $this->_getParam('data_final'));
+        }
         $paginator = Zend_Paginator::factory($dados);
         $paginator->setItemCountPerPage(50);
         $paginator->setPageRange(10);

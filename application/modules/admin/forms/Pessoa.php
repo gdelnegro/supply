@@ -24,8 +24,8 @@ class Admin_Form_Pessoa extends Twitter_Form
     public function init()
     {
         $this->setMethod('post');
-        $this->setAttrib('class','form-sigin');
-        $this->setAttrib('role','form');
+        //$this->setAttrib('class','form-sigin');
+        //$this->setAttrib('role','form');
         
         /* Form Elements & Other Definitions Here ... */
         $id = new Zend_Form_Element_Hidden('id');
@@ -95,6 +95,7 @@ class Admin_Form_Pessoa extends Twitter_Form
         }
         
         if($this->_tipo == 'edit' OR $this->_tipo == 'new'){
+            $submit = new Zend_Form_Element_Submit('Enviar');
             $this->addElement('submit',   'Enviar',   array('ignore'    =>  true,));
         }
         

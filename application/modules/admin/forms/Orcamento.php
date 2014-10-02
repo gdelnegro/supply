@@ -29,6 +29,10 @@ class Admin_Form_Orcamento extends Twitter_Form
         
         /* Form Elements & Other Definitions Here ... */
         $id = new Zend_Form_Element_Hidden('id');
+        $status = new Zend_Form_Element_Hidden('status');
+        $status->setValue(1);
+        $dataCriacao = new Zend_Form_Element_Hidden('dtCriacao');
+        $dataCriacao->setValue(date('Y-m-d'));
         
         $descricao = new Zend_Form_Element_Text('descricao');
         $descricao->setLabel('Descricao do orçamento')                
@@ -39,6 +43,8 @@ class Admin_Form_Orcamento extends Twitter_Form
         $this->addElements(array(
             $id,
             $descricao,
+            $status,
+            $dataCriacao
         ));
         
         

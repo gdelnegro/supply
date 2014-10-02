@@ -32,7 +32,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 center-block">
-                    <h4>Tudo em manutenção industrial <br> em um único portal.</h4>
+                    <h4>Tudo em manutenção industrial em um único portal.</h4>
                 </div>
                 <div class="col-md-4 pull-right">
                     <table class='table-responsive'>
