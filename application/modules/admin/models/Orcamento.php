@@ -25,11 +25,11 @@ class Admin_Model_Orcamento
                 $selectOrcamento->where('status = ?', $status);
             }if(is_null($status)){
                 $selectOrcamento->where('status != 0');
-            }if(!is_null($dataInicial)){
-                $selectOrcamento->where('dtCriacao >= ?', $dataInicial);
             }
-            if(!is_null($dataFinal)){
-                $selectOrcamento->where('dtCriacao <= ?', $dataInicial);
+            if(!is_null($dataInicial)){
+                $selectOrcamento->where('dtCriacao >= ?', $dataInicial);
+            }elseif(!is_null($dataFinal)){
+                $selectOrcamento->where('dtCriacao <= ?', $dataFinal);
             }
             if($idOrcamento!=null){
                 $selectOrcamento->where('id = ?', $idOrcamento);

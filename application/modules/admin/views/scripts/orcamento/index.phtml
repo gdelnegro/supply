@@ -24,7 +24,7 @@ function addAcesso(id){
 $(function() {
     $( "#data_inicial" ).datepicker({
         showOn: "button",
-        buttonImage: "images/calendario.gif",
+        buttonImage: "/images/calendario.gif",
         buttonImageOnly: true,
         dateFormat: 'yy-mm-dd',
         showOtherMonths: true,
@@ -42,7 +42,7 @@ $(function() {
 $(function() {
     $( "#data_final" ).datepicker({
         showOn: "button",
-        buttonImage: "images/calendario.gif",
+        buttonImage: "/images/calendario.gif",
         buttonImageOnly: true,
         dateFormat: 'yy-mm-dd',
         showOtherMonths: true,
@@ -76,7 +76,7 @@ function custom_echo($x)
         <div class="row">
             <div class="span11">
                 <center>
-                    <form class="form-inline">
+                    <form class="form-inline" method="post">
                         <input type="text" class="input-small" placeholder="Data Inicial" name="data_inicial" id="data_inicial">
                         <input type="text" class="input-small" placeholder="Data final" name="data_final" id="data_final">
                         <button type="submit" class="btn">Pesquisar</button>
